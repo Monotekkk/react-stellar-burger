@@ -1,0 +1,21 @@
+.card {
+    border: 1px #8585AD solid;
+}
+.cardBox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.burgerSection{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 90vh;
+    overflow: scroll;
+}
+.burgerIngredients{
+    width: 50%;
+}
