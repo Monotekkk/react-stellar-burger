@@ -1,0 +1,44 @@
+.modal {
+    width: 720px;
+    box-sizing: border-box;
+    height: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
+    border: 1px solid rgba(76, 76, 255, 0.20);
+    background: #1C1C21;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04),
+    0px 4px 8px 0px rgba(0, 0, 0, 0.04),
+    0px 16px 24px 0px rgba(0, 0, 0, 0.04),
+    0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.2s linear;
+}
+
+.opened {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity .5s linear;
+}
+
+.btn {
+    position: absolute;
+    right: 40px;
+    top: 60px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 1;
+    transition: .3s;
+}
+
+.btn:hover {
+    opacity: .6;
+    transform: scale(1.2)
+}

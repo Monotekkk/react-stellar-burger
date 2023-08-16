@@ -36,7 +36,6 @@ function BurgerConstructor({data, setVisible}) {
                 }
                 {
                     main.map((item, index) => {
-                        console.log(buns);
                         return (
                                 <li className={`${style.burgerConstructorElements}`}>
                                     <DragIcon type={'secondary'}/>
