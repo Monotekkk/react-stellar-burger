@@ -75,6 +75,5 @@ function BurgerConstructor({data, setVisible}) {
 
 BurgerConstructor.propTypes = {
     data: PropTypes.arrayOf(DataPropType).isRequired,
-    position: PropTypes.string.isRequired,
 }
 export default BurgerConstructor;

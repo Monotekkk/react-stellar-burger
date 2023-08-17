@@ -4,9 +4,10 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-Ingredients/BurgerIngredients";
 import BurgerConstructor from "../burgerConstructor/burgerConstructor";
 import {getIngridients} from "../../utils/api";
-import {useState, useEffect, useCallback} from "react";
+import {useState, useEffect, useCallback, useContext} from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
+import {SelectedIngridients} from "../../service/selectedIngridients";
 
 function App() {
     const [selectedIngridients, setSelectedIngridients] = useState([
@@ -124,22 +125,24 @@ function App() {
         },
     ]);
     const [ingredients, setIngredients] = useState([]);
-
+    const selectedIngridientss = useState({name: 'Тимур'});
     const [visible, setVisible] = useState(false);
     useEffect(() => {
-        getIngridients().then((result)=>{
+        getIngridients().then((result) => {
             setIngredients(result.data);
         })
     }, []);
     return (
         <>
-            <Modal visible={visible} closePopup={ () => setVisible(!visible) }>
+            <Modal visible={visible} closePopup={() => setVisible(!visible)}>
                 <OrderDetails/>
             </Modal>
             <AppHeader/>
             <main className={styles.content}>
-                <BurgerIngredients data={ingredients} setSelectedIngridients={setSelectedIngridients}/>
-                <BurgerConstructor data={selectedIngridients} setVisible={ () => setVisible(!visible) }/>
+                <SelectedIngridients.Provider value={selectedIngridientss}>
+                    <BurgerIngredients data={ingredients} setSelectedIngridients={setSelectedIngridients}/>
+                    <BurgerConstructor data={selectedIngridients} setVisible={() => setVisible(!visible)}/>
+                </SelectedIngridients.Provider>
             </main>
         </>
     );
