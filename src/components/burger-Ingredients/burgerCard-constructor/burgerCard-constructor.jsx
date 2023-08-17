@@ -7,11 +7,13 @@ import Modal from "../../modal/modal";
 import {SelectedIngridients} from "../../../service/selectedIngridients";
 
 function BurgerCard({data, setSelectedIngridients}) {
-    const [selectedIngridientss, setSelectedIngridientss] = useContext(SelectedIngridients);
+    const {selectedIngridientss, setSelectedIngridientss} = useContext(SelectedIngridients);
+
     const clickHandler = (data) => {
         setSelectedIngridients((prev) => [...prev, data]);
-        setSelectedIngridientss((prev) => [...prev, data]);
-        console.log(setSelectedIngridientss);
+        let result;
+
+        console.log(selectedIngridientss);
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);

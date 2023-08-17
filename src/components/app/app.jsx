@@ -125,7 +125,7 @@ function App() {
         },
     ]);
     const [ingredients, setIngredients] = useState([]);
-    const selectedIngridientss = useState({name: 'Тимур'});
+    const [selectedIngridientss, setSelectedIngridientss] = useState({name: 'Тимур'});
     const [visible, setVisible] = useState(false);
     useEffect(() => {
         getIngridients().then((result) => {
@@ -139,7 +139,7 @@ function App() {
             </Modal>
             <AppHeader/>
             <main className={styles.content}>
-                <SelectedIngridients.Provider value={selectedIngridientss}>
+                <SelectedIngridients.Provider value={{selectedIngridientss, setSelectedIngridientss}}>
                     <BurgerIngredients data={ingredients} setSelectedIngridients={setSelectedIngridients}/>
                     <BurgerConstructor data={selectedIngridients} setVisible={() => setVisible(!visible)}/>
                 </SelectedIngridients.Provider>
