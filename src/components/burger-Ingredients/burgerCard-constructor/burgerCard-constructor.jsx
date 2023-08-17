@@ -11,9 +11,7 @@ function BurgerCard({data, setSelectedIngridients}) {
 
     const clickHandler = (data) => {
         setSelectedIngridients((prev) => [...prev, data]);
-        let result;
-
-        console.log(selectedIngridientss);
+        setSelectedIngridientss([...selectedIngridientss, data]);
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);
