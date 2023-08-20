@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useReducer, useState} from "react";
 import style from './burgerCard-constructor.module.css';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
@@ -6,12 +6,14 @@ import React from "react";
 import Modal from "../../modal/modal";
 import {SelectedIngridients} from "../../../service/selectedIngridients";
 
-function BurgerCard({data, setSelectedIngridients}) {
+function BurgerCard({data}) {
     const {selectedIngridientss, setSelectedIngridientss} = useContext(SelectedIngridients);
-
     const clickHandler = (data) => {
-        setSelectedIngridients((prev) => [...prev, data]);
-        setSelectedIngridientss([...selectedIngridientss, data]);
+        if (data.type !== 'bun') {
+            setSelectedIngridientss([...selectedIngridientss, data]);
+        } else {
+            setSelectedIngridientss([data, ...selectedIngridientss.slice(1)]);
+        }
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);

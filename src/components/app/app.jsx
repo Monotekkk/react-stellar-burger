@@ -8,9 +8,11 @@ import {useState, useEffect, useCallback, useContext} from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import {SelectedIngridients} from "../../service/selectedIngridients";
-
+import {TotalPrice, totalPrice} from "../../service/totalPriceContext"
 function App() {
-    const [selectedIngridients, setSelectedIngridients] = useState([
+    const [ingredients, setIngredients] = useState([]);
+    const [totalPrice, countTotalPrice] = useState({totalPrice: 0});
+    const [selectedIngridientss, setSelectedIngridientss] = useState([
         {
             _id: "60666c42cc7b410027a1a9b1",
             name: "Краторная булка N-200i",
@@ -122,10 +124,7 @@ function App() {
             image_large:
                 "https://code.s3.yandex.net/react/code/meat-01-large.png",
             __v: 0,
-        },
-    ]);
-    const [ingredients, setIngredients] = useState([]);
-    const [selectedIngridientss, setSelectedIngridientss] = useState({name: 'Тимур'});
+        }]);
     const [visible, setVisible] = useState(false);
     useEffect(() => {
         getIngridients().then((result) => {
@@ -140,8 +139,10 @@ function App() {
             <AppHeader/>
             <main className={styles.content}>
                 <SelectedIngridients.Provider value={{selectedIngridientss, setSelectedIngridientss}}>
-                    <BurgerIngredients data={ingredients} setSelectedIngridients={setSelectedIngridients}/>
-                    <BurgerConstructor data={selectedIngridients} setVisible={() => setVisible(!visible)}/>
+                    <TotalPrice.Provider value={totalPrice}>
+                        <BurgerIngredients data={ingredients}/>
+                        <BurgerConstructor setVisible={() => setVisible(!visible)}/>
+                    </TotalPrice.Provider>
                 </SelectedIngridients.Provider>
             </main>
         </>

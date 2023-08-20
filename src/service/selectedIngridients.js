@@ -1,3 +1,3 @@
 import {createContext} from "react";
 
-export const SelectedIngridients = createContext(['user']);
+export const SelectedIngridients = createContext([]);
