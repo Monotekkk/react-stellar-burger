@@ -11,24 +11,13 @@ import PropTypes, {element} from "prop-types";
 import {DataPropType} from '../../utils/prop-types';
 import {SelectedIngridients} from "../../service/selectedIngridients";
 import {TotalPrice} from "../../service/totalPriceContext";
+import {sumReducer} from "../app/app";
 
-function sumReducer(state, action) {
-    switch (action.type) {
-        case "totalCount":
-            return {
-                totalPrice: state.reduce(function (acc, elem) {
-                    return acc + elem.price;
-                }, 0)
-            };
-        default:
-            throw new Error(`Wrong type of action: ${action.type}`);
-    }
-}
 
 function BurgerConstructor({setVisible}) {
     const {selectedIngridientss, setSelectedIngridientss} = useContext(SelectedIngridients);
     const {totalPrice, countTotalPrice} = useContext(TotalPrice);
-    const [state, dispatch] = useReducer(sumReducer, totalPrice);
+    const {state, dispatch} = useReducer(sumReducer, {totalPrice: 0});
     const onClick = () => {
         setVisible();
         dispatch({type: 'totalCount'});
@@ -90,7 +79,7 @@ function BurgerConstructor({setVisible}) {
                     Оформить заказ
                 </Button>
                 <CurrencyIcon className={'ml-2'} type={"primary"}/>
-                <p className={'text text_type_digits-medium'}>{state?.totalPrice}</p>
+                <p className={'text text_type_digits-medium'}>0</p>
             </div>
         </section>
     )
