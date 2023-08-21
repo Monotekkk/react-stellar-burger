@@ -41,7 +41,6 @@ function BurgerConstructor({setVisible}) {
         }
     })
     const main = selectedIngridientss.filter(data => data.type !== 'bun');
-    console.log(state);
     return (
         <section className={'mt-20 ml-10'}>
             <ul
