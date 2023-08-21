@@ -4,16 +4,12 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
 import React from "react";
 import Modal from "../../modal/modal";
-import {SelectedIngridients} from "../../../service/selectedIngridients";
+import {BurgerConstructorContext, SelectedIngridients} from "../../../service/selectedIngridients";
 
 function BurgerCard({data}) {
-    const {selectedIngridientss, setSelectedIngridientss} = useContext(SelectedIngridients);
+    const {constructorIngredients, constructorDispatch} = useContext(BurgerConstructorContext);
     const clickHandler = (data) => {
-        if (data.type !== 'bun') {
-            setSelectedIngridientss([...selectedIngridientss, data]);
-        } else {
-            setSelectedIngridientss([data, ...selectedIngridientss.slice(1)]);
-        }
+        constructorDispatch({type: "ADD_INGREDIENT", payload: data});
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);
