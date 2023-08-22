@@ -2,7 +2,7 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-Ingredients/BurgerIngredients";
 import BurgerConstructor from "../burgerConstructor/burgerConstructor";
-import {getIngridients} from "../../utils/api";
+import {getIngredients} from "../../utils/api";
 import {useState, useEffect, useCallback, useContext, useReducer} from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
@@ -24,15 +24,15 @@ export function constructorReducer(state, action) {
 
 function App() {
     const [ingredients, setIngredients] = useState([]);
-    const [totalPrice, countTotalPrice] = useState({totalPrice: 0});
     const [visible, setVisible] = useState(false);
+    const [modalContent, setModalContent] = useState();
     const [constructorIngredients, constructorDispatch] = useReducer(constructorReducer, {
         bun: null,
         ingredients: []
     });
 
     useEffect(() => {
-        getIngridients().then((result) => {
+        getIngredients().then((result) => {
             setIngredients(result.data);
         })
     }, []);
@@ -40,12 +40,14 @@ function App() {
     return (
         <>
             <Modal visible={visible} closePopup={() => setVisible(!visible)}>
-                <OrderDetails/>
+                {
+                    modalContent
+                }
             </Modal>
             <AppHeader/>
             <main className={styles.content}>
                 <IngredientsContext.Provider value={{ingredients}}>
-                    <BurgerConstructorContext.Provider value={{constructorIngredients, constructorDispatch}}>
+                    <BurgerConstructorContext.Provider value={{constructorIngredients, constructorDispatch, modalContent, setModalContent}}>
                         <BurgerIngredients />
                         <BurgerConstructor setVisible={() => setVisible(!visible)}/>
                     </BurgerConstructorContext.Provider>
