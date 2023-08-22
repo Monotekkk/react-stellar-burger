@@ -5,10 +5,9 @@ import styles from './modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 
-const Modal = ({children, visible, closePopup}) => {
+const Modal = ({children, closePopup}) => {
 
     useEffect(() => {
-        if(!visible) return;
 
         const closePopupEsc = event => {
             if(event.key === 'Escape') {
@@ -19,7 +18,7 @@ const Modal = ({children, visible, closePopup}) => {
         document.addEventListener('keydown', closePopupEsc);
 
         return () => document.removeEventListener('keydown', closePopupEsc);
-    }, [visible, closePopup]);
+    }, [ closePopup]);
 
     return createPortal(
         <>
