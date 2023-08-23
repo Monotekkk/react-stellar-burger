@@ -39,7 +39,7 @@ function App() {
 
     return (
         <>
-            visible && <Modal closePopup={() => setVisible(!visible)}>
+            <Modal visible={visible} closePopup={() => setVisible(!visible)}>
                 {
                     modalContent
                 }
