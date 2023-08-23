@@ -14,6 +14,6 @@ const OrderDetails = ({data}) => {
     );
 };
 OrderDetails.propTypes = {
-    data: PropTypes.string
+    data: PropTypes.object
 }
 export default OrderDetails;
