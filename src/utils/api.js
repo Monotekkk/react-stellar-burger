@@ -18,8 +18,18 @@ async function api(route, params = {}) {
     }
 }
 
-function getIngridients() {
+function getIngredients() {
     return api("/ingredients");
 }
 
-export { getIngridients };
+function postIngredients(body) {
+    return api('/orders', {
+        method: 'POST',
+        body: body,
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+    });
+}
+
+export {getIngredients, postIngredients};
