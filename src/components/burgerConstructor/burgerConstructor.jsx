@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, {useContext, useMemo} from "react";
 import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerConstructorContext} from "../../service/selectedIngridients";
