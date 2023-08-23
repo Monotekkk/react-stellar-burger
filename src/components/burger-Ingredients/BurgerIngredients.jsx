@@ -7,7 +7,9 @@ import {IngredientsContext} from "../../service/ingredients";
 function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one');
     const { ingredients } = useContext(IngredientsContext);
-
+    const buns = ingredients.filter(data=>data.type === 'bun');
+    const sauce = ingredients.filter(data=>data.type === 'sauce');
+    const main = ingredients.filter(data=>data.type === 'main');
     return (
         <section className={styles.burgerIngredients}>
             <p className={'text text_type_main-large'}>Соберите бургер</p>
@@ -26,7 +28,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'}>Булки</p>
                 <div className={`${styles.cardBox}`}>
                     {
-                        ingredients.filter(data=>data.type === 'bun').map((data) => {
+                        buns.map((data) => {
                             return (<BurgerCard data={data}/>
                             )
                         })
@@ -35,7 +37,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'}>Соусы</p>
                 <div className={`${styles.cardBox}`}>
                     {
-                        ingredients.filter(data=>data.type === 'sauce').map((data) => {
+                        sauce.map((data) => {
                             return (<BurgerCard data={data}/>
                             )
                         })
@@ -44,7 +46,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'}>Начинки</p>
                 <div className={`${styles.cardBox}`}>
                     {
-                        ingredients.filter(data=>data.type === 'main').map((data) => {
+                        main.map((data) => {
                             return (<BurgerCard data={data}/>
                             )
                         })

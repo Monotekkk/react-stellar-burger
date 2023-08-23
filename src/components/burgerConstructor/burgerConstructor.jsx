@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerConstructorContext} from "../../service/selectedIngridients";
@@ -14,7 +14,7 @@ function BurgerConstructor({setVisible}) {
             idIngredients.push(element._id);
         });
         idIngredients.push(constructorIngredients.bun._id);
-        postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result=> {
+        postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
             setVisible();
             setModalContent(<OrderDetails data={result}/>);
         });
@@ -76,7 +76,12 @@ function BurgerConstructor({setVisible}) {
                     Оформить заказ
                 </Button>
                 <CurrencyIcon className={'ml-2'} type={"primary"}/>
-                <p className={'text text_type_digits-medium'}>{calculateOrderAmount(constructorIngredients) || 0}</p>
+                <p className={'text text_type_digits-medium'}>{
+                    useMemo(() => {
+                        return calculateOrderAmount(constructorIngredients)
+                    }, [constructorIngredients])
+                    || 0
+                }</p>
             </div>
         </section>
 

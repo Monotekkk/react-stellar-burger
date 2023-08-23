@@ -8,20 +8,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import {BurgerConstructorContext} from "../../service/selectedIngridients";
 import {IngredientsContext} from "../../service/ingredients";
-
-export function constructorReducer(state, action) {
-    switch (action.type) {
-        case "ADD_INGREDIENT":
-            if (action.payload.type === "bun") {
-                return { ...state, bun: action.payload }
-            } else {
-                return { ...state, ingredients: [...state.ingredients, action.payload]}
-            }
-        default:
-            throw new Error(`Wrong type of action: ${action.type}`);
-    }
-}
-
+import {constructorReducer} from "./appConstructorReducer";
 function App() {
     const [ingredients, setIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -39,17 +26,19 @@ function App() {
 
     return (
         <>
-            {visible &&    (<Modal closePopup={() => setVisible(!visible)}>
-                {
-                    modalContent
-                }
-            </Modal>
+            {visible && (
+                <Modal closePopup={() => setVisible(!visible)}>
+                    {
+                        modalContent
+                    }
+                </Modal>
             )}
             <AppHeader/>
             <main className={styles.content}>
                 <IngredientsContext.Provider value={{ingredients}}>
-                    <BurgerConstructorContext.Provider value={{constructorIngredients, constructorDispatch, modalContent, setModalContent}}>
-                        <BurgerIngredients />
+                    <BurgerConstructorContext.Provider
+                        value={{constructorIngredients, constructorDispatch, modalContent, setModalContent}}>
+                        <BurgerIngredients/>
                         <BurgerConstructor setVisible={() => setVisible(!visible)}/>
                     </BurgerConstructorContext.Provider>
                 </IngredientsContext.Provider>
