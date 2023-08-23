@@ -23,9 +23,13 @@ function BurgerCard({data}) {
                 </div>
                 <p className={`mr-2 mt-2 text text_type_main-default`}>{`${data.name}`}</p>
             </div>
-            <Modal visible={visible} closePopup={() => setVisible(!visible)}>
-                <IngredientDetails data={data}/>
-            </Modal>
+            {
+                visible && (
+                    <Modal closePopup={() => setVisible(!visible)}>
+                        <IngredientDetails data={data}/>
+                    </Modal>
+                )
+            }
         </>
     )
 }

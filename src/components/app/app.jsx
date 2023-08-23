@@ -39,11 +39,12 @@ function App() {
 
     return (
         <>
-            <Modal visible={visible} closePopup={() => setVisible(!visible)}>
+            {visible &&    (<Modal closePopup={() => setVisible(!visible)}>
                 {
                     modalContent
                 }
             </Modal>
+            )}
             <AppHeader/>
             <main className={styles.content}>
                 <IngredientsContext.Provider value={{ingredients}}>
