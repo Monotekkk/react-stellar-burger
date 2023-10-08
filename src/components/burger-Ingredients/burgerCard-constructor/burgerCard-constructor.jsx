@@ -1,15 +1,15 @@
-import {useContext, useReducer, useState} from "react";
 import style from './burgerCard-constructor.module.css';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
-import React from "react";
+import React, {useState} from "react";
 import Modal from "../../modal/modal";
-import {BurgerConstructorContext, SelectedIngridients} from "../../../service/selectedIngridients";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS } from '../../../service/actions';
 function BurgerCard({data}) {
-    const {constructorIngredients, constructorDispatch} = useContext(BurgerConstructorContext);
+    const dispatch = useDispatch();
     const clickHandler = (data) => {
-        constructorDispatch({type: "ADD_INGREDIENT", payload: data});
+        dispatch({type: CHECK_VIEWE_INGRIDIENTS, data: data});
+        dispatch({type: ADD_INGRIDIENTS, data: data});
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);

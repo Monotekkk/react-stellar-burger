@@ -1,15 +1,20 @@
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerCard from "./burgerCard-constructor/burgerCard-constructor";
-import React, {useContext} from "react";
-import {IngredientsContext} from "../../service/ingredients";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadIngridients } from '../../service/stores';
 
 function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one');
-    const { ingredients } = useContext(IngredientsContext);
-    const buns = ingredients.filter(data=>data.type === 'bun');
-    const sauce = ingredients.filter(data=>data.type === 'sauce');
-    const main = ingredients.filter(data=>data.type === 'main');
+    const dispatch = useDispatch();
+    const data = useSelector(state=>state.burgerConstructor.ingredientsList);
+    useEffect(()=>{
+        dispatch(loadIngridients());
+    }, [])
+    const buns = data.filter(data=>data.type === 'bun');
+    const sauce = data.filter(data=>data.type === 'sauce');
+    const main = data.filter(data=>data.type === 'main');
     return (
         <section className={styles.burgerIngredients}>
             <p className={'text text_type_main-large'}>Соберите бургер</p>

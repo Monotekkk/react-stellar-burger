@@ -3,13 +3,14 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-Ingredients/BurgerIngredients";
 import BurgerConstructor from "../burgerConstructor/burgerConstructor";
 import {getIngredients} from "../../utils/api";
-import {useState, useEffect, useCallback, useContext, useReducer} from "react";
+import {useState, useEffect, useReducer} from "react";
 import Modal from "../modal/modal";
-import OrderDetails from "../orderDetails/orderDetails";
 import {BurgerConstructorContext} from "../../service/selectedIngridients";
 import {IngredientsContext} from "../../service/ingredients";
 import {constructorReducer} from "./appConstructorReducer";
+import { useSelector } from "react-redux";
 function App() {
+    const store = useSelector(store => store);
     const [ingredients, setIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalContent, setModalContent] = useState();
@@ -23,7 +24,6 @@ function App() {
             setIngredients(result.data);
         })
     }, []);
-
     return (
         <>
             {visible && (

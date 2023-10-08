@@ -1,8 +1,10 @@
 import styles from './orderDetails.module.css'
 import img from '../../image/done.svg'
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
-const OrderDetails = ({data}) => {
+const OrderDetails = () => {
+    const data = useSelector(state=>state.burgerConstructor.order);
     return (
         <section className={`${styles.section} pt-20 pb-30`} aria-label='Информация о заказе'>
             <p className={`${styles.number} text text_type_digits-large`}>{data.order.number}</p>
