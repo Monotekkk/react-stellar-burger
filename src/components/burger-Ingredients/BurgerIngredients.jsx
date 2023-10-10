@@ -17,7 +17,7 @@ function BurgerIngredients() {
     const data = useSelector(state => state.burgerConstructor.ingredientsList);
     useEffect(() => {
         dispatch(loadIngridients());
-    }, [])
+    }, [dispatch])
     const buns = data.filter(data => data.type === 'bun');
     const sauce = data.filter(data => data.type === 'sauce');
     const main = data.filter(data => data.type === 'main');
