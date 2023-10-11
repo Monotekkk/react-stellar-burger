@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modalOverlay';
 import styles from './modal.module.css'
@@ -20,7 +20,7 @@ const Modal = ({ children, closePopup }) => {
         document.addEventListener('keydown', closePopupEsc);
 
         return () => document.removeEventListener('keydown', closePopupEsc);
-    }, [closePopup]);
+    }, [dispatch, closePopup]);
 
     return createPortal(
         <>

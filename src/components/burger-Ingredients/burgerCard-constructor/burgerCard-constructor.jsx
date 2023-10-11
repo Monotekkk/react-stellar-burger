@@ -3,7 +3,7 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
 import React, {useState} from "react";
 import Modal from "../../modal/modal";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS } from '../../../service/actions';
 function BurgerCard({data}) {
     const dispatch = useDispatch();

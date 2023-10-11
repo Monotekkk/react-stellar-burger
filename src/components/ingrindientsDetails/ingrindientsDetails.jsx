@@ -4,7 +4,6 @@ import styles from './ingredient-details.module.css'
 
 const IngredientDetails = () => {
     const data = useSelector(store=>store.burgerConstructor.viewedIngridients);
-    console.log(data.name);
     return (
         <section className={`${styles.section} pt-10 pb-15` } aria-label='Пищевая ценность'>
 

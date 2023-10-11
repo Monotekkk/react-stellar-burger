@@ -8,9 +8,8 @@ import Modal from "../modal/modal";
 import {BurgerConstructorContext} from "../../service/selectedIngridients";
 import {IngredientsContext} from "../../service/ingredients";
 import {constructorReducer} from "./appConstructorReducer";
-import { useSelector } from "react-redux";
 function App() {
-    const store = useSelector(store => store);
+
     const [ingredients, setIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalContent, setModalContent] = useState();
