@@ -3,20 +3,15 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-Ingredients/BurgerIngredients";
 import BurgerConstructor from "../burgerConstructor/burgerConstructor";
 import {getIngredients} from "../../utils/api";
-import {useState, useEffect, useReducer} from "react";
+import {useState, useEffect} from "react";
 import Modal from "../modal/modal";
-import {BurgerConstructorContext} from "../../service/selectedIngridients";
-import {IngredientsContext} from "../../service/ingredients";
-import {constructorReducer} from "./appConstructorReducer";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 function App() {
 
     const [ingredients, setIngredients] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalContent, setModalContent] = useState();
-    const [constructorIngredients, constructorDispatch] = useReducer(constructorReducer, {
-        bun: null,
-        ingredients: []
-    });
 
     useEffect(() => {
         getIngredients().then((result) => {
@@ -34,13 +29,10 @@ function App() {
             )}
             <AppHeader/>
             <main className={styles.content}>
-                <IngredientsContext.Provider value={{ingredients}}>
-                    <BurgerConstructorContext.Provider
-                        value={{constructorIngredients, constructorDispatch, modalContent, setModalContent}}>
+            <DndProvider backend={HTML5Backend}>
                         <BurgerIngredients/>
                         <BurgerConstructor setVisible={() => setVisible(!visible)}/>
-                    </BurgerConstructorContext.Provider>
-                </IngredientsContext.Provider>
+                    </DndProvider>
             </main>
         </>
     );

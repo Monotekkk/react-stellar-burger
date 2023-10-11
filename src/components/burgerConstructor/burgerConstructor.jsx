@@ -6,7 +6,7 @@ import {useDispatch, useSelector } from "react-redux";
 import { SET_ORDER } from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
-
+import { useDrop } from "react-dnd";
 function BurgerConstructor() {
     const store = useSelector(store=>store.burgerConstructor.selectedIngridientsList);
     const [visible, setVisible] = useState(false);
@@ -32,8 +32,20 @@ function BurgerConstructor() {
             return buns.price * 2 + priceMain;
         }
     }
+    
+    const [{ isHover }, dropTarget] = useDrop({
+        accept: "ingridient",
+        collect: (monitor) => ({
+            isHover: monitor.isOver(),
+        }),
+        drop(item) {
+            if (item.type === "bun" && item.count > 0) return;
+            console.log(item);
+        },
+    });
+
     return (
-        <section className={'mt-20 ml-10'}>
+        <section className={'mt-20 ml-10'} ref={dropTarget}>
             {store.bun !== null ?
                 <ul
                     className={`${style.ul} custom-scroll pr-2`}>

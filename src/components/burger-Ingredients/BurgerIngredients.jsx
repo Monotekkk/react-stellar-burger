@@ -29,14 +29,13 @@ function BurgerIngredients() {
         const sauceTop = sauceRef.current.getBoundingClientRect().top;
         const mainTop = mainRef.current.getBoundingClientRect().top;
         const tabsBottom = tabsRef.current.getBoundingClientRect().bottom;
-        const bunsDelta = Math.abs(bunsTop-tabsBottom);
+        const bunsDelta = Math.abs(bunsTop - tabsBottom);
         const sauceDelta = Math.abs(sauceTop - tabsBottom);
-        const mainDelta = Math.abs(mainTop-tabsBottom);
+        const mainDelta = Math.abs(mainTop - tabsBottom);
         const min = Math.min(bunsDelta, sauceDelta, mainDelta);
         const newTab = min === bunsDelta ? "bun" : min === sauceDelta ? "sauce" : "main";
         setCurrent(newTab);
     }
-
     return (
         <section className={styles.burgerIngredients}>
             <p className={'text text_type_main-large'}>Соберите бургер</p>
@@ -65,7 +64,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`} >
                     {
                         sauce.map((data) => {
-                            return (<BurgerCard data={data}/>
+                            return (<BurgerCard data={data} />
                             )
                         })
                     }
