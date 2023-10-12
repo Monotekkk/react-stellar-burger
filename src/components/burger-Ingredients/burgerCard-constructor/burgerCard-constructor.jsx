@@ -16,7 +16,7 @@ function BurgerCard({ data }) {
     const [visible, setVisible] = useState(false);
     const [{ isDrag }, dragRef] = useDrag(
         {
-            type: data.type,
+            type: 'ingridienst',
             item: data._id,
             collect: monitor => ({
                 isDrag: monitor.isDragging()

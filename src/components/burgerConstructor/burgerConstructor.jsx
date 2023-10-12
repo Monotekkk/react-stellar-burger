@@ -33,19 +33,15 @@ function BurgerConstructor() {
         }
     }
     
-    const [{ isHover }, dropTarget] = useDrop({
-        accept: "ingridient",
-        collect: (monitor) => ({
-            isHover: monitor.isOver(),
-        }),
-        drop(item) {
-            if (item.type === "bun" && item.count > 0) return;
-            console.log(item);
-        },
-    });
+    const [{ isHover }, dropTargetMain] = useDrop({
+        accept: 'ingridienst',
+        collect: monitor => ({
+          isHover: monitor.isOver()
+        })
+      });
 
     return (
-        <section className={'mt-20 ml-10'} ref={dropTarget}>
+        <section className={'mt-20 ml-10'} ref={dropTargetMain}>
             {store.bun !== null ?
                 <ul
                     className={`${style.ul} custom-scroll pr-2`}>
