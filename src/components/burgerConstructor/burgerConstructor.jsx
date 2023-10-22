@@ -37,9 +37,11 @@ function BurgerConstructor() {
         accept: 'ingridienst',
         collect: monitor => ({
           isHover: monitor.isOver()
-        })
+        }),
+        drop(itemId){
+            console.log(itemId);
+        }
       });
-
     return (
         <section className={'mt-20 ml-10'} ref={dropTargetMain}>
             {store.bun !== null ?
