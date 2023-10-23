@@ -33,9 +33,10 @@ function BurgerConstructor() {
         }
     }
     const deleteIngredient = (item) => {
+        console.log(item);
         dispatch({type: DELETE_INGRIDIENTS, data: item});
     }
-    const [{ isHover }, dropTargetMain] = useDrop({
+    const [, dropTargetMain] = useDrop({
         accept: 'ingridienst',
         collect: monitor => ({
           isHover: monitor.isOver()

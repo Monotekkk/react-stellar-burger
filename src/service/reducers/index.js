@@ -2,12 +2,17 @@ import {
     combineReducers
 } from 'redux';
 import {
-    ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS, CLEAR_VIEWE_INGRIDIENTS, GET_INGRIDIENTS, SET_ORDER, DELETE_INGRIDIENTS
+    ADD_INGRIDIENTS,
+    CHECK_VIEWE_INGRIDIENTS,
+    CLEAR_VIEWE_INGRIDIENTS,
+    GET_INGRIDIENTS,
+    SET_ORDER,
+    DELETE_INGRIDIENTS
 } from '../actions/index';
 
 const initialState = {
     ingredientsList: [],
-    selectedIngridientsList:[{
+    selectedIngridientsList: [{
         "_id": "643d69a5c3f7b9001cfa093c",
         "name": "Краторная булка N-200i",
         "type": "bun",
@@ -21,8 +26,8 @@ const initialState = {
         "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
         "__v": 0
     }],
-    viewedIngridients:{},
-    order:{
+    viewedIngridients: {},
+    order: {
         "success": true,
         "name": "Краторный бургер",
         "order": {
@@ -31,46 +36,49 @@ const initialState = {
     }
 }
 const burgerConstructor = (state = initialState, action) => {
-    const {data, type} = action;
+    const {
+        data,
+        type
+    } = action;
     switch (type) {
         case ADD_INGRIDIENTS:
-            if(data.type === 'bun'){
-                return{
+            if (data.type === 'bun') {
+                return {
                     ...state,
-                    selectedIngridientsList: [data, ...state.selectedIngridientsList.filter(item=>item.type!=='bun')]
+                    selectedIngridientsList: [data, ...state.selectedIngridientsList.filter(item => item.type !== 'bun')]
                 }
             }
             return {
                 ...state,
                 selectedIngridientsList: [...state.selectedIngridientsList, data],
             }
-        case GET_INGRIDIENTS:
-            return {
+            case GET_INGRIDIENTS:
+                return {
                     ...state,
                     ingredientsList: data
-            }
-        case SET_ORDER:
-            return {
-                ...state,
-                order: data,
-            }
-            case CHECK_VIEWE_INGRIDIENTS:
-                return {
-                    ...state,
-                    viewedIngridients: data
                 }
-            case CLEAR_VIEWE_INGRIDIENTS:
-                return {
-                    ...state,
-                    viewedIngridients: {}
-                }
-            case DELETE_INGRIDIENTS:
-                return {
-                    ...state,
-                    selectedIngridientsList: [...state.selectedIngridientsList-data]
-                }
-        default:
-            return state;
+                case SET_ORDER:
+                    return {
+                        ...state,
+                        order: data,
+                    }
+                    case CHECK_VIEWE_INGRIDIENTS:
+                        return {
+                            ...state,
+                            viewedIngridients: data
+                        }
+                        case CLEAR_VIEWE_INGRIDIENTS:
+                            return {
+                                ...state,
+                                viewedIngridients: {}
+                            }
+                            case DELETE_INGRIDIENTS:
+                                return {
+                                    ...state,
+                                    selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
+                                }
+                                default:
+                                    return state;
     }
 }
 export const rootReducer = combineReducers({
