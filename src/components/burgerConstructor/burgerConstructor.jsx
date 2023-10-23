@@ -3,7 +3,7 @@ import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {postIngredients} from '../../utils/api'
 import {useDispatch, useSelector } from "react-redux";
-import { SET_ORDER } from "../../service/actions";
+import { SET_ORDER, ADD_INGRIDIENTS, DELETE_INGRIDIENTS } from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import { useDrop } from "react-dnd";
@@ -32,14 +32,16 @@ function BurgerConstructor() {
             return buns.price * 2 + priceMain;
         }
     }
-    
+    const deleteIngredient = (item) => {
+        dispatch({type: DELETE_INGRIDIENTS, data: item});
+    }
     const [{ isHover }, dropTargetMain] = useDrop({
         accept: 'ingridienst',
         collect: monitor => ({
           isHover: monitor.isOver()
         }),
-        drop(itemId){
-            console.log(itemId);
+        drop(item){
+            dispatch({type: ADD_INGRIDIENTS, data: item})
         }
       });
     return (
@@ -48,7 +50,7 @@ function BurgerConstructor() {
                 <ul
                     className={`${style.ul} custom-scroll pr-2`}>
 
-                    <li className={`${style.burgerConstructorElements} pl-9`}>
+                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'}>
                         <ConstructorElement
                             type="top"
                             isLocked={true}
@@ -61,20 +63,21 @@ function BurgerConstructor() {
                         store.map((item, index) => {
                             if(item.type !== 'bun'){
                                 return (
-                                    <li className={`${style.burgerConstructorElements}`}>
+                                    <li className={`${style.burgerConstructorElements}`} key={`${item._id} ${index}`}>
                                         <DragIcon type={'secondary'}/>
                                         <ConstructorElement
                                             key={`${item._id} ${index}`}
                                             text={item.name}
                                             price={item.price}
-                                            thumbnail={item.image}
+                                            thumbnail={item?.image}
+                                            handleClose={()=>{deleteIngredient(index)}}
                                         />
                                     </li>
                                 )
                             }
                         })
                     }
-                    <li className={`${style.burgerConstructorElements} pl-9`}>
+                    <li className={`${style.burgerConstructorElements} pl-9`}  key={store[0]._id + 'down'}>
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}

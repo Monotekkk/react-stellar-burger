@@ -17,7 +17,7 @@ function BurgerCard({ data }) {
     const [{ isDrag }, dragRef] = useDrag(
         {
             type: 'ingridienst',
-            item: data._id,
+            item: data,
             collect: monitor => ({
                 isDrag: monitor.isDragging()
             })
@@ -41,7 +41,7 @@ function BurgerCard({ data }) {
                     </Modal>
                 )
             }
-        
+
         </>
     )
 }

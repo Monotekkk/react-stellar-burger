@@ -55,7 +55,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`}>
                     {
                         buns.map((data) => {
-                            return (<BurgerCard data={data} />
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }
@@ -64,7 +64,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`} >
                     {
                         sauce.map((data) => {
-                            return (<BurgerCard data={data} />
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }
@@ -73,7 +73,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`} >
                     {
                         main.map((data) => {
-                            return (<BurgerCard data={data} />
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }

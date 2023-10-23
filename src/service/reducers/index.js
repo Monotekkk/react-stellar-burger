@@ -2,7 +2,7 @@ import {
     combineReducers
 } from 'redux';
 import {
-    ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS, CLEAR_VIEWE_INGRIDIENTS, GET_INGRIDIENTS, SET_ORDER
+    ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS, CLEAR_VIEWE_INGRIDIENTS, GET_INGRIDIENTS, SET_ORDER, DELETE_INGRIDIENTS
 } from '../actions/index';
 
 const initialState = {
@@ -63,6 +63,11 @@ const burgerConstructor = (state = initialState, action) => {
                 return {
                     ...state,
                     viewedIngridients: {}
+                }
+            case DELETE_INGRIDIENTS:
+                return {
+                    ...state,
+                    selectedIngridientsList: [...state.selectedIngridientsList-data]
                 }
         default:
             return state;
