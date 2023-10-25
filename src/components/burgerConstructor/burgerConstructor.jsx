@@ -1,14 +1,15 @@
-import React, {useMemo, useState} from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import style from './burger-constructor.module.css';
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {postIngredients} from '../../utils/api'
-import {useDispatch, useSelector } from "react-redux";
-import { SET_ORDER, ADD_INGRIDIENTS, DELETE_INGRIDIENTS } from "../../service/actions";
+import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { postIngredients } from '../../utils/api'
+import { useDispatch, useSelector } from "react-redux";
+import { SET_ORDER, ADD_INGRIDIENTS, DELETE_INGRIDIENTS, MOVE_INGRIDIENTS } from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import { useDrop } from "react-dnd";
+import update from 'immutability-helper';
 function BurgerConstructor() {
-    const store = useSelector(store=>store.burgerConstructor.selectedIngridientsList);
+    const store = useSelector(store => store.burgerConstructor.selectedIngridientsList);
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
     const onClick = () => {
@@ -17,9 +18,9 @@ function BurgerConstructor() {
             idIngredients.push(element._id);
         });
         idIngredients.push(store[0]._id);
-        postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
+        postIngredients(JSON.stringify({ 'ingredients': idIngredients })).then(result => {
             setVisible(true);
-            dispatch({type: SET_ORDER, data: result});
+            dispatch({ type: SET_ORDER, data: result });
         });
     }
     const calculateOrderAmount = (store) => {
@@ -33,18 +34,37 @@ function BurgerConstructor() {
         }
     }
     const deleteIngredient = (item) => {
-        console.log(item);
-        dispatch({type: DELETE_INGRIDIENTS, data: item});
+        dispatch({ type: DELETE_INGRIDIENTS, data: item });
     }
     const [, dropTargetMain] = useDrop({
         accept: 'ingridienst',
         collect: monitor => ({
-          isHover: monitor.isOver()
+            isHover: monitor.isOver()
         }),
-        drop(item){
-            dispatch({type: ADD_INGRIDIENTS, data: item})
+        drop(item) {
+            dispatch({ type: ADD_INGRIDIENTS, data: item })
         }
-      });
+    });
+    const moveCard = useCallback((dragIndex, hoverIndex) => {
+        dispatch({type: MOVE_INGRIDIENTS,data:[dragIndex, hoverIndex]});
+    }, [dispatch])
+    const renderCard = useCallback((item, index) => {
+        if(item.type !== 'bun'){
+            return (
+                <li className={`${style.burgerConstructorElements}`} key={`${item._id} ${index}`}>
+                    <DragIcon type={'secondary'} />
+                    <ConstructorElement
+                        key={`${item._id} ${index}`}
+                        text={item.name}
+                        price={item.price}
+                        thumbnail={item?.image}
+                        handleClose={() => { deleteIngredient(index) }}
+                        moveCard = {moveCard}
+                    />
+                </li>
+            )
+        }
+    }, [deleteIngredient, moveCard])
     return (
         <section className={'mt-20 ml-10'} ref={dropTargetMain}>
             {store.bun !== null ?
@@ -61,24 +81,9 @@ function BurgerConstructor() {
                         />
                     </li>
                     {
-                        store.map((item, index) => {
-                            if(item.type !== 'bun'){
-                                return (
-                                    <li className={`${style.burgerConstructorElements}`} key={`${item._id} ${index}`}>
-                                        <DragIcon type={'secondary'}/>
-                                        <ConstructorElement
-                                            key={`${item._id} ${index}`}
-                                            text={item.name}
-                                            price={item.price}
-                                            thumbnail={item?.image}
-                                            handleClose={()=>{deleteIngredient(index)}}
-                                        />
-                                    </li>
-                                )
-                            }
-                        })
+                        store.map((item, index) => renderCard(item, index))
                     }
-                    <li className={`${style.burgerConstructorElements} pl-9`}  key={store[0]._id + 'down'}>
+                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'}>
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}
@@ -94,7 +99,7 @@ function BurgerConstructor() {
                 <Button htmlType={"button"} type={"primary"} size={"medium"} extraClass={'ml-10'} onClick={onClick}>
                     Оформить заказ
                 </Button>
-                <CurrencyIcon className={'ml-2'} type={"primary"}/>
+                <CurrencyIcon className={'ml-2'} type={"primary"} />
                 <p className={'text text_type_digits-medium'}>{
                     useMemo(() => {
                         return calculateOrderAmount(store)
@@ -105,7 +110,7 @@ function BurgerConstructor() {
             {
                 visible && (
                     <Modal closePopup={() => setVisible(!visible)}>
-                        <OrderDetails/>
+                        <OrderDetails />
                     </Modal>
                 )
             }

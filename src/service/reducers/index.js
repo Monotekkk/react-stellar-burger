@@ -7,7 +7,8 @@ import {
     CLEAR_VIEWE_INGRIDIENTS,
     GET_INGRIDIENTS,
     SET_ORDER,
-    DELETE_INGRIDIENTS
+    DELETE_INGRIDIENTS,
+    MOVE_INGRIDIENTS
 } from '../actions/index';
 
 const initialState = {
@@ -52,33 +53,36 @@ const burgerConstructor = (state = initialState, action) => {
                 ...state,
                 selectedIngridientsList: [...state.selectedIngridientsList, data],
             }
-            case GET_INGRIDIENTS:
-                return {
-                    ...state,
-                    ingredientsList: data
-                }
-                case SET_ORDER:
-                    return {
-                        ...state,
-                        order: data,
-                    }
-                    case CHECK_VIEWE_INGRIDIENTS:
-                        return {
-                            ...state,
-                            viewedIngridients: data
-                        }
-                        case CLEAR_VIEWE_INGRIDIENTS:
-                            return {
-                                ...state,
-                                viewedIngridients: {}
-                            }
-                            case DELETE_INGRIDIENTS:
-                                return {
-                                    ...state,
-                                    selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
-                                }
-                                default:
-                                    return state;
+        case GET_INGRIDIENTS:
+            return {
+                ...state,
+                ingredientsList: data
+            }
+        case SET_ORDER:
+            return {
+                ...state,
+                order: data,
+            }
+        case CHECK_VIEWE_INGRIDIENTS:
+            return {
+                ...state,
+                viewedIngridients: data
+            }
+        case CLEAR_VIEWE_INGRIDIENTS:
+            return {
+                ...state,
+                viewedIngridients: {}
+            }
+        case DELETE_INGRIDIENTS:
+            return {
+                ...state,
+                selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
+            }
+        case MOVE_INGRIDIENTS:
+            console.log(data);
+            return
+        default:
+            return state;
     }
 }
 export const rootReducer = combineReducers({
