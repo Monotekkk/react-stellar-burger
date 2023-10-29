@@ -48,7 +48,7 @@ function BurgerConstructor() {
     const renderCard = useCallback(
 		(item, index) => {
 			return (
-               item.type !== 'bun' && <ConstructorMain item={item} key={index} moveCard={moveCard}/>
+               item.type !== 'bun' && <ConstructorMain item={item} key={index} index={index} moveCard={moveCard}/>
 			)
 		},
 		[moveCard]
@@ -59,7 +59,7 @@ function BurgerConstructor() {
                 <ul
                     className={`${style.ul} custom-scroll pr-2`}>
 
-                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'}>
+                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'} index={0}>
                         <ConstructorElement
                             type="top"
                             isLocked={true}
@@ -71,7 +71,7 @@ function BurgerConstructor() {
                     {
                         store.map((item, index) => renderCard(item, index))
                     }
-                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'}>
+                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'} index={0}>
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}

@@ -1,5 +1,5 @@
 import {
-    combineReducers
+    combineReducers, compose
 } from 'redux';
 import {
     ADD_INGRIDIENTS,
@@ -44,16 +44,21 @@ const burgerConstructor = (state = initialState, action) => {
     switch (type) {
         case ADD_INGRIDIENTS:
             if (data.type === 'bun') {
-                console.log(data);
                 return {
                     ...state,
                     selectedIngridientsList: [data, ...state.selectedIngridientsList.filter(item => item.type !== 'bun')]
                 }
+            } else if(!data.index){
+                return {
+                    ...state,
+                    selectedIngridientsList: [...state.selectedIngridientsList, data],
+                }
+            } else {
+                return state
             }
-            return {
-                ...state,
-                selectedIngridientsList: [...state.selectedIngridientsList, data],
-            }
+            
+
+
         case GET_INGRIDIENTS:
             return {
                 ...state,
@@ -80,8 +85,13 @@ const burgerConstructor = (state = initialState, action) => {
                 selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
             }
         case MOVE_INGRIDIENTS:
-            console.log(data);
-            return
+            const ingredients = [...state.selectedIngridientsList];
+            ingredients.splice(data.dragIndex, 0, ingredients.splice(data.hoverIndex, 1)[0]);
+            return{
+                ...state,
+                selectedIngridientsList:[...ingredients]
+            }
+            
         default:
             return state;
     }

@@ -8,6 +8,7 @@ import { useDrag, useDrop } from "react-dnd";
 function ConstructorMain ({item, index, moveCard}) {
     const dispatch = useDispatch();
     const deleteIngredient = (item) => {
+        console.log(item);
         dispatch({ type: DELETE_INGRIDIENTS, data: item });
     }
     const ref = useRef(null);
@@ -23,6 +24,9 @@ function ConstructorMain ({item, index, moveCard}) {
             return
           }
           const dragIndex = item.index
+          if(dragIndex === undefined){
+            return
+          }
           const hoverIndex = index
           if (dragIndex === hoverIndex) {
             return
@@ -40,12 +44,13 @@ function ConstructorMain ({item, index, moveCard}) {
           }
           moveCard(dragIndex, hoverIndex)
           item.index = hoverIndex
+          
         },
       })
       const [ , drag] = useDrag({
         type: 'ingridienst',
         item: () => {
-          return (item)
+          return {item, index}
         },
         collect: (monitor) => ({
           isDragging: monitor.isDragging(),
