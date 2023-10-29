@@ -44,6 +44,7 @@ const burgerConstructor = (state = initialState, action) => {
     switch (type) {
         case ADD_INGRIDIENTS:
             if (data.type === 'bun') {
+                console.log(data);
                 return {
                     ...state,
                     selectedIngridientsList: [data, ...state.selectedIngridientsList.filter(item => item.type !== 'bun')]

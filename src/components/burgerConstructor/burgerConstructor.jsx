@@ -1,13 +1,13 @@
 import React, { useMemo, useState, useCallback } from "react";
 import style from './burger-constructor.module.css';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { postIngredients } from '../../utils/api'
 import { useDispatch, useSelector } from "react-redux";
-import { SET_ORDER, ADD_INGRIDIENTS, DELETE_INGRIDIENTS, MOVE_INGRIDIENTS } from "../../service/actions";
+import { SET_ORDER, ADD_INGRIDIENTS, MOVE_INGRIDIENTS } from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import { useDrop } from "react-dnd";
-import update from 'immutability-helper';
+import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
 function BurgerConstructor() {
     const store = useSelector(store => store.burgerConstructor.selectedIngridientsList);
     const [visible, setVisible] = useState(false);
@@ -33,38 +33,26 @@ function BurgerConstructor() {
             return buns.price * 2 + priceMain;
         }
     }
-    const deleteIngredient = (item) => {
-        dispatch({ type: DELETE_INGRIDIENTS, data: item });
-    }
     const [, dropTargetMain] = useDrop({
         accept: 'ingridienst',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
         drop(item) {
-            dispatch({ type: ADD_INGRIDIENTS, data: item })
+            dispatch({ type: ADD_INGRIDIENTS, data: item})
         }
     });
     const moveCard = useCallback((dragIndex, hoverIndex) => {
-        dispatch({type: MOVE_INGRIDIENTS,data:[dragIndex, hoverIndex]});
+        dispatch({ type: MOVE_INGRIDIENTS, data: {dragIndex, hoverIndex} });
     }, [dispatch])
-    const renderCard = useCallback((item, index) => {
-        if(item.type !== 'bun'){
-            return (
-                <li className={`${style.burgerConstructorElements}`} key={`${item._id} ${index}`}>
-                    <DragIcon type={'secondary'} />
-                    <ConstructorElement
-                        key={`${item._id} ${index}`}
-                        text={item.name}
-                        price={item.price}
-                        thumbnail={item?.image}
-                        handleClose={() => { deleteIngredient(index) }}
-                        moveCard = {moveCard}
-                    />
-                </li>
-            )
-        }
-    }, [deleteIngredient, moveCard])
+    const renderCard = useCallback(
+		(item, index) => {
+			return (
+               item.type !== 'bun' && <ConstructorMain item={item} key={index} moveCard={moveCard}/>
+			)
+		},
+		[moveCard]
+	)
     return (
         <section className={'mt-20 ml-10'} ref={dropTargetMain}>
             {store.bun !== null ?
