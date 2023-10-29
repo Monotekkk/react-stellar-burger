@@ -1,5 +1,5 @@
 import {
-    combineReducers, compose
+    combineReducers
 } from 'redux';
 import {
     ADD_INGRIDIENTS,
@@ -48,7 +48,7 @@ const burgerConstructor = (state = initialState, action) => {
                     ...state,
                     selectedIngridientsList: [data, ...state.selectedIngridientsList.filter(item => item.type !== 'bun')]
                 }
-            } else if(!data.index){
+            } else if (!data.index) {
                 return {
                     ...state,
                     selectedIngridientsList: [...state.selectedIngridientsList, data],
@@ -56,44 +56,41 @@ const burgerConstructor = (state = initialState, action) => {
             } else {
                 return state
             }
-            
+            case GET_INGRIDIENTS:
+                return {
+                    ...state,
+                    ingredientsList: data
+                }
+                case SET_ORDER:
+                    return {
+                        ...state,
+                        order: data,
+                    }
+                    case CHECK_VIEWE_INGRIDIENTS:
+                        return {
+                            ...state,
+                            viewedIngridients: data
+                        }
+                        case CLEAR_VIEWE_INGRIDIENTS:
+                            return {
+                                ...state,
+                                viewedIngridients: {}
+                            }
+                            case DELETE_INGRIDIENTS:
+                                return {
+                                    ...state,
+                                    selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
+                                }
+                                case MOVE_INGRIDIENTS:
+                                    const ingredients = [...state.selectedIngridientsList];
+                                    ingredients.splice(data.dragIndex, 0, ingredients.splice(data.hoverIndex, 1)[0]);
+                                    return {
+                                        ...state,
+                                        selectedIngridientsList: [...ingredients]
+                                    }
 
-
-        case GET_INGRIDIENTS:
-            return {
-                ...state,
-                ingredientsList: data
-            }
-        case SET_ORDER:
-            return {
-                ...state,
-                order: data,
-            }
-        case CHECK_VIEWE_INGRIDIENTS:
-            return {
-                ...state,
-                viewedIngridients: data
-            }
-        case CLEAR_VIEWE_INGRIDIENTS:
-            return {
-                ...state,
-                viewedIngridients: {}
-            }
-        case DELETE_INGRIDIENTS:
-            return {
-                ...state,
-                selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
-            }
-        case MOVE_INGRIDIENTS:
-            const ingredients = [...state.selectedIngridientsList];
-            ingredients.splice(data.dragIndex, 0, ingredients.splice(data.hoverIndex, 1)[0]);
-            return{
-                ...state,
-                selectedIngridientsList:[...ingredients]
-            }
-            
-        default:
-            return state;
+                                    default:
+                                        return state;
     }
 }
 export const rootReducer = combineReducers({
