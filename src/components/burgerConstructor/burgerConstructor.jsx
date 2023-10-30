@@ -3,11 +3,13 @@ import style from './burger-constructor.module.css';
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { postIngredients } from '../../utils/api'
 import { useDispatch, useSelector } from "react-redux";
-import { SET_ORDER, ADD_INGRIDIENTS, MOVE_INGRIDIENTS } from "../../service/actions";
+import { SET_ORDER, ADD_INGRIDIENT, MOVE_INGRIDIENTS } from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import { useDrop } from "react-dnd";
 import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
+import { v4 as uuidv4 } from 'uuid';
+
 function BurgerConstructor() {
     const store = useSelector(store => store.burgerConstructor.selectedIngridientsList);
     const [visible, setVisible] = useState(false);
@@ -39,7 +41,7 @@ function BurgerConstructor() {
             isHover: monitor.isOver()
         }),
         drop(item) {
-            dispatch({ type: ADD_INGRIDIENTS, data: item})
+            dispatch({ type: ADD_INGRIDIENT, data: {...item, key:uuidv4()}})
         }
     });
     const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -48,7 +50,7 @@ function BurgerConstructor() {
     const renderCard = useCallback(
 		(item, index) => {
 			return (
-               item.type !== 'bun' && <ConstructorMain item={item} key={index} index={index} moveCard={moveCard}/>
+               item.type !== 'bun' && <ConstructorMain item={item} key={item.key} index={index} moveCard={moveCard}/>
 			)
 		},
 		[moveCard]

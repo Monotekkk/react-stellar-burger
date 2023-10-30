@@ -30,5 +30,5 @@
     flex-direction: column;
     gap: 10px;
     max-height: 80vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
