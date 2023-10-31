@@ -8,7 +8,6 @@ import { useDrag, useDrop } from "react-dnd";
 function ConstructorMain ({item, index, moveCard}) {
     const dispatch = useDispatch();
     const deleteIngredient = (item) => {
-        console.log(item);
         dispatch({ type: DELETE_INGRIDIENTS, data: item });
     }
     const ref = useRef(null);

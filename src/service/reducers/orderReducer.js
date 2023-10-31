@@ -8,7 +8,7 @@ const initalState = {
         }
     }
 }
-export const orderReducer = (state=initalState, action) => {
+export const orderReducer = (state = initalState, action) => {
     switch (action.type) {
         case SET_ORDER:
             return {
@@ -17,7 +17,7 @@ export const orderReducer = (state=initalState, action) => {
             }
         default:
             return {
-                state
+                ...state
             }
     }
 }

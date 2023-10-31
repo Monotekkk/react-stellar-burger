@@ -17,19 +17,19 @@ export const constructorReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                selectedIngridientsList: [...state.selectedIngridientsList, data],
+                selectedIngredientsList: [...state.selectedIngredientsList, data],
             }
         case DELETE_INGRIDIENTS:
             return {
                 ...state,
-                selectedIngridientsList: [...state.selectedIngridientsList.slice(0, data), ...state.selectedIngridientsList.slice(data + 1)]
+                selectedIngredientsList: [...state.selectedIngredientsList.slice(0, data), ...state.selectedIngredientsList.slice(data + 1)]
             }
         case MOVE_INGRIDIENTS:
-            const ingredients = [...state.selectedIngridientsList];
+            const ingredients = [...state.selectedIngredientsList];
             ingredients.splice(data.hoverIndex, 0, ingredients.splice(data.dragIndex, 1)[0]);
             return {
                 ...state,
-                selectedIngridientsList: [...ingredients]
+                selectedIngredientsList: [...ingredients]
             }
         default:
             return state
