@@ -6,6 +6,7 @@ import Modal from "../../modal/modal";
 import { useDispatch } from 'react-redux';
 import { ADD_INGRIDIENT, CHECK_VIEWE_INGRIDIENTS } from '../../../service/actions';
 import { useDrag } from 'react-dnd';
+import {v4 as uuidv4} from "uuid";
 
 function BurgerCard({ data }) {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function BurgerCard({ data }) {
     return (
         <>
             {!isDrag &&
-                <div className={style.card} onClick={() => clickHandler(data)} key={data._id} ref={dragRef}>
+                <div className={style.card} onClick={() => clickHandler(data)} key={uuidv4()} ref={dragRef}>
                     <img src={data.image} alt={data.name} />
                     <div className={`${style.price} mb-2`}>
                         <p className={`mr-2 text text_type_main-default`}>{`${data.price}`}</p>

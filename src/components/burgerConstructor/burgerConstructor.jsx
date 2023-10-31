@@ -11,7 +11,7 @@ import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-i
 import { v4 as uuidv4 } from 'uuid';
 
 function BurgerConstructor() {
-    const store = useSelector(store => store.burgerConstructor.selectedIngridientsList);
+    const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
     const onClick = () => {
@@ -26,13 +26,13 @@ function BurgerConstructor() {
         });
     }
     const calculateOrderAmount = (store) => {
-        if (store.bun !== null) {
-            const buns = store[0];
-            const main = store;
-            const priceMain = main.reduce(function (currentSum, currentNumber) {
-                return currentSum + currentNumber.price;
-            }, 0);
-            return buns.price * 2 + priceMain;
+        if (store.length){
+                const buns = store[0];
+                const main = store;
+                const priceMain = main.reduce(function (currentSum, currentNumber) {
+                    return currentSum + currentNumber.price;
+                }, 0);
+                return buns.price * 2 + priceMain;
         }
     }
     const [, dropTargetMain] = useDrop({
@@ -61,27 +61,31 @@ function BurgerConstructor() {
                 <ul
                     className={`${style.ul} custom-scroll pr-2`}>
 
-                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'} index={0}>
+                    {
+                       store.length>0 ? <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'} index={0}>
                         <ConstructorElement
                             type="top"
                             isLocked={true}
-                            text={`${store[0].name}(верх)`}
-                            price={store[0].price}
-                            thumbnail={store[0].image}
+                            text={`${store[0]?.name}(верх)`}
+                            price={store[0]?.price}
+                            thumbnail={store[0]?.image}
                         />
-                    </li>
+                    </li> : <p>Пусто</p>
+                    }
                     {
                         store.map((item, index) => renderCard(item, index))
                     }
-                    <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'} index={0}>
+                    {
+                        store.length>0 ? <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'} index={0}>
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}
-                            text={`${store[0].name}(низ)`}
-                            price={store[0].price}
-                            thumbnail={store[0].image}
+                            text={`${store[0]?.name}(низ)`}
+                            price={store[0]?.price}
+                            thumbnail={store[0]?.image}
                         />
-                    </li>
+                    </li>:<div className={style.plug}>Перетащите элемент</div>
+                    }
                 </ul>
                 : <p className={'text text_type_digits-default mt-30 mb-30'}>Выберите ингредиент бургера</p>
             }

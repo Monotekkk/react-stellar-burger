@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
 
 const OrderDetails = () => {
-    const data = useSelector(state=>state.burgerConstructor.order);
+    const data = useSelector(state=>state);
+    console.log(data);
     return (
         <section className={`${styles.section} pt-20 pb-30`} aria-label='Информация о заказе'>
             <p className={`${styles.number} text text_type_digits-large`}>{data.order.number}</p>

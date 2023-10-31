@@ -19,3 +19,6 @@
 .burgerIngredients{
     width: 50%;
 }
+.tabs{
+    display: flex;
+}
