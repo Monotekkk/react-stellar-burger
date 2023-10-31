@@ -36,8 +36,6 @@ function BurgerConstructor() {
             const priceMain = main.reduce(function (currentSum, currentNumber) {
                 return currentSum + currentNumber.price;
             }, 0);
-            console.log(main,priceMain);
-
             return buns.price + priceMain;
         }
     }
