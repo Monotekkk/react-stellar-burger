@@ -36,7 +36,9 @@ function BurgerConstructor() {
             const priceMain = main.reduce(function (currentSum, currentNumber) {
                 return currentSum + currentNumber.price;
             }, 0);
-            return buns.price * 2 + priceMain;
+            console.log(main,priceMain);
+
+            return buns.price + priceMain;
         }
     }
     const [, dropTargetMain] = useDrop({
