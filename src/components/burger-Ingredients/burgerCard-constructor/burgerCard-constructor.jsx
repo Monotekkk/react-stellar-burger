@@ -27,7 +27,7 @@ function BurgerCard({ data }) {
     return (
         <>
             {!isDrag &&
-                <div className={style.card} onClick={() => clickHandler(data)} key={uuidv4()} ref={dragRef}>
+                <div className={style.card} onClick={() => clickHandler(data)} key={data._id} ref={dragRef}>
                     <img src={data.image} alt={data.name} />
                     <div className={`${style.price} mb-2`}>
                         <p className={`mr-2 text text_type_main-default`}>{`${data.price}`}</p>

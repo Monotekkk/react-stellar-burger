@@ -49,7 +49,7 @@ function BurgerIngredients() {
     return (
         <section className={styles.burgerIngredients}>
             <p className={'text text_type_main-large'}>Соберите бургер</p>
-            <div className={`mt-5 ${styles.tabs}`} style={{ display: 'flex' }} ref={tabsRef}>
+            <div className={`mt-5 ${styles.tabs}`} ref={tabsRef}>
                 <Tab value="bun" active={current === 'bun'} onClick={onClick}>
                     Булки
                 </Tab>
@@ -65,7 +65,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`}>
                     {
                         buns.map((data) => {
-                            return (<BurgerCard data={data} key={uuidv4()}/>
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }
@@ -74,7 +74,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`} >
                     {
                         sauce.map((data) => {
-                            return (<BurgerCard data={data} key={uuidv4()}/>
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }
@@ -83,7 +83,7 @@ function BurgerIngredients() {
                 <div className={`${styles.cardBox}`} >
                     {
                         main.map((data) => {
-                            return (<BurgerCard data={data} key={uuidv4()}/>
+                            return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
                     }

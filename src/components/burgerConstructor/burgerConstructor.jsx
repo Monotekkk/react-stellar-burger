@@ -80,7 +80,7 @@ function BurgerConstructor() {
                     }
                     {
                         (store[0]?.type !== 'bun' || store[1]?.type) && store.length > 0 ? store.map((item, index) => renderCard(item, index)) :
-                            <div className={style.plug}>Перетащите булку</div>
+                            <div className={style.plug}>Перетащите соус или начинку</div>
                     }
                     {
                         store.length > 0 && store[0]?.type === 'bun' ?
