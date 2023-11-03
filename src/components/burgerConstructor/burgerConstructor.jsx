@@ -3,12 +3,19 @@ import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {postIngredients} from '../../utils/api'
 import {useDispatch, useSelector} from "react-redux";
-import {SET_ORDER, ADD_INGRIDIENT, MOVE_INGRIDIENTS} from "../../service/actions";
+import {
+    SET_ORDER,
+    ADD_INGREDIENT,
+    MOVE_INGREDIENT,
+    POST_ORDER__PENDING,
+    POST_ORDER__REJECT, POST_ORDER__SUCCESS
+} from "../../service/actions";
 import Modal from "../modal/modal";
 import OrderDetails from "../orderDetails/orderDetails";
 import {useDrop} from "react-dnd";
 import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
 import {v4 as uuidv4} from 'uuid';
+import {data} from "../../utils/data";
 
 function BurgerConstructor() {
     const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
@@ -25,7 +32,13 @@ function BurgerConstructor() {
             postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
                 setVisible(true);
                 dispatch({type: SET_ORDER, data: result});
-            });
+                dispatch({type: POST_ORDER__PENDING});
+                if (result.ok){
+                    dispatch({type: POST_ORDER__SUCCESS});
+                }
+            }).catch(err => {
+                dispatch({type: POST_ORDER__REJECT, data: err});
+            })
         }
     }
     const calculateOrderAmount = (store) => {
@@ -45,11 +58,11 @@ function BurgerConstructor() {
             isHover: monitor.isOver()
         }),
         drop(item) {
-            dispatch({type: ADD_INGRIDIENT, data: {...item, key: uuidv4()}})
+            dispatch({type: ADD_INGREDIENT, data: {...item, key: uuidv4()}})
         }
     });
     const moveCard = useCallback((dragIndex, hoverIndex) => {
-        dispatch({type: MOVE_INGRIDIENTS, data: {dragIndex, hoverIndex}});
+        dispatch({type: MOVE_INGREDIENT, data: {dragIndex, hoverIndex}});
     }, [dispatch])
     const renderCard = useCallback(
         (item, index) => {

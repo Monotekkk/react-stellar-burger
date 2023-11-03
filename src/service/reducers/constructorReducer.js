@@ -1,4 +1,4 @@
-import {ADD_INGRIDIENT, DELETE_INGRIDIENTS, MOVE_INGRIDIENTS} from "../actions";
+import {ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../actions";
 const initialState = {
     selectedIngredientsList: [],
 }
@@ -8,7 +8,7 @@ export const constructorReducer = (state = initialState, action) => {
         type
     } = action;
     switch (type) {
-        case ADD_INGRIDIENT:
+        case ADD_INGREDIENT:
             if (data.type === 'bun') {
                 return {
                     ...state,
@@ -19,12 +19,12 @@ export const constructorReducer = (state = initialState, action) => {
                 ...state,
                 selectedIngredientsList: [...state.selectedIngredientsList, data],
             }
-        case DELETE_INGRIDIENTS:
+        case DELETE_INGREDIENT:
             return {
                 ...state,
                 selectedIngredientsList: [...state.selectedIngredientsList.slice(0, data), ...state.selectedIngredientsList.slice(data + 1)]
             }
-        case MOVE_INGRIDIENTS:
+        case MOVE_INGREDIENT:
             const ingredients = [...state.selectedIngredientsList];
             ingredients.splice(data.hoverIndex, 0, ingredients.splice(data.dragIndex, 1)[0]);
             return {

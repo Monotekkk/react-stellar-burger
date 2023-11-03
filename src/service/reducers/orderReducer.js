@@ -1,4 +1,5 @@
-import {SET_ORDER} from "../actions";
+import {POST_ORDER__PENDING, POST_ORDER__REJECT, POST_ORDER__SUCCESS, SET_ORDER} from "../actions";
+
 const initalState = {
     order: {
         "success": true,
@@ -15,6 +16,33 @@ export const orderReducer = (state = initalState, action) => {
                 ...state,
                 order: action.data,
             }
+        case  POST_ORDER__PENDING:
+            return {
+                ...state,
+                order: {
+                    ...state.order,
+                    'success': 'loading'
+                }
+            }
+
+        case POST_ORDER__SUCCESS:
+            return {
+                ...state,
+                order: {
+                    ...state.order,
+                    'success': true
+                }
+            }
+
+        case POST_ORDER__REJECT:
+            return {
+                ...state,
+                order: {
+                    ...state.order,
+                    'success': false
+                }
+            }
+
         default:
             return {
                 ...state

@@ -1,10 +1,10 @@
-import {GET_INGRIDIENTS} from "../actions";
+import {GET_INGREDIENTS} from "../actions";
 const initalState = {
     ingredientsList: []
 }
 export const ingredientsReducer = (state = initalState, action) => {
     switch (action.type) {
-        case GET_INGRIDIENTS:
+        case GET_INGREDIENTS:
             return {
                 ...state,
                 ingredientsList: action.data

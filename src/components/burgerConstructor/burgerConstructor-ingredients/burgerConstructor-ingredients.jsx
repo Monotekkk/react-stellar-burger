@@ -1,14 +1,14 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from '../burger-constructor.module.css'
 import { useDispatch } from "react-redux";
-import { DELETE_INGRIDIENTS } from "../../../service/actions";
+import { DELETE_INGREDIENT } from "../../../service/actions";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 function ConstructorMain ({item, index, moveCard}) {
     const dispatch = useDispatch();
     const deleteIngredient = (item) => {
-        dispatch({ type: DELETE_INGRIDIENTS, data: item });
+        dispatch({ type: DELETE_INGREDIENT, data: item });
     }
     const ref = useRef(null);
     const [{ handlerId }, drop] = useDrop({

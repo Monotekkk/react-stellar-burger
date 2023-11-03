@@ -4,7 +4,6 @@ import BurgerCard from "./burgerCard-constructor/burgerCard-constructor";
 import {useEffect, useState, useRef, useMemo} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngridients } from '../../service/stores';
-import {v4 as uuidv4} from "uuid";
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun');
