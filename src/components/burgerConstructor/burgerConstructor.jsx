@@ -67,7 +67,7 @@ function BurgerConstructor() {
     const renderCard = useCallback(
         (item, index) => {
             return (
-                item.type !== 'bun' && <ConstructorMain item={item} key={uuidv4()} index={index} moveCard={moveCard}/>
+                item.type !== 'bun' && <ConstructorMain item={item} key={item.key} index={index} moveCard={moveCard}/>
             )
         },
         [moveCard]
