@@ -4,13 +4,14 @@ import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
 import React, { useState } from "react";
 import Modal from "../../modal/modal";
 import { useDispatch } from 'react-redux';
-import { ADD_INGRIDIENTS, CHECK_VIEWE_INGRIDIENTS } from '../../../service/actions';
+import { ADD_INGREDIENT, CHECK_VIEW_INGREDIENT } from '../../../service/actions';
 import { useDrag } from 'react-dnd';
+
 function BurgerCard({ data }) {
     const dispatch = useDispatch();
     const clickHandler = (data) => {
-        dispatch({ type: CHECK_VIEWE_INGRIDIENTS, data: data });
-        dispatch({ type: ADD_INGRIDIENTS, data: data });
+        dispatch({ type: CHECK_VIEW_INGREDIENT, data: data });
+        dispatch({ type: ADD_INGREDIENT, data: data, } );
         setVisible(!visible);
     }
     const [visible, setVisible] = useState(false);

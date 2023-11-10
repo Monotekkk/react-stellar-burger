@@ -1,19 +1,18 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from '../burger-constructor.module.css'
 import { useDispatch } from "react-redux";
-import { DELETE_INGRIDIENTS } from "../../../service/actions";
+import { DELETE_INGREDIENT } from "../../../service/actions";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 function ConstructorMain ({item, index, moveCard}) {
     const dispatch = useDispatch();
     const deleteIngredient = (item) => {
-        console.log(item);
-        dispatch({ type: DELETE_INGRIDIENTS, data: item });
+        dispatch({ type: DELETE_INGREDIENT, data: item });
     }
     const ref = useRef(null);
     const [{ handlerId }, drop] = useDrop({
-        accept: 'ingridienst',
+        accept: 'main',
         collect(monitor) {
           return {
             handlerId: monitor.getHandlerId(),
@@ -24,9 +23,6 @@ function ConstructorMain ({item, index, moveCard}) {
             return
           }
           const dragIndex = item.index
-          if(dragIndex === undefined){
-            return
-          }
           const hoverIndex = index
           if (dragIndex === hoverIndex) {
             return
@@ -48,7 +44,7 @@ function ConstructorMain ({item, index, moveCard}) {
         },
       })
       const [ , drag] = useDrag({
-        type: 'ingridienst',
+        type: 'main',
         item: () => {
           return {item, index}
         },
@@ -58,10 +54,9 @@ function ConstructorMain ({item, index, moveCard}) {
       })
       drag(drop(ref))
     return(        
-        <li className={`${style.burgerConstructorElements}`} key={`${item._id} ${index}`} ref={ref} data-hendler-id={handlerId}>
+        <li className={`${style.burgerConstructorElements}`} ref={ref} data-hendler-id={handlerId}>
         <DragIcon type={'secondary'} />
         <ConstructorElement
-            key={`${item._id} ${index}`}
             text={item.name}
             price={item.price}
             thumbnail={item?.image}

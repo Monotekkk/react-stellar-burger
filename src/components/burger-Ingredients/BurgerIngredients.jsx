@@ -1,7 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerCard from "./burgerCard-constructor/burgerCard-constructor";
-import { useEffect, useState, useRef } from "react";
+import {useEffect, useState, useRef, useMemo} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngridients } from '../../service/stores';
 
@@ -17,13 +17,22 @@ function BurgerIngredients() {
         return setCurrent(value);
     }
     const dispatch = useDispatch();
-    const data = useSelector(state => state.burgerConstructor.ingredientsList);
+    const data = useSelector(state => state.ingredientsList.ingredientsList);
     useEffect(() => {
         dispatch(loadIngridients());
     }, [dispatch])
-    const buns = data.filter(data => data.type === 'bun');
-    const sauce = data.filter(data => data.type === 'sauce');
-    const main = data.filter(data => data.type === 'main');
+    const buns = useMemo(
+        () => data.filter((item) => item.type === "bun"),
+        [data]
+    );
+    const sauce = useMemo(
+        ()=>data.filter(item=>item.type === 'sauce'),
+        [data]
+    );
+    const main = useMemo(
+        ()=> data.filter(item=>item.type ==='main'),
+        [data]
+    );
     const handlerScroll = () => {
         const bunsTop = bunsRef.current.getBoundingClientRect().top;
         const sauceTop = sauceRef.current.getBoundingClientRect().top;
@@ -39,7 +48,7 @@ function BurgerIngredients() {
     return (
         <section className={styles.burgerIngredients}>
             <p className={'text text_type_main-large'}>Соберите бургер</p>
-            <div className={'mt-5'} style={{ display: 'flex' }} ref={tabsRef}>
+            <div className={`mt-5 ${styles.tabs}`} ref={tabsRef}>
                 <Tab value="bun" active={current === 'bun'} onClick={onClick}>
                     Булки
                 </Tab>

@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css'
-//import { DataPropType } from '../../utils/prop-types';
 
 const IngredientDetails = () => {
-    const data = useSelector(store=>store.burgerConstructor.viewedIngridients);
+    const data = useSelector(store=>store.ingredientsDetailModal.viewedIngridients);
     return (
         <section className={`${styles.section} pt-10 pb-15` } aria-label='Пищевая ценность'>
 

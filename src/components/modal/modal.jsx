@@ -5,7 +5,7 @@ import styles from './modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
-import { CLEAR_VIEWE_INGRIDIENTS } from '../../service/actions';
+import { CLEAR_VIEW_INGREDIENT } from '../../service/actions';
 const Modal = ({ children, closePopup }) => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -13,7 +13,7 @@ const Modal = ({ children, closePopup }) => {
         const closePopupEsc = event => {
             if (event.key === 'Escape') {
                 closePopup();
-                dispatch({ type: CLEAR_VIEWE_INGRIDIENTS });
+                dispatch({ type: CLEAR_VIEW_INGREDIENT });
             }
         };
 

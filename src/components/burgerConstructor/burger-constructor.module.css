@@ -30,5 +30,65 @@
     flex-direction: column;
     gap: 10px;
     max-height: 80vh;
-    overflow: scroll;
+    overflow-y: scroll;
+}
+.plug_top {
+    padding: 16px 24px;
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 88px 88px 40px 40px;
+    background: var(--background-element);
+    max-width: 536px;
+    width: 40vw;
+    min-width: 383px;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+
+}
+.plug {
+    padding: 16px 24px;
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 88px 88px 88px 88px;
+    background: var(--background-element);
+    max-width: 536px;
+    min-width: 383px;
+    width: 40vw;
+    min-height: 50vh;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+
+}
+.plug_bottom {
+    padding: 16px 24px;
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px 40px 88px 88px;
+    background: var(--background-element);
+    max-width: 536px;
+    min-width: 383px;
+    width: 40vw;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+
 }
