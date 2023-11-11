@@ -15,7 +15,6 @@ import OrderDetails from "../orderDetails/orderDetails";
 import {useDrop} from "react-dnd";
 import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
 import {v4 as uuidv4} from 'uuid';
-import {data} from "../../utils/data";
 
 function BurgerConstructor() {
     const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
@@ -42,7 +41,7 @@ function BurgerConstructor() {
         }
     }
     const calculateOrderAmount = (store) => {
-        store[0]?.type === 'bun' && store[1] && setDisable(false);
+        store[0]?.type === 'bun' && setDisable(false);
         if (store.length) {
             const buns = store[0];
             const main = store;
