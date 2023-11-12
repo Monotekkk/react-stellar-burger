@@ -52,7 +52,7 @@ function BurgerConstructor() {
         }
     }
     const [, dropTargetMain] = useDrop({
-        accept: 'ingridienst',
+        accept: 'ingredients',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
