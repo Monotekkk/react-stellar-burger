@@ -32,7 +32,7 @@ function BurgerConstructor() {
                 setVisible(true);
                 dispatch({type: SET_ORDER, data: result});
                 dispatch({type: POST_ORDER__PENDING});
-                if (result.ok){
+                if (result.ok) {
                     dispatch({type: POST_ORDER__SUCCESS});
                 }
             }).catch(err => {
@@ -42,6 +42,7 @@ function BurgerConstructor() {
     }
     const calculateOrderAmount = (store) => {
         store[0]?.type === 'bun' && setDisable(false);
+        !store[1] && setDisable(true);
         if (store.length) {
             const buns = store[0];
             const main = store;
