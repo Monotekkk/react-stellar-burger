@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadIngridients } from '../../service/stores';
 
 function BurgerIngredients() {
+    document.title = 'Stellar Burgers - космические бургеры';
     const [current, setCurrent] = useState('bun');
     const tabsRef = useRef();
     const bunsRef = useRef();
