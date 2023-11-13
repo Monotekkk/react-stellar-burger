@@ -11,9 +11,9 @@ import {
     POST_ORDER__REJECT, POST_ORDER__SUCCESS
 } from "../../service/actions";
 import Modal from "../modal/modal";
-import OrderDetails from "../orderDetails/orderDetails";
+import OrderDetails from "../order-details/order-details";
 import {useDrop} from "react-dnd";
-import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
+import ConstructorMain from "./burger-ingredients/burger-ingredients";
 import {v4 as uuidv4} from 'uuid';
 
 function BurgerConstructor() {

@@ -1,12 +1,11 @@
-import style from './burgerCard-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientDetails from '../../ingrindientsDetails/ingrindientsDetails';
+import IngredientDetails from '../../ingrindients-details/ingrendients-details';
 import React, { useState } from "react";
 import Modal from "../../modal/modal";
 import { useDispatch } from 'react-redux';
 import { ADD_INGREDIENT, CHECK_VIEW_INGREDIENT } from '../../../service/actions';
 import { useDrag } from 'react-dnd';
-
+import style from './ingredients-card.module.css';
 function BurgerCard({ data }) {
     const dispatch = useDispatch();
     const clickHandler = (data) => {

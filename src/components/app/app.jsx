@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-Ingredients/BurgerIngredients";
-import BurgerConstructor from "../burgerConstructor/burgerConstructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {useState} from "react";
 import Modal from "../modal/modal";
 import { DndProvider } from "react-dnd";
