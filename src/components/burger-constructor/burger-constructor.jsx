@@ -11,11 +11,10 @@ import {
     POST_ORDER__REJECT, POST_ORDER__SUCCESS
 } from "../../service/actions";
 import Modal from "../modal/modal";
-import OrderDetails from "../orderDetails/orderDetails";
+import OrderDetails from "../order-details/order-details";
 import {useDrop} from "react-dnd";
-import ConstructorMain from "./burgerConstructor-ingredients/burgerConstructor-ingredients";
+import ConstructorMain from "./burger-ingredients/burger-ingredients";
 import {v4 as uuidv4} from 'uuid';
-import {data} from "../../utils/data";
 
 function BurgerConstructor() {
     const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
@@ -33,7 +32,7 @@ function BurgerConstructor() {
                 setVisible(true);
                 dispatch({type: SET_ORDER, data: result});
                 dispatch({type: POST_ORDER__PENDING});
-                if (result.ok){
+                if (result.ok) {
                     dispatch({type: POST_ORDER__SUCCESS});
                 }
             }).catch(err => {
@@ -42,7 +41,8 @@ function BurgerConstructor() {
         }
     }
     const calculateOrderAmount = (store) => {
-        store[0]?.type === 'bun' && store[1] && setDisable(false);
+        store[0]?.type === 'bun' && setDisable(false);
+        !store[1] && setDisable(true);
         if (store.length) {
             const buns = store[0];
             const main = store;
@@ -53,7 +53,7 @@ function BurgerConstructor() {
         }
     }
     const [, dropTargetMain] = useDrop({
-        accept: 'ingridienst',
+        accept: 'ingredients',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),

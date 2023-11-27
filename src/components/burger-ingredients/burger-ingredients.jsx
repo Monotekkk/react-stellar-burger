@@ -1,11 +1,12 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
-import BurgerCard from "./burgerCard-constructor/burgerCard-constructor";
+import BurgerCard from "./ingredients-card/ingredients-card";
 import {useEffect, useState, useRef, useMemo} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngridients } from '../../service/stores';
 
 function BurgerIngredients() {
+    document.title = 'Stellar Burgers - космические бургеры.';
     const [current, setCurrent] = useState('bun');
     const tabsRef = useRef();
     const bunsRef = useRef();
