@@ -1,5 +1,6 @@
-import {BurgerIcon, Button, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesHeader from './app-header.module.css';
+import {Link} from "react-router-dom";
 
 function AppHeader() {
     return (
@@ -7,10 +8,10 @@ function AppHeader() {
             <nav className={stylesHeader.nav}>
                 <ul className={stylesHeader.ul}>
                     <li className={`${stylesHeader.li} ${stylesHeader.li} ${stylesHeader.link}`}>
-                        <a className={`${stylesHeader.li} text text_type_main-default`}>
-                            <BurgerIcon type="primary"/>
-                            <p className={`${stylesHeader.paragraph}text text-color_inactive pr-9`}>Конструктор</p>
-                        </a>
+                        <Link className={`${stylesHeader.li} text text_type_main-default`} to={'/'}>
+                                <BurgerIcon type="primary"/>
+                                <p className={`${stylesHeader.paragraph}text text-color_inactive pr-9`}>Конструктор</p>
+                        </Link>
                         <a className={`text text_type_main-default ${stylesHeader.li}`}>
                             <ListIcon type={"secondary"}/>
                             <p className={`${stylesHeader.paragraph}`}>Лента заказов</p>
@@ -20,10 +21,10 @@ function AppHeader() {
                         <Logo/>
                     </li>
                     <li>
-                        <a className={`text text_type_main-default ${stylesHeader.li} pr-9`}>
-                            <ProfileIcon type="secondary"/>
-                            <p className={stylesHeader.paragraph}>Личный кабинет</p>
-                        </a>
+                            <Link className={`text text_type_main-default ${stylesHeader.li} pr-9`} to={'/login'}>
+                                <ProfileIcon type="secondary"/>
+                                <p className={stylesHeader.paragraph}>Личный кабинет</p>
+                            </Link>
                     </li>
                 </ul>
             </nav>
