@@ -2,49 +2,56 @@ import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-b
 import {useState} from "react";
 import style from './login-page.module.css';
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 function Login() {
     const [emailValue, setEmailValue] = useState('bob@example.com');
     const [passwordValue, setPasswordValue] = useState('password');
-    const [values, setValues] = useState({});
     const onChange = event => {
-        if (event.target.name) {
-
-
-        } else {
-            console.log('button');
-        }
+        event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
     }
+    const onClick = () => {
+        console.log({emailValue, passwordValue});
+    }
+    const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
-                <h1 className={style.login__title}>Вход</h1>
+                <h1 className={`${style.login__title} text_type_main-large`}>Вход</h1>
                 <form action="" className={style.login__form}>
                     <EmailInput
                         onChange={onChange}
-                        value={setEmailValue}
+                        value={emailValue}
                         name={'email'}
                         isIcon={false}
                     />
                     <PasswordInput
                         onChange={onChange}
-                        value={setPasswordValue}
+                        value={passwordValue}
                         name={'password'}
                         extraClass="mb-2"
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onChange}>
+                    <Button htmlType="button" type="primary" size="large" onClick={onClick}>
                         Войти
                     </Button>
                 </form>
             </div>
             <div className={style.login__redirect}>
-                <p className="text text_type_main-small text_color_inactive">
-                    Вы — новый пользователь?
-                </p>
-                <span><Link to={'/'}/>Зарегистрироваться</span>
+                <div className={style.href}>
+                    <p className="text text_type_main-small text_color_inactive">
+                        Вы — новый пользователь?
+                    </p>
+                    <Link to={'/'} className={`${style.href} text text_type_main-small`}> Зарегистрироваться</Link>
+                </div>
+                <div className={style.href}>
+                    <p className="text text_type_main-small text_color_inactive">
+                        Забыли пароль?
+                    </p>
+                    <Link to={'/'} className={`${style.href} text text_type_main-small`}>Восстановить пароль</Link>
+                </div>
             </div>
         </div>
-    )
+)
 }
 
 export default Login

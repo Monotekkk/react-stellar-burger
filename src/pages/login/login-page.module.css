@@ -24,3 +24,16 @@
     justify-content: center;
     gap: 16px;
 }
+.href{
+    display: flex;
+    gap: 8px;
+}
+.href{
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(76, 76, 255);
+}
+.href:hover{
+    color: #ffffff;
+    transition: color 1s;
+}
