@@ -1,24 +1,38 @@
-import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
-import style from './login-page.module.css';
+import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useState, useRef} from "react";
+import style from './register-page.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-function Login() {
+function Register() {
     const [emailValue, setEmailValue] = useState('bob@example.com');
     const [passwordValue, setPasswordValue] = useState('password');
+    const [value, setValue] = useState('Антон');
     const onChange = event => {
         event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
     }
     const onClick = () => {
         console.log({emailValue, passwordValue});
     }
+    const inputRef = useRef(null)
     const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
-                <h1 className={`${style.login__title} text_type_main-large`}>Вход</h1>
+                <h1 className={`${style.login__title} text_type_main-large`}>Регистрация</h1>
                 <form action="" className={style.login__form}>
+                    <Input
+                        type={'text'}
+                        placeholder={'Имя'}
+                        onChange={e => setValue(e.target.value)}
+                        value={value}
+                        name={'name'}
+                        error={false}
+                        ref={inputRef}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="ml-1"
+                    />
                     <EmailInput
                         onChange={onChange}
                         value={emailValue}
@@ -32,26 +46,20 @@ function Login() {
                         extraClass="mb-2"
                     />
                     <Button htmlType="button" type="primary" size="large" onClick={onClick}>
-                        Войти
+                        Зарегистрироваться
                     </Button>
                 </form>
             </div>
             <div className={style.login__redirect}>
                 <div className={style.href}>
                     <p className="text text_type_main-small text_color_inactive">
-                        Вы — новый пользователь?
+                        Уже зарегистрированы?
                     </p>
-                    <Link to={'/register'} className={`${style.href} text text_type_main-small`}> Зарегистрироваться</Link>
-                </div>
-                <div className={style.href}>
-                    <p className="text text_type_main-small text_color_inactive">
-                        Забыли пароль?
-                    </p>
-                    <Link to={'/register'} className={`${style.href} text text_type_main-small`}>Восстановить пароль</Link>
+                    <Link to={'/login'} className={`${style.href} text text_type_main-small`}> Войти</Link>
                 </div>
             </div>
         </div>
-)
+    )
 }
 
-export default Login
+export default Register

@@ -1,14 +1,15 @@
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {useState} from "react";
 import Modal from "../modal/modal";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
+import Register from "../../pages/register/register";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
 function App() {
     const [visible, setVisible] = useState(false);
     return (
@@ -22,6 +23,9 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/register'} element={<Register/>}/>
+                    <Route path={'/forgot-password'} element={<ForgotPassword/>}/>
+                    <Route path={'/reset-password'} element={<ResetPassword/>}/>
                 </Routes>
                     </DndProvider>
             </main>
