@@ -3,12 +3,16 @@ import {useState, useRef} from "react";
 import style from './forgot-password.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {forgotPassword} from "../../utils/api";
 
 function ForgotPassword() {
-    const [passwordValue, setPasswordValue] = useState('password');
-    const onChange = e => e.target.name ? setPasswordValue(e.target.value) : passwordValue;
-    const onClick = () => {
-        console.log({setPasswordValue});
+    const [emailValue, setEmailValue] = useState('');
+    const [isEmailError, setIsEmailError] = useState(false);
+    const onChange = e => e.target.name ? setEmailValue(e.target.value) : setEmailValue;
+    const onClick = (e) => {
+        forgotPassword({
+            "email": emailValue
+        }).then(r => console.log(r))
     }
     const dispatch = useDispatch();
     return (
@@ -16,13 +20,16 @@ function ForgotPassword() {
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Восстановление пароля</h1>
                 <form action="" className={style.login__form}>
-                    <PasswordInput
+                    <EmailInput
                         onChange={onChange}
-                        value={passwordValue}
-                        name={'password'}
-                        extraClass="mb-2"
+                        value={emailValue}
+                        error = {false}
+                        errorText={'Поле \"E-mail\" не может быть пустым'}
+                        name={'email'}
+                        isIcon={false}
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+                    <Button htmlType="button" type="primary" size="large" onClick={onClick}
+                            disabled={emailValue === ''}>
                         Восстановить
                     </Button>
                 </form>

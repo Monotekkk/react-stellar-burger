@@ -47,7 +47,7 @@ function Login() {
                     <p className="text text_type_main-small text_color_inactive">
                         Забыли пароль?
                     </p>
-                    <Link to={'/register'} className={`${style.href} text text_type_main-small`}>Восстановить пароль</Link>
+                    <Link to={'/forgot-password'} className={`${style.href} text text_type_main-small`}>Восстановить пароль</Link>
                 </div>
             </div>
         </div>

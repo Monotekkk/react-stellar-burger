@@ -25,11 +25,33 @@ function getIngredients() {
 function postIngredients(body) {
     return api('/orders', {
         method: 'POST',
-        body: body,
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
+        body: body
     });
 }
 
-export {getIngredients, postIngredients};
+function forgotPassword(body) {
+    return api('/password-reset', {
+        method: 'POST',
+        body: body
+    })
+}
+
+function resetPassword(body) {
+    return api('/password-reset/reset', {
+        method: 'POST',
+        body: body
+    })
+}
+
+function registration() {
+    return api('/auth/register', {
+        method: 'POST',
+        body: {
+            "email": "timur.yakhin.99@yandex.ru",
+            "password": "timur1408",
+            "name": "Monotek"
+        }
+    })
+}
+
+export {getIngredients, postIngredients, forgotPassword, resetPassword, registration};

@@ -3,12 +3,20 @@ import {useState, useRef} from "react";
 import style from './reset-password.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {registration, resetPassword} from "../../utils/api";
 
 function ResetPassword() {
-    const [emailValue, setEmailValue] = useState('bob@example.com');
-    const onChange = e => e.target.name === 'email' ? setEmailValue(e.target.value) : emailValue;
+    const [newPasswordValue, setNewPasswordValue] = useState('');
+    const [token, setToken] = useState('');
+    const onChange = e => {
+        e.target.name === 'newPasswordValue' ? setNewPasswordValue(e.target.value) : e.target.name === 'token' ? setToken(e.target.value) : console.log('error');
+    };
     const onClick = () => {
-        console.log({emailValue});
+        registration().then(r => console.log(r));
+        // resetPassword({
+        //     "password": newPasswordValue,
+        //     "token": token
+        // }).then(r => console.log(r))
     }
     const dispatch = useDispatch();
     return (
@@ -16,15 +24,21 @@ function ResetPassword() {
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Восстановление пароля</h1>
                 <form action="" className={style.login__form}>
-                    <EmailInput
+                    <PasswordInput
                         onChange={onChange}
-                        value={''}
-                        name={'email'}
-                        isIcon={false}
-                        placeholder={'Укажите e-mail'}
+                        value={newPasswordValue}
+                        name={'newPasswordValue'}
+                        extraClass="mb-2"
+                    />
+                    <Input
+                        onChange={onChange}
+                        value={token}
+                        name={'token'}
+                        extraClass="mb-2"
+                        placeholder={'Введите код из письма'}
                     />
                     <Button htmlType="button" type="primary" size="large" onClick={onClick}>
-                        Восстановить
+                        Сохранить
                     </Button>
                 </form>
             </div>
