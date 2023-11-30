@@ -1,8 +1,9 @@
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesHeader from './app-header.module.css';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function AppHeader() {
+    const navigate = useNavigate();
     return (
         <header className={`${stylesHeader.header} mb-10`}>
             <nav className={stylesHeader.nav}>

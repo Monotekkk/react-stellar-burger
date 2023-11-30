@@ -53,5 +53,31 @@ function registration() {
         }
     })
 }
+const getUser = () =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                user: {},
+            });
+        }, 1000);
+    });
 
-export {getIngredients, postIngredients, forgotPassword, resetPassword, registration};
+const login = () =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                accessToken: "test-token",
+                refreshToken: "test-refresh-token",
+                user: {},
+            });
+        }, 1000);
+    });
+
+const logout = () =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+
+export {getIngredients, postIngredients, forgotPassword, resetPassword, registration, getUser, login, logout};
