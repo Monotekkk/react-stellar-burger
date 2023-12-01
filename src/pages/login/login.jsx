@@ -3,17 +3,18 @@ import {useState} from "react";
 import style from './login-page.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import { login } from "../../utils/api";
 
 function Login() {
     const [emailValue, setEmailValue] = useState('bob@example.com');
     const [passwordValue, setPasswordValue] = useState('password');
+    const dispatch = useDispatch();
     const onChange = event => {
         event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
     }
     const onClick = () => {
-        console.log({emailValue, passwordValue});
+        dispatch(login({emailValue, passwordValue}));
     }
-    const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>

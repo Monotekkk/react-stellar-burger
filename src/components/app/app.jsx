@@ -16,8 +16,8 @@ function App() {
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(checkUserAuth());
-    }, []);
+       // dispatch(checkUserAuth());
+    }, [dispatch]);
     return (
         <>
             {visible && (

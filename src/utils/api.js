@@ -46,38 +46,25 @@ function resetPassword(body) {
 function registration() {
     return api('/auth/register', {
         method: 'POST',
-        body: {
-            "email": "timur.yakhin.99@yandex.ru",
-            "password": "timur1408",
-            "name": "Monotek"
-        }
+        body: JSON.stringify({
+            email: "timur.yakhin.99@yandex.ru",
+            password: "timur1408",
+            name: "Monotek"
+        })
     })
 }
-const getUser = () =>
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({
-                user: {},
-            });
-        }, 1000);
-    });
 
-const login = () =>
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({
-                accessToken: "test-token",
-                refreshToken: "test-refresh-token",
-                user: {},
-            });
-        }, 1000);
-    });
+function login(body) {
+    console.log(body);
+    return api('/auth/login', {
+        method: 'POST',
+        body:
+           JSON.stringify({
+                email: body.emailValue,
+                password: body.passwordValue
+            })
 
-const logout = () =>
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve();
-        }, 1000);
-    });
+    })
+}
 
-export {getIngredients, postIngredients, forgotPassword, resetPassword, registration, getUser, login, logout};
+export {getIngredients, postIngredients, forgotPassword, resetPassword, registration, login,};
