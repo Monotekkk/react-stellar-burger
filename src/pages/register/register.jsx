@@ -2,20 +2,17 @@ import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-deve
 import {useState, useRef} from "react";
 import style from './register-page.module.css';
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {registration} from "../../utils/api";
 
 function Register() {
-    const [emailValue, setEmailValue] = useState('bob@example.com');
+    const [emailValue, setEmailValue] = useState('timur.yakhin.99@yandex.ru');
     const [passwordValue, setPasswordValue] = useState('password');
-    const [value, setValue] = useState('Антон');
-    const onChange = event => {
-        event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
-    }
+    const [nameValue, setNameValue] = useState('Тимур');
     const onClick = () => {
-        console.log({emailValue, passwordValue});
+        console.log(JSON.stringify({emailValue, passwordValue, nameValue}));
+        registration({emailValue, passwordValue, nameValue}).then(r => console.log(r));
     }
     const inputRef = useRef(null)
-    const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
@@ -24,8 +21,8 @@ function Register() {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={e => setValue(e.target.value)}
-                        value={value}
+                        onChange={e => setNameValue(e.target.value)}
+                        value={nameValue}
                         name={'name'}
                         error={false}
                         ref={inputRef}
@@ -34,13 +31,13 @@ function Register() {
                         extraClass="ml-1"
                     />
                     <EmailInput
-                        onChange={onChange}
+                        onChange={e => setEmailValue(e.target.value)}
                         value={emailValue}
                         name={'email'}
                         isIcon={false}
                     />
                     <PasswordInput
-                        onChange={onChange}
+                        onChange={e => setPasswordValue(e.target.value)}
                         value={passwordValue}
                         name={'password'}
                         extraClass="mb-2"

@@ -25,46 +25,30 @@ function getIngredients() {
 function postIngredients(body) {
     return api('/orders', {
         method: 'POST',
-        body: body
+        body: body,
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
     });
 }
-
-function forgotPassword(body) {
-    return api('/password-reset', {
-        method: 'POST',
-        body: body
-    })
-}
-
-function resetPassword(body) {
-    return api('/password-reset/reset', {
-        method: 'POST',
-        body: body
-    })
-}
-
-function registration() {
+function registration({emailValue, passwordValue, nameValue}) {
+    console.log(JSON.stringify({
+        email: emailValue,
+        password: passwordValue,
+        name: nameValue,
+    }));
     return api('/auth/register', {
-        method: 'POST',
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
         body: JSON.stringify({
-            email: "timur.yakhin.99@yandex.ru",
-            password: "timur1408",
-            name: "Monotek"
-        })
-    })
-}
-
-function login(body) {
-    console.log(body);
-    return api('/auth/login', {
-        method: 'POST',
-        body:
-           JSON.stringify({
-                email: body.emailValue,
-                password: body.passwordValue
-            })
+            email: emailValue,
+            password: passwordValue,
+            name: nameValue,
+        }),
 
     })
 }
 
-export {getIngredients, postIngredients, forgotPassword, resetPassword, registration, login,};
+export {getIngredients, postIngredients, registration};

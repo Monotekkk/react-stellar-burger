@@ -24,7 +24,7 @@ function ForgotPassword() {
                         onChange={onChange}
                         value={emailValue}
                         error = {false}
-                        errorText={'Поле \"E-mail\" не может быть пустым'}
+                        errorText={'Поле "E-mail" не может быть пустым'}
                         name={'email'}
                         isIcon={false}
                     />

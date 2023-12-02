@@ -11,7 +11,6 @@ import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {useDispatch} from "react-redux";
-import {checkUserAuth} from "../../service/actions";
 function App() {
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
@@ -27,13 +26,13 @@ function App() {
             <main className={styles.content}>
             <DndProvider backend={HTML5Backend}>
                 <Routes>
-                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/'}  element={<Home/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/register'} element={<Register/>}/>
                     <Route path={'/forgot-password'} element={<ForgotPassword/>}/>
                     <Route path={'/reset-password'} element={<ResetPassword/>}/>
                 </Routes>
-                    </DndProvider>
+            </DndProvider>
             </main>
         </>
     );

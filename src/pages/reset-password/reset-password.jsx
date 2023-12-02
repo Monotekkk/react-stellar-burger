@@ -12,7 +12,6 @@ function ResetPassword() {
         e.target.name === 'newPasswordValue' ? setNewPasswordValue(e.target.value) : e.target.name === 'token' ? setToken(e.target.value) : console.log('error');
     };
     const onClick = () => {
-        registration().then(r => console.log(r));
         // resetPassword({
         //     "password": newPasswordValue,
         //     "token": token
