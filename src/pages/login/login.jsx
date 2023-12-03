@@ -6,14 +6,14 @@ import {useDispatch} from "react-redux";
 import { login } from "../../utils/api";
 
 function Login() {
-    const [emailValue, setEmailValue] = useState('bob@example.com');
+    const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');
     const [passwordValue, setPasswordValue] = useState('password');
-    const dispatch = useDispatch();
     const onChange = event => {
         event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
     }
     const onClick = () => {
-        dispatch(login({emailValue, passwordValue}));
+        login({emailValue, passwordValue}).then(res => {
+        });
     }
     return (
         <div className={style.login__page}>

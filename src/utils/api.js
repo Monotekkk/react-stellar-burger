@@ -32,11 +32,6 @@ function postIngredients(body) {
     });
 }
 function registration({emailValue, passwordValue, nameValue}) {
-    console.log(JSON.stringify({
-        email: emailValue,
-        password: passwordValue,
-        name: nameValue,
-    }));
     return api('/auth/register', {
         method: "POST",
         headers: {
@@ -50,5 +45,18 @@ function registration({emailValue, passwordValue, nameValue}) {
 
     })
 }
+function login({emailValue, passwordValue}) {
+    return api('/auth/login', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            email: emailValue,
+            password: passwordValue,
+        }),
 
-export {getIngredients, postIngredients, registration};
+    })
+}
+
+export {getIngredients, postIngredients, registration, login};
