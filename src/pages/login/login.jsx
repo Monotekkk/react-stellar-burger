@@ -3,16 +3,20 @@ import {useState} from "react";
 import style from './login-page.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import { login } from "../../utils/api";
+import {login} from "../../utils/api";
+import {SET_AUTH_CHECKED, SET_USER} from "../../service/actions";
 
 function Login() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');
     const [passwordValue, setPasswordValue] = useState('password');
+    const dispatch = useDispatch();
     const onChange = event => {
         event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
     }
     const onClick = () => {
         login({emailValue, passwordValue}).then(res => {
+            dispatch({type:SET_AUTH_CHECKED, data: res.success});
+            res.success === true ? dispatch({type: SET_USER, data: res}) : alert('Неправильный логин или пароль');
         });
     }
     return (
@@ -42,17 +46,19 @@ function Login() {
                     <p className="text text_type_main-small text_color_inactive">
                         Вы — новый пользователь?
                     </p>
-                    <Link to={'/register'} className={`${style.href} text text_type_main-small`}> Зарегистрироваться</Link>
+                    <Link to={'/register'}
+                          className={`${style.href} text text_type_main-small`}> Зарегистрироваться</Link>
                 </div>
                 <div className={style.href}>
                     <p className="text text_type_main-small text_color_inactive">
                         Забыли пароль?
                     </p>
-                    <Link to={'/forgot-password'} className={`${style.href} text text_type_main-small`}>Восстановить пароль</Link>
+                    <Link to={'/forgot-password'} className={`${style.href} text text_type_main-small`}>Восстановить
+                        пароль</Link>
                 </div>
             </div>
         </div>
-)
+    )
 }
 
 export default Login

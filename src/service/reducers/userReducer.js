@@ -1,25 +1,28 @@
-import { SET_AUTH_CHECKED, SET_USER } from '../actions/index';
+import {SET_USER, SET_AUTH_CHECKED} from '../actions/index';
 
 const initialState = {
     user: null,
     isAuthChecked: false,
 };
 
-const userReducer = (state = initialState, action) => {
-    switch (action.type) {
+export const userReducer = (state = initialState, action) => {
+    console.log(state);
+    const {data, type} = action;
+    switch (type) {
         case SET_AUTH_CHECKED:
             return {
                 ...state,
-                isAuthChecked: action.payload
+                isAuthChecked: data
             }
         case SET_USER:
             return {
                 ...state,
-                user: action.payload
+                user: data
             }
         default:
             return state;
     }
+
 };
 
-export default userReducer;
+

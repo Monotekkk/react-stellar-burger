@@ -8,5 +8,5 @@ export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
 export const POST_ORDER__PENDING = 'POST_ORDER__PENDING';
 export const POST_ORDER__SUCCESS = 'POST_ORDER__SUCCESS';
 export const POST_ORDER__REJECT = 'POST_ORDER__REJECT';
-export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
-export const SET_USER = "SET_USER";
+export const SET_USER = 'SET_USER';
+export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
