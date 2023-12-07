@@ -1,7 +1,7 @@
 import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState, useRef} from "react";
+import {useState} from "react";
 import style from './forgot-password.module.css';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {forgotPassword} from "../../utils/api";
 
@@ -9,10 +9,11 @@ function ForgotPassword() {
     const [emailValue, setEmailValue] = useState('');
     const [isEmailError, setIsEmailError] = useState(false);
     const onChange = e => e.target.name ? setEmailValue(e.target.value) : setEmailValue;
+    const navigate = useNavigate()
     const onClick = (e) => {
         forgotPassword({
             "email": emailValue
-        }).then(r => console.log(r))
+        }).then(r => r.success===true&&navigate('/reset-password'));
     }
     const dispatch = useDispatch();
     return (

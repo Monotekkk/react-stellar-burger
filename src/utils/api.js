@@ -1,3 +1,5 @@
+import {SET_AUTH_CHECKED, SET_USER} from "../service/actions";
+
 const baseURL = "https://norma.nomoreparties.space/api";
 
 async function api(route, params = {}) {
@@ -31,7 +33,9 @@ function postIngredients(body) {
         },
     });
 }
+
 function registration({emailValue, passwordValue, nameValue}) {
+    console.log(emailValue);
     return api('/auth/register', {
         method: "POST",
         headers: {
@@ -45,6 +49,7 @@ function registration({emailValue, passwordValue, nameValue}) {
 
     })
 }
+
 function login({emailValue, passwordValue}) {
     return api('/auth/login', {
         method: "POST",
@@ -54,9 +59,46 @@ function login({emailValue, passwordValue}) {
         body: JSON.stringify({
             email: emailValue,
             password: passwordValue,
-        }),
-
+        })
     })
 }
 
-export {getIngredients, postIngredients, registration, login};
+function getUser() {
+    return api('/auth/user', {
+        method: 'GET'
+    })
+}
+
+function checkUserAuth() {
+    return (dispatch) => {
+        if (localStorage.getItem("accessToken")) {
+            getUser()
+                .catch(() => {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    dispatch({type: SET_USER, data: null})
+                })
+                .finally(() => dispatch({type: SET_AUTH_CHECKED, data: true}));
+        } else {
+            dispatch({type: SET_AUTH_CHECKED, data: true});
+        }
+    };
+}
+
+function forgotPassword(email) {
+    return api('/password-reset', {
+        method: 'POST',
+        body: email
+    })
+}
+function resetPassword(password, token) {
+    return api('/password-reset/reset', {
+        method: 'POST',
+        body: {
+            "password": password,
+            "token": token
+        }
+    })
+}
+
+export {getIngredients, postIngredients, registration, login, checkUserAuth, forgotPassword, resetPassword};

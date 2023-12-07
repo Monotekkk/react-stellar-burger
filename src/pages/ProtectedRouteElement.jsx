@@ -5,13 +5,12 @@ const Protected = ({ onlyUnAuth = false, component }) => {
     const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
     const user = useSelector((store) => store.user.user);
     const location = useLocation();
-
     if (!isAuthChecked) {
         return null;
     }
 
     if (onlyUnAuth && user) {
-        const { from } = location.state || { from: { pathname: "/login" } };
+        const { from } = location.state || { from: { pathname: "/profile" } };
         return <Navigate to={from} />;
     }
 

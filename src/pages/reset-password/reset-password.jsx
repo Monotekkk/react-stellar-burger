@@ -3,34 +3,28 @@ import {useState, useRef} from "react";
 import style from './reset-password.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {registration, resetPassword} from "../../utils/api";
+import {resetPassword} from "../../utils/api";
 
 function ResetPassword() {
     const [newPasswordValue, setNewPasswordValue] = useState('');
     const [token, setToken] = useState('');
-    const onChange = e => {
-        e.target.name === 'newPasswordValue' ? setNewPasswordValue(e.target.value) : e.target.name === 'token' ? setToken(e.target.value) : console.log('error');
-    };
+
     const onClick = () => {
-        // resetPassword({
-        //     "password": newPasswordValue,
-        //     "token": token
-        // }).then(r => console.log(r))
+        resetPassword(JSON.stringify(newPasswordValue), JSON.stringify(token)).then(r=>console.log(r));
     }
-    const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Восстановление пароля</h1>
                 <form action="" className={style.login__form}>
                     <PasswordInput
-                        onChange={onChange}
+                        onChange={e => setNewPasswordValue(e.target.value)}
                         value={newPasswordValue}
                         name={'newPasswordValue'}
                         extraClass="mb-2"
                     />
                     <Input
-                        onChange={onChange}
+                        onChange={e => setToken(e.target.value)}
                         value={token}
                         name={'token'}
                         extraClass="mb-2"

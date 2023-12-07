@@ -10,12 +10,9 @@ function Login() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');
     const [passwordValue, setPasswordValue] = useState('password');
     const dispatch = useDispatch();
-    const onChange = event => {
-        event.target.name === 'email' ? setEmailValue(event.target.value) : setPasswordValue(event.target.value);
-    }
     const onClick = () => {
         login({emailValue, passwordValue}).then(res => {
-            dispatch({type:SET_AUTH_CHECKED, data: res.success});
+            dispatch({type: SET_AUTH_CHECKED, data: res.success});
             res.success === true ? dispatch({type: SET_USER, data: res}) : alert('Неправильный логин или пароль');
         });
     }
@@ -25,13 +22,13 @@ function Login() {
                 <h1 className={`${style.login__title} text_type_main-large`}>Вход</h1>
                 <form action="" className={style.login__form}>
                     <EmailInput
-                        onChange={onChange}
+                        onChange={e => setEmailValue(e.target.value)}
                         value={emailValue}
                         name={'email'}
                         isIcon={false}
                     />
                     <PasswordInput
-                        onChange={onChange}
+                        onChange={e => setPasswordValue(e.target.value)}
                         value={passwordValue}
                         name={'password'}
                         extraClass="mb-2"
@@ -54,7 +51,8 @@ function Login() {
                         Забыли пароль?
                     </p>
                     <Link to={'/forgot-password'} className={`${style.href} text text_type_main-small`}>Восстановить
-                        пароль</Link>
+                        пароль
+                    </Link>
                 </div>
             </div>
         </div>
