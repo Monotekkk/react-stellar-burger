@@ -20,3 +20,10 @@
     width: 320px;
     height: 64px;
 }
+.asideMenuItem:hover{
+    cursor: pointer;
+}
+.paragraph{
+    margin-left: 40px;
+}
+

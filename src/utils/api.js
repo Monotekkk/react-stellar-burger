@@ -76,12 +76,18 @@ function checkUserAuth() {
     return (dispatch) => {
         if (localStorage.getItem("accessToken")) {
             getUser()
+                .then(result => {
+                    dispatch({type: SET_USER, data: result});
+                })
                 .catch(() => {
                     localStorage.removeItem("accessToken");
                     localStorage.removeItem("refreshToken");
                     dispatch({type: SET_USER, data: null})
                 })
-                .finally(() => dispatch({type: SET_AUTH_CHECKED, data: true}));
+                .finally(() => {
+
+                    return dispatch({type: SET_AUTH_CHECKED, data: true})
+                });
         } else {
             dispatch({type: SET_AUTH_CHECKED, data: true});
         }
@@ -111,4 +117,72 @@ function resetPassword(password, token) {
     });
 }
 
-export {getIngredients, postIngredients, registration, login, checkUserAuth, forgotPassword, resetPassword, getUser};
+function logout() {
+    const refreshToken = localStorage.getItem("refreshToken");
+    return async (dispatch) => {
+        await api('/auth/logout', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(
+                {
+                    "token": refreshToken
+                }
+            )
+        });
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch({type: SET_USER, data: null});
+    };
+}
+
+function refreshToken() {
+    const refreshToken = localStorage.getItem("refreshToken");
+    return async () => {
+        await api('/auth/token', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(
+                {
+                    "token": refreshToken
+                }
+            )
+        })
+    }
+}
+
+function updateUserInfo({valueName, valueEmail, valuePass}) {
+    return async () => {
+        await api('/auth/user', {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+                authorization: localStorage.getItem("accessToken"),
+            },
+            body: JSON.stringify(
+                {
+                    "email": valueEmail,
+                    "password": valuePass,
+                    "name": valueName
+                }
+            )
+        })
+    }
+}
+
+export {
+    getIngredients,
+    postIngredients,
+    registration,
+    login,
+    checkUserAuth,
+    forgotPassword,
+    resetPassword,
+    getUser,
+    logout,
+    refreshToken,
+    updateUserInfo
+};

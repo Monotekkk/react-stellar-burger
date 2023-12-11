@@ -12,18 +12,19 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {useDispatch, useSelector} from "react-redux";
 import {OnlyAuth, OnlyUnAuth} from "../../pages/ProtectedRouteElement";
-import {checkUserAuth} from "../../utils/api";
+import {checkUserAuth, refreshToken} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
 
 function App() {
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
-    const store = useSelector(store=>store.user.user);
+    const store = useSelector(store => store.user.user);
     useEffect(() => {
         dispatch(checkUserAuth());
-        console.log(store);
+        store&&setTimeout( refreshToken(), 1200000)
     }, []);
+
     return (
         <>
             {visible && (
