@@ -15,29 +15,36 @@ import OrderDetails from "../order-details/order-details";
 import {useDrop} from "react-dnd";
 import ConstructorMain from "./burger-ingredients/burger-ingredients";
 import {v4 as uuidv4} from 'uuid';
+import {useNavigate} from "react-router-dom";
 
 function BurgerConstructor() {
     const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
     const [visible, setVisible] = useState(false);
     const [disable, setDisable] = useState(true);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((store) => store.user.user);
     const onClick = () => {
-        if (store[0].type === 'bun') {
-            let idIngredients = [store[0]._id];
-            store.forEach((element) => {
-                idIngredients.push(element._id);
-            });
-            idIngredients.push(store[0]._id);
-            postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
-                setVisible(true);
-                dispatch({type: SET_ORDER, data: result});
-                dispatch({type: POST_ORDER__PENDING});
-                if (result.ok) {
-                    dispatch({type: POST_ORDER__SUCCESS});
-                }
-            }).catch(err => {
-                dispatch({type: POST_ORDER__REJECT, data: err});
-            })
+        if (user){
+            if (store[0].type === 'bun') {
+                let idIngredients = [store[0]._id];
+                store.forEach((element) => {
+                    idIngredients.push(element._id);
+                });
+                idIngredients.push(store[0]._id);
+                postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
+                    setVisible(true);
+                    dispatch({type: SET_ORDER, data: result});
+                    dispatch({type: POST_ORDER__PENDING});
+                    if (result.ok) {
+                        dispatch({type: POST_ORDER__SUCCESS});
+                    }
+                }).catch(err => {
+                    dispatch({type: POST_ORDER__REJECT, data: err});
+                })
+            }
+        }else {
+            navigate('/login');
         }
     }
     const calculateOrderAmount = (store) => {

@@ -22,7 +22,7 @@ function AppHeader() {
                         <Logo/>
                     </li>
                     <li>
-                            <Link className={`text text_type_main-default ${stylesHeader.li} pr-9`} to={'/login'}>
+                            <Link className={`text text_type_main-default ${stylesHeader.li} pr-9`} to={'/profile'}>
                                 <ProfileIcon type="secondary"/>
                                 <p className={stylesHeader.paragraph}>Личный кабинет</p>
                             </Link>

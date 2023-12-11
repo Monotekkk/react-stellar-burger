@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import {useSelector} from "react-redux";
+import {Navigate, useLocation} from "react-router-dom";
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+const Protected = ({onlyUnAuth = false, component}) => {
     const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
     const user = useSelector((store) => store.user.user);
     const location = useLocation();
@@ -10,19 +10,21 @@ const Protected = ({ onlyUnAuth = false, component }) => {
     }
 
     if (onlyUnAuth && user) {
-        const { from } = location.state || { from: { pathname: "/profile" } };
-        return <Navigate to={from} />;
+        const {from} = location.state || {from: {pathname: "/"}};
+        return <Navigate to={from}/>;
     }
 
     if (!onlyUnAuth && !user) {
-        return <Navigate to="/login" state={{ from: location }} />;
+        return <Navigate to="/login" state={{from: location}}/>;
     }
-
+    if (location.pathname === '/reset-password' && location.state !== '/forgot-password') {
+        return <Navigate to="/login" state={{from: location}}/>;
+    }
 
     return component;
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
-    <Protected onlyUnAuth={true} component={component} />
+export const OnlyUnAuth = ({component}) => (
+    <Protected onlyUnAuth={true} component={component}/>
 );

@@ -1,16 +1,16 @@
 import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState, useRef} from "react";
 import style from './reset-password.module.css';
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Link, useLocation} from "react-router-dom";
 import {resetPassword} from "../../utils/api";
 
 function ResetPassword() {
     const [newPasswordValue, setNewPasswordValue] = useState('');
     const [token, setToken] = useState('');
-
+    const location = useLocation();
+    console.log(location);
     const onClick = () => {
-        resetPassword(JSON.stringify(newPasswordValue), JSON.stringify(token)).then(r=>console.log(r));
+        resetPassword(newPasswordValue, token).then(r => console.log(r));
     }
     return (
         <div className={style.login__page}>

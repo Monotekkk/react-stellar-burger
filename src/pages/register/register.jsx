@@ -9,7 +9,6 @@ function Register() {
     const [passwordValue, setPasswordValue] = useState('password');
     const [nameValue, setNameValue] = useState('Тимур');
     const onClick = () => {
-        console.log(JSON.stringify({emailValue, passwordValue, nameValue}));
         registration({emailValue, passwordValue, nameValue}).then(r => console.log(r));
     }
     const inputRef = useRef(null)

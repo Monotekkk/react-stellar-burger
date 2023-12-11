@@ -1,7 +1,7 @@
 import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import style from './forgot-password.module.css';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {forgotPassword} from "../../utils/api";
 
@@ -9,11 +9,12 @@ function ForgotPassword() {
     const [emailValue, setEmailValue] = useState('');
     const [isEmailError, setIsEmailError] = useState(false);
     const onChange = e => e.target.name ? setEmailValue(e.target.value) : setEmailValue;
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
     const onClick = (e) => {
         forgotPassword({
             "email": emailValue
-        }).then(r => r.success===true&&navigate('/reset-password'));
+        }).then(r => r.success === true && navigate('/reset-password', {state: location.pathname}))
     }
     const dispatch = useDispatch();
     return (
@@ -24,7 +25,7 @@ function ForgotPassword() {
                     <EmailInput
                         onChange={onChange}
                         value={emailValue}
-                        error = {false}
+                        error={false}
                         errorText={'Поле "E-mail" не может быть пустым'}
                         name={'email'}
                         isIcon={false}

@@ -35,7 +35,6 @@ function postIngredients(body) {
 }
 
 function registration({emailValue, passwordValue, nameValue}) {
-    console.log(emailValue);
     return api('/auth/register', {
         method: "POST",
         headers: {
@@ -65,7 +64,11 @@ function login({emailValue, passwordValue}) {
 
 function getUser() {
     return api('/auth/user', {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            authorization: localStorage.getItem("accessToken"),
+        },
     })
 }
 
@@ -86,19 +89,26 @@ function checkUserAuth() {
 }
 
 function forgotPassword(email) {
-    return api('/password-reset', {
-        method: 'POST',
-        body: email
-    })
-}
-function resetPassword(password, token) {
-    return api('/password-reset/reset', {
-        method: 'POST',
-        body: {
-            "password": password,
-            "token": token
-        }
-    })
+    return api("/password-reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(email),
+    });
 }
 
-export {getIngredients, postIngredients, registration, login, checkUserAuth, forgotPassword, resetPassword};
+function resetPassword(password, token) {
+    return api("/password-reset/reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            password: password,
+            token: token,
+        }),
+    });
+}
+
+export {getIngredients, postIngredients, registration, login, checkUserAuth, forgotPassword, resetPassword, getUser};

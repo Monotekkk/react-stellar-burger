@@ -12,8 +12,15 @@ function Login() {
     const dispatch = useDispatch();
     const onClick = () => {
         login({emailValue, passwordValue}).then(res => {
+            console.log(res);
             dispatch({type: SET_AUTH_CHECKED, data: res.success});
-            res.success === true ? dispatch({type: SET_USER, data: res}) : alert('Неправильный логин или пароль');
+            if (res.success) {
+                dispatch({type: SET_USER, data: res})
+                localStorage.setItem("accessToken", res.accessToken);
+                localStorage.setItem("refreshToken", res.refreshToken);
+            } else {
+                alert('Неправильный логин или пароль');
+            }
         });
     }
     return (
