@@ -15,6 +15,8 @@ import {OnlyAuth, OnlyUnAuth} from "../../pages/ProtectedRouteElement";
 import {checkUserAuth, refreshToken} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
+import Ingredients from "../../pages/ingredients/ingredients";
+import Ingredient from "../../pages/ingredients/ingredient/ingredient";
 
 function App() {
     const [visible, setVisible] = useState(false);
@@ -41,6 +43,9 @@ function App() {
                         <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                         <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
                         <Route path={'/profile/orders'} element={<OnlyAuth component={<Orders/>}/>}/>
+                        <Route path={'/ingredients'} element={<Ingredients/>}>
+                            <Route path=":id" element={<Ingredient/>} />
+                        </Route>
                     </Routes>
                 </DndProvider>
             </main>

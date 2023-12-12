@@ -3,6 +3,7 @@ import styles from './ingredient-details.module.css'
 
 const IngredientDetails = () => {
     const data = useSelector(store=>store.ingredientsDetailModal.viewedIngridients);
+    console.log(data);
     return (
         <section className={`${styles.section} pt-10 pb-15` } aria-label='Пищевая ценность'>
 
