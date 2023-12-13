@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css'
+import {useLocation, useParams} from "react-router-dom";
 
-const IngredientDetails = () => {
+const IngredientDetails = ({ingr}) => {
     const data = useSelector(store=>store.ingredientsDetailModal.viewedIngridients);
-    console.log(data);
+    console.log(ingr);
     return (
         <section className={`${styles.section} pt-10 pb-15` } aria-label='Пищевая ценность'>
 

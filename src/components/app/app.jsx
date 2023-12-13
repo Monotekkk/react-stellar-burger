@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import Modal from "../modal/modal";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
@@ -17,20 +17,23 @@ import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
 import Ingredients from "../../pages/ingredients/ingredients";
 import Ingredient from "../../pages/ingredients/ingredient/ingredient";
+import IngredientDetails from "../ingrindients-details/ingrendients-details";
 
 function App() {
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const background = location.state && location.state.background;
     const store = useSelector(store => store.user.user);
     useEffect(() => {
         dispatch(checkUserAuth());
         store&&setTimeout( refreshToken(), 1200000)
     }, []);
-
     return (
         <>
             {visible && (
-                <Modal closePopup={() => setVisible(!visible)}/>
+                <Modal closePopup={() => navigate(-1)}/>
             )}
             <AppHeader/>
             <main className={styles.content}>
@@ -43,10 +46,21 @@ function App() {
                         <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                         <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
                         <Route path={'/profile/orders'} element={<OnlyAuth component={<Orders/>}/>}/>
-                        <Route path={'/ingredients'} element={<Ingredients/>}>
-                            <Route path=":id" element={<Ingredient/>} />
+                        <Route path={'/ingredients/:id'} element={<IngredientDetails/>}>
                         </Route>
                     </Routes>
+                    {background && (
+                        <Routes>
+                            <Route
+                                path='/ingredients/:id'
+                                element={
+                                    <Modal closePopup={()=>{navigate(-1)}}>
+                                        <IngredientDetails />
+                                    </Modal>
+                                }
+                            />
+                        </Routes>
+                    )}
                 </DndProvider>
             </main>
         </>
