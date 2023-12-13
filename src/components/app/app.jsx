@@ -15,10 +15,9 @@ import {OnlyAuth, OnlyUnAuth} from "../../pages/ProtectedRouteElement";
 import {checkUserAuth, refreshToken} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
-import Ingredients from "../../pages/ingredients/ingredients";
-import Ingredient from "../../pages/ingredients/ingredient/ingredient";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
 import {loadIngridients} from "../../service/stores";
+import {CLEAR_VIEW_INGREDIENT} from "../../service/actions";
 
 function App() {
     const [visible, setVisible] = useState(false);
@@ -36,14 +35,16 @@ function App() {
     return (
         <>
             {visible && (
-                <Modal closePopup={() => navigate(-1)}/>
+                <Modal closePopup={() => {
+                    navigate(-1);
+                }}/>
             )}
             <AppHeader/>
             {
                 !ingredients.isLoadingIngredientsList && ingredients.ingredientsList.length > 0 ? (
                     <main className={styles.content}>
                         <DndProvider backend={HTML5Backend}>
-                            <Routes>
+                            <Routes location={background || location}>
                                 <Route path={'/'} element={<Home/>}/>
                                 <Route path={'/login'} element={<OnlyUnAuth component={<Login/>}/>}/>
                                 <Route path={'/register'} element={<OnlyUnAuth component={<Register/>}/>}/>
@@ -51,8 +52,7 @@ function App() {
                                 <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                                 <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
                                 <Route path={'/profile/orders'} element={<OnlyAuth component={<Orders/>}/>}/>
-                                <Route path={'/ingredients/:id'} element={<IngredientDetails/>}>
-                                </Route>
+                                <Route path={'/ingredients/:id'} element={<IngredientDetails/>}/>
                             </Routes>
                             {background && (
                                 <Routes>
@@ -60,7 +60,7 @@ function App() {
                                         path='/ingredients/:id'
                                         element={
                                             <Modal closePopup={() => {
-                                                navigate(-1)
+                                                navigate(-1);
                                             }}>
                                                 <IngredientDetails/>
                                             </Modal>

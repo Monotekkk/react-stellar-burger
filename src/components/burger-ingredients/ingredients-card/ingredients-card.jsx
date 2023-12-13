@@ -15,7 +15,6 @@ function BurgerCard({data}) {
         dispatch({type: CHECK_VIEW_INGREDIENT, data: data});
         dispatch({type: ADD_INGREDIENT, data: data,});
         setVisible(!visible);
-        console.log(location);
     }
     const [visible, setVisible] = useState(false);
     const [{isDrag}, dragRef] = useDrag(
@@ -45,13 +44,6 @@ function BurgerCard({data}) {
                         <p className={`mr-2 mt-2 text text_type_main-default`}>{`${data.name}`}</p>
                     </Link>
                 </div>
-            }
-            {
-                visible && (
-                    <Modal closePopup={() => setVisible(!visible)}>
-                        <IngredientDetails data={data}/>
-                    </Modal>
-                )
             }
         </>
 

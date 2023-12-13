@@ -9,21 +9,17 @@ import { CLEAR_VIEW_INGREDIENT } from '../../service/actions';
 import {useSearchParams} from "react-router-dom";
 const Modal = ({ children, closePopup }) => {
     const dispatch = useDispatch();
-    const [searchParams, setSearchParams] = useSearchParams();
-    setSearchParams({children});
-    console.log(searchParams);
     useEffect(() => {
         const closePopupEsc = event => {
             if (event.key === 'Escape') {
                 closePopup();
-                dispatch({ type: CLEAR_VIEW_INGREDIENT });
             }
         };
 
         document.addEventListener('keydown', closePopupEsc);
 
         return () => document.removeEventListener('keydown', closePopupEsc);
-    }, [dispatch, closePopup]);
+    }, [dispatch]);
 
     return createPortal(
         <>
@@ -34,7 +30,7 @@ const Modal = ({ children, closePopup }) => {
                 </button>
                 {children}
             </div>
-        </>, document.body
+        </>, document.querySelector('#modals')
     );
 };
 
