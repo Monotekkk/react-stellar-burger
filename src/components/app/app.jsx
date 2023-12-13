@@ -18,6 +18,7 @@ import Orders from "../../pages/orders/orders";
 import Ingredients from "../../pages/ingredients/ingredients";
 import Ingredient from "../../pages/ingredients/ingredient/ingredient";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
+import {loadIngridients} from "../../service/stores";
 
 function App() {
     const [visible, setVisible] = useState(false);
@@ -26,9 +27,11 @@ function App() {
     const navigate = useNavigate();
     const background = location.state && location.state.background;
     const store = useSelector(store => store.user.user);
+    const ingredients = useSelector(store => store.ingredientsList);
     useEffect(() => {
         dispatch(checkUserAuth());
-        store&&setTimeout( refreshToken(), 1200000)
+        store && setTimeout(refreshToken(), 1200000);
+        dispatch(loadIngridients());
     }, []);
     return (
         <>
@@ -36,33 +39,42 @@ function App() {
                 <Modal closePopup={() => navigate(-1)}/>
             )}
             <AppHeader/>
-            <main className={styles.content}>
-                <DndProvider backend={HTML5Backend}>
-                    <Routes>
-                        <Route path={'/'} element={<Home/>}/>
-                        <Route path={'/login'} element={<OnlyUnAuth component={<Login/>}/>}/>
-                        <Route path={'/register'} element={<OnlyUnAuth component={<Register/>}/>}/>
-                        <Route path={'/forgot-password'} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
-                        <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
-                        <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
-                        <Route path={'/profile/orders'} element={<OnlyAuth component={<Orders/>}/>}/>
-                        <Route path={'/ingredients/:id'} element={<IngredientDetails/>}>
-                        </Route>
-                    </Routes>
-                    {background && (
-                        <Routes>
-                            <Route
-                                path='/ingredients/:id'
-                                element={
-                                    <Modal closePopup={()=>{navigate(-1)}}>
-                                        <IngredientDetails />
-                                    </Modal>
-                                }
-                            />
-                        </Routes>
-                    )}
-                </DndProvider>
-            </main>
+            {
+                !ingredients.isLoadingIngredientsList && ingredients.ingredientsList.length > 0 ? (
+                    <main className={styles.content}>
+                        <DndProvider backend={HTML5Backend}>
+                            <Routes>
+                                <Route path={'/'} element={<Home/>}/>
+                                <Route path={'/login'} element={<OnlyUnAuth component={<Login/>}/>}/>
+                                <Route path={'/register'} element={<OnlyUnAuth component={<Register/>}/>}/>
+                                <Route path={'/forgot-password'} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                                <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                                <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
+                                <Route path={'/profile/orders'} element={<OnlyAuth component={<Orders/>}/>}/>
+                                <Route path={'/ingredients/:id'} element={<IngredientDetails/>}>
+                                </Route>
+                            </Routes>
+                            {background && (
+                                <Routes>
+                                    <Route
+                                        path='/ingredients/:id'
+                                        element={
+                                            <Modal closePopup={() => {
+                                                navigate(-1)
+                                            }}>
+                                                <IngredientDetails/>
+                                            </Modal>
+                                        }
+                                    />
+                                </Routes>
+                            )}
+                        </DndProvider>
+                    </main>) : (
+                    <p className="text text_type_main-large">
+                        Страница загружается
+                    </p>
+                )
+            }
         </>
     );
 }

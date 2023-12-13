@@ -27,20 +27,23 @@ function BurgerCard({data}) {
             })
         });
     return (
-        <Link
-            key={data._id}
-            to={`/ingredients/${data._id}`}
-            state={{background: location}}
-            className={style.link}
-        >
-            {!isDrag &&
+        <>
+            {
+                !isDrag &&
                 <div className={style.card} onClick={() => clickHandler(data)} key={data._id} ref={dragRef}>
-                    <img src={data.image} alt={data.name}/>
-                    <div className={`${style.price} mb-2`}>
-                        <p className={`mr-2 text text_type_main-default`}>{`${data.price}`}</p>
-                        <CurrencyIcon type={"primary"}/>
-                    </div>
-                    <p className={`mr-2 mt-2 text text_type_main-default`}>{`${data.name}`}</p>
+                    <Link
+                        key={data._id}
+                        to={`/ingredients/${data._id}`}
+                        state={{background: location}}
+                        className={style.link}
+                    >
+                        <img src={data.image} alt={data.name}/>
+                        <div className={`${style.price} mb-2`}>
+                            <p className={`mr-2 text text_type_main-default`}>{`${data.price}`}</p>
+                            <CurrencyIcon type={"primary"}/>
+                        </div>
+                        <p className={`mr-2 mt-2 text text_type_main-default`}>{`${data.name}`}</p>
+                    </Link>
                 </div>
             }
             {
@@ -50,8 +53,9 @@ function BurgerCard({data}) {
                     </Modal>
                 )
             }
+        </>
 
-        </Link>
+
     )
 }
 

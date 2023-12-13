@@ -9,4 +9,10 @@
 .price {
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.link{
+        text-decoration: none;
+        color: white;
+        text-align: center;
 }

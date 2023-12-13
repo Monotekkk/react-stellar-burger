@@ -1,11 +1,15 @@
-import { createStore, applyMiddleware } from "redux";
-import { rootReducer } from "../reducers/index";
-import { getIngredients } from "../../utils/api";
+import {createStore, applyMiddleware} from "redux";
+import {rootReducer} from "../reducers/index";
+import {getIngredients} from "../../utils/api";
 import thunk from "redux-thunk";
-import { GET_INGREDIENTS } from "../actions";
+import {GET_INGREDIENTS, SET_LOADING_CHECKED} from "../actions";
+
 export const loadIngridients = store => dispatch => {
-    getIngredients().then((res)=>{
+    dispatch({type: SET_LOADING_CHECKED, data: true});
+    getIngredients().then((res) => {
         dispatch({type: GET_INGREDIENTS, data: res.data});
+    }).finally(() => {
+        dispatch({type: SET_LOADING_CHECKED, data: false});
     })
 };
 export const store = createStore(rootReducer, applyMiddleware(thunk));

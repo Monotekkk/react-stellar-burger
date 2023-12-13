@@ -17,11 +17,8 @@ function BurgerIngredients() {
         section.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
         return setCurrent(value);
     }
-    const dispatch = useDispatch();
     const data = useSelector(state => state.ingredientsList.ingredientsList);
-    useEffect(() => {
-        dispatch(loadIngridients());
-    }, [dispatch])
+
     const buns = useMemo(
         () => data.filter((item) => item.type === "bun"),
         [data]
