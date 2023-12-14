@@ -18,8 +18,6 @@ function Login() {
                 dispatch({type: SET_USER, data: res})
                 localStorage.setItem("accessToken", res.accessToken);
                 localStorage.setItem("refreshToken", res.refreshToken);
-            } else {
-                alert('Неправильный логин или пароль');
             }
         }).catch(err=>console.log(err));
     }
