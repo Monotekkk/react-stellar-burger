@@ -12,16 +12,17 @@ function ForgotPassword() {
     const navigate = useNavigate();
     const location = useLocation();
     const onClick = (e) => {
+        e.preventDefault();
         forgotPassword({
             "email": emailValue
         }).then(r => r.success === true && navigate('/reset-password', {state: location.pathname}))
+            .catch(err=>console.log(err));
     }
-    const dispatch = useDispatch();
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Восстановление пароля</h1>
-                <form action="" className={style.login__form}>
+                <form action="" className={style.login__form} onSubmit={onClick}>
                     <EmailInput
                         onChange={onChange}
                         value={emailValue}
@@ -30,7 +31,7 @@ function ForgotPassword() {
                         name={'email'}
                         isIcon={false}
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onClick}
+                    <Button htmlType="submit" type="primary" size="large"
                             disabled={emailValue === ''}>
                         Восстановить
                     </Button>

@@ -12,11 +12,11 @@ async function api(route, params = {}) {
             body: params?.body || null,
         };
 
-    const res = await fetch(url, options);
+    const res = await fetch(url, options)
     if (res.ok) {
         return res.json();
     } else {
-        throw new Error(`Failed to fetch. Code error:${res.status}`);
+        console.error(`Failed to fetch. Code error:${res.status}`);
     }
 }
 

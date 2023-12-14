@@ -10,7 +10,8 @@ function Login() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');
     const [passwordValue, setPasswordValue] = useState('password');
     const dispatch = useDispatch();
-    const onClick = () => {
+    const onClick = (e) => {
+        e.preventDefault();
         login({emailValue, passwordValue}).then(res => {
             dispatch({type: SET_AUTH_CHECKED, data: res.success});
             if (res.success) {
@@ -20,13 +21,13 @@ function Login() {
             } else {
                 alert('Неправильный логин или пароль');
             }
-        });
+        }).catch(err=>console.log(err));
     }
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Вход</h1>
-                <form action="" className={style.login__form}>
+                <form action="" className={style.login__form} onSubmit={onClick}>
                     <EmailInput
                         onChange={e => setEmailValue(e.target.value)}
                         value={emailValue}
@@ -39,7 +40,7 @@ function Login() {
                         name={'password'}
                         extraClass="mb-2"
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+                    <Button htmlType="submit" type="primary" size="large" >
                         Войти
                     </Button>
                 </form>

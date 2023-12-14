@@ -10,13 +10,13 @@ function ResetPassword() {
     const location = useLocation();
     console.log(location);
     const onClick = () => {
-        resetPassword(newPasswordValue, token).then(r => console.log(r));
+        resetPassword(newPasswordValue, token).catch(err=>console.log(err));
     }
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Восстановление пароля</h1>
-                <form action="" className={style.login__form}>
+                <form action="" className={style.login__form} onSubmit={onClick}>
                     <PasswordInput
                         onChange={e => setNewPasswordValue(e.target.value)}
                         value={newPasswordValue}
@@ -30,7 +30,7 @@ function ResetPassword() {
                         extraClass="mb-2"
                         placeholder={'Введите код из письма'}
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+                    <Button htmlType="submit" type="primary" size="large">
                         Сохранить
                     </Button>
                 </form>

@@ -1,4 +1,4 @@
-import {ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../actions";
+import {ADD_INGREDIENT, CLEAR_CONSTRUCTOR, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../actions";
 const initialState = {
     selectedIngredientsList: [],
 }
@@ -30,6 +30,11 @@ export const constructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedIngredientsList: [...ingredients]
+            }
+        case CLEAR_CONSTRUCTOR:
+            return {
+                ...state,
+                selectedIngredientsList: [ ]
             }
         default:
             return state

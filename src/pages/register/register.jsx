@@ -9,14 +9,14 @@ function Register() {
     const [passwordValue, setPasswordValue] = useState('password');
     const [nameValue, setNameValue] = useState('Тимур');
     const onClick = () => {
-        registration({emailValue, passwordValue, nameValue}).then(r => console.log(r));
+        registration({emailValue, passwordValue, nameValue}).catch(err => console.log(err));
     }
     const inputRef = useRef(null)
     return (
         <div className={style.login__page}>
             <div className={style.login__form}>
                 <h1 className={`${style.login__title} text_type_main-large`}>Регистрация</h1>
-                <form action="" className={style.login__form}>
+                <form action="" className={style.login__form} onSubmit={onClick}>
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
@@ -41,7 +41,7 @@ function Register() {
                         name={'password'}
                         extraClass="mb-2"
                     />
-                    <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+                    <Button htmlType="submit" type="primary" size="large">
                         Зарегистрироваться
                     </Button>
                 </form>

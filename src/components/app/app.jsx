@@ -17,10 +17,9 @@ import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
 import {loadIngridients} from "../../service/stores";
-import {CLEAR_VIEW_INGREDIENT} from "../../service/actions";
 
 function App() {
-    const [visible, setVisible] = useState(false);
+    const [visible, ] = useState(false);
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();

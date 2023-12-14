@@ -8,8 +8,10 @@ export const loadIngridients = store => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});
     getIngredients().then((res) => {
         dispatch({type: GET_INGREDIENTS, data: res.data});
-    }).finally(() => {
-        dispatch({type: SET_LOADING_CHECKED, data: false});
     })
+        .catch(err => console.log(err))
+        .finally(() => {
+            dispatch({type: SET_LOADING_CHECKED, data: false});
+        })
 };
 export const store = createStore(rootReducer, applyMiddleware(thunk));
