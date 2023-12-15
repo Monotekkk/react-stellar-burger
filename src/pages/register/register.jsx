@@ -1,7 +1,7 @@
 import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState, useRef} from "react";
 import style from './register-page.module.css';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {registration} from "../../utils/api";
 import {useDispatch} from "react-redux";
 import {registrationThunk} from "../../service/stores";
@@ -11,8 +11,10 @@ function Register() {
     const [passwordValue, setPasswordValue] = useState('password');
     const [nameValue, setNameValue] = useState('Тимур');
     const dispatch = useDispatch();
-    const onClick = () => {
-        dispatch(registrationThunk({emailValue, passwordValue, nameValue}));
+    const navigate = useNavigate();
+    const onClick = (e) => {
+        e.preventDefault();
+        dispatch(registrationThunk({emailValue, passwordValue, nameValue}, navigate));
     }
     const inputRef = useRef(null)
     return (

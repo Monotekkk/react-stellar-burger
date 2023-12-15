@@ -35,15 +35,16 @@ function postIngredients(body) {
 }
 
 function registration({emailValue, passwordValue, nameValue}) {
+    console.log({emailValue, passwordValue, nameValue});
     return api('/auth/register', {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({
-            email: emailValue,
-            password: passwordValue,
-            name: nameValue,
+            'email': emailValue,
+            'password': passwordValue,
+            'name': nameValue,
         }),
 
     })

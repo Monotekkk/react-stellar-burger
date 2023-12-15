@@ -46,8 +46,13 @@ export const loginThunk = (data) => dispatch => {
 export const updateUserInfoThunk = (data) => dispatch => {
     updateUserInfo(data).catch(err => console.log(err));
 }
-export const registrationThunk = (data) => dispatch => {
-  registration(data).catch(err => console.log(err));
+export const registrationThunk = (data, navigate) => dispatch => {
+  registration(data)
+      .then(r=>{
+          console.log();
+          r.success&&navigate('/login')
+      })
+      .catch(err => console.log(err));
 }
 export const resetPasswordThunk = (data) => dispatch => {
     resetPassword(data).catch(err => console.log(err));
