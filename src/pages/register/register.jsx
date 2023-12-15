@@ -3,13 +3,16 @@ import {useState, useRef} from "react";
 import style from './register-page.module.css';
 import {Link} from "react-router-dom";
 import {registration} from "../../utils/api";
+import {useDispatch} from "react-redux";
+import {registrationThunk} from "../../service/stores";
 
 function Register() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@yandex.ru');
     const [passwordValue, setPasswordValue] = useState('password');
     const [nameValue, setNameValue] = useState('Тимур');
+    const dispatch = useDispatch();
     const onClick = () => {
-        registration({emailValue, passwordValue, nameValue}).catch(err => console.log(err));
+        dispatch(registrationThunk({emailValue, passwordValue, nameValue}));
     }
     const inputRef = useRef(null)
     return (

@@ -1,22 +1,22 @@
-import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import style from './forgot-password.module.css';
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {forgotPassword} from "../../utils/api";
-
+import {forgotPasswordThunk} from "../../service/stores";
 function ForgotPassword() {
     const [emailValue, setEmailValue] = useState('');
-    const [isEmailError, setIsEmailError] = useState(false);
     const onChange = e => e.target.name ? setEmailValue(e.target.value) : setEmailValue;
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
     const onClick = (e) => {
         e.preventDefault();
-        forgotPassword({
-            "email": emailValue
-        }).then(r => r.success === true && navigate('/reset-password', {state: location.pathname}))
-            .catch(err=>console.log(err));
+        dispatch(forgotPasswordThunk({
+            emailValue, location, navigate
+        }));
+
+
     }
     return (
         <div className={style.login__page}>

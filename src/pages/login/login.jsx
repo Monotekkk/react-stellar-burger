@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {login} from "../../utils/api";
 import {SET_AUTH_CHECKED, SET_USER} from "../../service/actions";
+import {loginThunk, setToken} from "../../service/stores";
 
 function Login() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');
@@ -12,14 +13,7 @@ function Login() {
     const dispatch = useDispatch();
     const onClick = (e) => {
         e.preventDefault();
-        login({emailValue, passwordValue}).then(res => {
-            dispatch({type: SET_AUTH_CHECKED, data: res.success});
-            if (res.success) {
-                dispatch({type: SET_USER, data: res})
-                localStorage.setItem("accessToken", res.accessToken);
-                localStorage.setItem("refreshToken", res.refreshToken);
-            }
-        }).catch(err=>console.log(err));
+        dispatch(loginThunk({emailValue, passwordValue}));
     }
     return (
         <div className={style.login__page}>

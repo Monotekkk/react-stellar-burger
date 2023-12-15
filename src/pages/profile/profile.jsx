@@ -3,6 +3,7 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
 import {updateUserInfo, logout} from "../../utils/api";
+import {logOutThunk, updateUserInfoThunk} from "../../service/stores";
 
 function Profile() {
     const [valueName, setValueName] = useState('');
@@ -18,7 +19,7 @@ function Profile() {
         setTimeout(() => inputRef.current.focus(), 0)
     }
     const onButtonClick = () => {
-        dispatch(updateUserInfo({valueName, valueEmail, valuePass}));
+        dispatch(updateUserInfoThunk({valueName, valueEmail, valuePass}));
         setVisionButton(false);
     }
     useEffect(() => {
@@ -33,7 +34,7 @@ function Profile() {
                     <li className={`text text_type_main-medium text_color_inactive ${style.asideMenuItem}`}>История
                         заказов
                     </li>
-                    <li onClick={() => dispatch(logout())}
+                    <li onClick={() => dispatch(logOutThunk())}
                         className={`text text_type_main-medium text_color_inactive ${style.asideMenuItem}`}>Выход
                     </li>
                 </ul>

@@ -3,7 +3,6 @@ import styles from './burger-ingredients.module.css';
 import BurgerCard from "./ingredients-card/ingredients-card";
 import {useEffect, useState, useRef, useMemo} from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { loadIngridients } from '../../service/stores';
 
 function BurgerIngredients() {
     document.title = 'Stellar Burgers - космические бургеры.';

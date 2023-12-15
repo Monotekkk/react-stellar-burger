@@ -12,7 +12,6 @@ function BurgerCard({data}) {
     const selectedIngredients = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
     const clickHandler = (data) => {
         dispatch({type: CHECK_VIEW_INGREDIENT, data: data});
-        dispatch({type: ADD_INGREDIENT, data: data,});
         setVisible(!visible);
     }
     const [counter, setCounter] = useState(0);
@@ -27,7 +26,7 @@ function BurgerCard({data}) {
         });
     useEffect(()=>{
         setCounter(selectedIngredients.filter(item=>item._id===data._id).length);
-    },[selectedIngredients.length]);
+    },[selectedIngredients]);
 
     return (
         <>

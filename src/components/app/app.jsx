@@ -16,7 +16,7 @@ import {checkUserAuth, refreshToken} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import Orders from "../../pages/orders/orders";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
-import {loadIngridients} from "../../service/stores";
+import {loadIngredients} from "../../service/stores";
 
 function App() {
     const [visible, ] = useState(false);
@@ -29,7 +29,7 @@ function App() {
     useEffect(() => {
         dispatch(checkUserAuth());
         store && setTimeout(refreshToken(), 1200000);
-        dispatch(loadIngridients());
+        dispatch(loadIngredients());
     }, []);
     return (
         <>
