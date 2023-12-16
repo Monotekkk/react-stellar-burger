@@ -1,6 +1,7 @@
 .card {
     width: 50%;
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -9,4 +10,10 @@
 .price {
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.link{
+        text-decoration: none;
+        color: white;
+        text-align: center;
 }

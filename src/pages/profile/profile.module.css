@@ -1,0 +1,29 @@
+.profileBlock {
+    display: flex;
+    gap: 60px;
+    padding-top: 120px;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.asideMenuItem {
+    list-style-type: none;
+    width: 320px;
+    height: 64px;
+}
+.asideMenuItem:hover{
+    cursor: pointer;
+}
+.paragraph{
+    margin-left: 40px;
+}
+

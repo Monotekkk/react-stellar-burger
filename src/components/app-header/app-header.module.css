@@ -24,6 +24,11 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    text-decoration: none;
+    color: rgb(242, 242, 243);
+}
+.li:hover{
+
 }
 
 .logo {
@@ -52,7 +57,4 @@
 
 .paragraph {
     color: #8585AD;
-}
-
-.item-start {
 }

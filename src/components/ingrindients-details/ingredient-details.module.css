@@ -7,7 +7,7 @@
 
 .title {
     display: flex;
-    align-self: flex-start;
+    align-self: center;
     align-items: center;
     height: 64px;
 }

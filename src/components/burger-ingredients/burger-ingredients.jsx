@@ -3,7 +3,6 @@ import styles from './burger-ingredients.module.css';
 import BurgerCard from "./ingredients-card/ingredients-card";
 import {useEffect, useState, useRef, useMemo} from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { loadIngridients } from '../../service/stores';
 
 function BurgerIngredients() {
     document.title = 'Stellar Burgers - космические бургеры.';
@@ -17,11 +16,8 @@ function BurgerIngredients() {
         section.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
         return setCurrent(value);
     }
-    const dispatch = useDispatch();
     const data = useSelector(state => state.ingredientsList.ingredientsList);
-    useEffect(() => {
-        dispatch(loadIngridients());
-    }, [dispatch])
+
     const buns = useMemo(
         () => data.filter((item) => item.type === "bun"),
         [data]

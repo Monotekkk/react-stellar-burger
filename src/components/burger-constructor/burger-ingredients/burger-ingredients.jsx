@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import style from '../burger-constructor.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import { DELETE_INGREDIENT } from "../../../service/actions";
-import { useRef } from "react";
+import {useRef, useState} from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 function ConstructorMain ({item, index, moveCard}) {
