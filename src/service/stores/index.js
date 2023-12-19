@@ -4,14 +4,13 @@ import {
     forgotPassword,
     getIngredients,
     login,
-    logout,
+    logout, refreshToken,
     registration,
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
 import thunk from "redux-thunk";
 import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
-import {useLocation, useNavigate} from "react-router-dom";
 
 export const loadIngredients = (store) => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});
@@ -47,17 +46,32 @@ export const updateUserInfoThunk = (data) => dispatch => {
     updateUserInfo(data).catch(err => console.log(err));
 }
 export const registrationThunk = (data, navigate) => dispatch => {
-  registration(data)
-      .then(r=>{
-          console.log();
-          r.success&&navigate('/login')
-      })
-      .catch(err => console.log(err));
+    registration(data)
+        .then(r => {
+            r.success && navigate('/login')
+        })
+        .catch(err => console.log(err));
 }
 export const resetPasswordThunk = (data) => dispatch => {
-    resetPassword(data).catch(err => console.log(err));
+    resetPassword(data)
+        .catch(err => console.log(err));
 }
-export const logOutThunk  = () => dispatch => {
-  dispatch(logout());
+export const logOutThunk = () => dispatch => {
+    logout()
+        .then(r => {
+            if (r.success) {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                dispatch({type: SET_USER, data: null});
+            }
+
+        })
+        .catch(err => console.log(err));
+
+}
+export const refreshTokenThunk = () => {
+    refreshToken(localStorage.getItem("refreshToken")).then(r => {
+        localStorage.setItem("refreshToken", r.refreshToken);
+    })
 }
 export const store = createStore(rootReducer, applyMiddleware(thunk));

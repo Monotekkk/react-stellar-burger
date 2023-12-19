@@ -2,7 +2,6 @@ import style from './profile.module.css'
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {updateUserInfo, logout} from "../../utils/api";
 import {logOutThunk, updateUserInfoThunk} from "../../service/stores";
 
 function Profile() {
@@ -92,7 +91,7 @@ function Profile() {
                     </Button>
                     <Button value={'Отменить'} htmlType="button" type="primary" size="small" extraClass="ml-2"
                             onClick={(e) => {
-                                onButtonClick(e)
+                                setVisionButton(false);
                             }}>
                         Отменить
                     </Button>

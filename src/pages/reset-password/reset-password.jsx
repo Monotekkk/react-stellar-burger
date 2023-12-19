@@ -7,11 +7,12 @@ import {useDispatch} from "react-redux";
 import {resetPasswordThunk} from "../../service/stores";
 
 function ResetPassword() {
-    const [newPasswordValue, setNewPasswordValue] = useState('');
-    const [token, setToken] = useState('');
+    const [newPasswordValue, setNewPasswordValue] = useState('1a2b3c');
+    const [token, setToken] = useState('af2a6548-6217-4d06-82f1-0e3d2be89daf');
     const dispatch = useDispatch();
-    const onClick = () => {
-       dispatch(resetPasswordThunk(newPasswordValue, token)).catch(err=>console.log(err));
+    const onClick = (e) => {
+        e.preventDefault();
+       dispatch(resetPasswordThunk({newPasswordValue, token}))
     }
     return (
         <div className={style.login__page}>

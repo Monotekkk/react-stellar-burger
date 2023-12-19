@@ -1,5 +1,5 @@
 import style from './orders.module.css';
-function Orders() {
+function Feed() {
     return (
         <>
             <p className={`text text_type_main-large`}>Лента заказов</p>
@@ -9,4 +9,4 @@ function Orders() {
         </>
     )
 }
-export default Orders;
+export default Feed;
