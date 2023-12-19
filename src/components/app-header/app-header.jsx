@@ -8,17 +8,15 @@ function AppHeader() {
         <header className={`${stylesHeader.header} mb-10`}>
             <nav className={stylesHeader.nav}>
                 <ul className={stylesHeader.ul}>
-                    <li className={`${stylesHeader.li} ${stylesHeader.li} ${stylesHeader.link}`}>
+                    <li className={`${stylesHeader.li} ${stylesHeader.link}`}>
                         <Link className={`${stylesHeader.li} text text_type_main-default`} to={'/'}>
                             <BurgerIcon type="primary"/>
                             <p className={`${stylesHeader.paragraph}text text-color_inactive pr-9`}>Конструктор</p>
                         </Link>
-                        <a className={`text text_type_main-default ${stylesHeader.li}`}>
-                            <Link className={`${stylesHeader.li} text text_type_main-default`} to={'/feed'}>
-                                <ListIcon type={"secondary"}/>
-                                <p className={`${stylesHeader.paragraph}`}>Лента заказов</p>
-                            </Link>
-                        </a>
+                        <Link className={`${stylesHeader.li} text text_type_main-default`} to={'/feed'}>
+                            <ListIcon type={"secondary"}/>
+                            <p className={`${stylesHeader.paragraph}`}>Лента заказов</p>
+                        </Link>
                     </li>
                     <li className={stylesHeader.logo}>
                         <Link to={'/'}><Logo/></Link>
