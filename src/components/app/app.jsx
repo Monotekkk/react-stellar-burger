@@ -14,10 +14,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {OnlyAuth, OnlyUnAuth} from "../../pages/ProtectedRouteElement";
 import {checkUserAuth} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
-import Orders from "../../pages/orders/orders";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
-import {loadIngredients, refreshTokenThunk} from "../../service/stores";
-import Feed from "../../pages/orders/orders";
+import {loadIngredients, refreshTokenThunk} from "../../service/middleware";
+import Feed from "../../pages/feed/orders";
 
 function App() {
     const [visible,] = useState(false);
@@ -52,8 +51,11 @@ function App() {
                                 <Route path={'/forgot-password'} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
                                 <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                                 <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
-                                <Route path={'/feed'} element={<OnlyAuth component={<Feed/>}/>}/>
+                                <Route path={'/feed'} element={<Feed/>}>
+                                    <Route path={':number'} component={<></>}/>
+                                </Route>
                                 <Route path={'/ingredients/:id'} element={<IngredientDetails/>}/>
+                                <Route path={'*'} element={<Home/>}/>
                             </Routes>
                             {background && (
                                 <Routes>

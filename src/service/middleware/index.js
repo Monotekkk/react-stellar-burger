@@ -1,5 +1,3 @@
-import {createStore, applyMiddleware} from "redux";
-import {rootReducer} from "../reducers/index";
 import {
     forgotPassword,
     getIngredients,
@@ -9,7 +7,6 @@ import {
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
-import thunk from "redux-thunk";
 import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
 
 export const loadIngredients = (store) => dispatch => {
@@ -74,4 +71,3 @@ export const refreshTokenThunk = () => {
         localStorage.setItem("refreshToken", r.refreshToken);
     })
 }
-export const store = createStore(rootReducer, applyMiddleware(thunk));

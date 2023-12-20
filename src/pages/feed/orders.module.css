@@ -1,0 +1,12 @@
+.content{
+    display: flex;
+    gap: 60px;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.cardP{
+    display: block;
+}

@@ -25,7 +25,7 @@ function getIngredients() {
 }
 
 function postIngredients(body) {
-    return api('/orders', {
+    return api('/feed', {
         method: 'POST',
         body: body,
         headers: {

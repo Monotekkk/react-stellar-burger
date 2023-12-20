@@ -2,7 +2,7 @@ import style from './profile.module.css'
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {logOutThunk, updateUserInfoThunk} from "../../service/stores";
+import {logOutThunk, updateUserInfoThunk} from "../../service/middleware";
 
 function Profile() {
     const [valueName, setValueName] = useState('');

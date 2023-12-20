@@ -4,7 +4,7 @@ import style from './reset-password.module.css';
 import {Link, useLocation} from "react-router-dom";
 import {resetPassword} from "../../utils/api";
 import {useDispatch} from "react-redux";
-import {resetPasswordThunk} from "../../service/stores";
+import {resetPasswordThunk} from "../../service/middleware";
 
 function ResetPassword() {
     const [newPasswordValue, setNewPasswordValue] = useState('1a2b3c');

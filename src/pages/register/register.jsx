@@ -4,7 +4,7 @@ import style from './register-page.module.css';
 import {Link, useNavigate} from "react-router-dom";
 import {registration} from "../../utils/api";
 import {useDispatch} from "react-redux";
-import {registrationThunk} from "../../service/stores";
+import {registrationThunk} from "../../service/middleware";
 
 function Register() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@yandex.ru');
