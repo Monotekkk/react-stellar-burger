@@ -1,12 +1,43 @@
-.content{
+.content {
     display: flex;
     gap: 60px;
+    width: 100%;
 }
-.card{
+
+.column {
+    width: 50%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.columnWithScroll {
+    width: 50%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.smallBlocks {
+    display: flex;
+    gap: 36px;
+}
+.smallBlock {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 50%;
+    height: 206px;
+    overflow-y: auto;
 }
-.cardP{
-    display: block;
+
+.mediumBlock {
+
+}
+.orders{
+    color: #00cccc;
+    margin: 0;
+}
+.ordersBlock{
+    gap: 8px;
 }

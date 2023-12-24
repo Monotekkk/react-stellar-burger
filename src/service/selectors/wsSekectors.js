@@ -1,3 +1,3 @@
-export const getMessages = store => store.chat.messages || [];
+export const getMessages = store => store.wsReducer.messages || [];
 export const getUser = store => store.user;
-export const getWsConnected = state => state.chat.wsConnected;
+export const getWsConnected = state => state.wsReducer.wsConnected;

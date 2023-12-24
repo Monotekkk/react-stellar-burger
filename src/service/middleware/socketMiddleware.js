@@ -4,7 +4,7 @@ export const socketMiddleware = wsUrl => {
         let socket = null;
 
         return next => action => {
-            const { dispatch, getState } = store;
+            const { dispatch} = store;
             const { type, payload } = action;
 
             if (type === 'WS_CONNECTION_START') {
@@ -25,9 +25,8 @@ export const socketMiddleware = wsUrl => {
 
                 // функция, которая вызывается при получении события от сервера
                 socket.onmessage = event => {
-                    console.log(data);
                     const { data } = event;
-                    dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+                    dispatch({ type: 'WS_GET_MESSAGE', payload: JSON.parse(data) });
                 };
                 // функция, которая вызывается при закрытии соединения
                 socket.onclose = event => {

@@ -34,7 +34,7 @@ export const wsReducer = (state = initialState, action) => {
                 wsConnected: false
             };
 
-        // Опишем обработку экшена с типом WS_CONNECTION_CLOSED, когда соединение закрывается
+        // Опишем обработку экшена с типом WS_CONNECTION_CLOSED, когда соединение закрывается.
         // Установим флаг wsConnected в состояние false
         case WS_CONNECTION_CLOSED:
             return {
@@ -47,11 +47,9 @@ export const wsReducer = (state = initialState, action) => {
         // Обработка происходит, когда с сервера возвращаются данные
         // В messages передадим данные, которые пришли с сервера
         case WS_GET_MESSAGE:
-            console.log(action.payload);
             return {
                 ...state,
-                error: undefined,
-                messages: [...state.messages, action.payload]
+                messages: action.payload
             };
         default:
             return state;
