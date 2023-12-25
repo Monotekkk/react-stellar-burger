@@ -1,5 +1,5 @@
 import style from './orders.module.css';
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
@@ -20,7 +20,6 @@ function Feed() {
     useEffect(() => {
         connected && messages.length !== 0 && setIsLoading(true);
     }, [messages])
-
     return (
         <>
             <p className={`text text_type_main-large mb-5`}>Лента заказов</p>
@@ -28,7 +27,7 @@ function Feed() {
                 <div className={`${style.columnWithScroll} custom-scroll`}>
                     {
                         messages && messages.success && messages.orders.map((elem) => {
-                            return <OrderCard orders={elem} key={elem.number}/>
+                            return <Link key={elem.number} className={style.ordersLink} to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>
                         })
                     }
                 </div>
@@ -38,21 +37,42 @@ function Feed() {
                             <p className="text text_type_main-large custom-scroll">Готовы:</p>
                             <div className={style.ordersBlock}>
                                 {
-                                    isLoading && messages.orders.map(elem => {
+                                    isLoading && messages.orders.some(elem => elem.status === 'done') ? messages.orders.map(elem => {
                                         if (elem.status === 'done') {
                                             return <p className={`${style.orders} text text_type_digits-default`}
                                                       key={elem.number}>{elem.number}</p>
                                         }
-                                    })
+                                    }) : <p
+                                        className={`text text_type_main-default text_color_inactive p-0`}>
+                                        Заказов нет
+                                    </p>
                                 }
                             </div>
                         </div>
-                        <div className={`${style.smallBlock}`}>
+                        <div className={`${style.smallBlock} custom-scroll`}>
                             <p className="text text_type_main-large">В работе:</p>
+                            <div className={style.ordersBlock}>
+                                {
+                                    isLoading && messages.orders.some(elem => elem.status !== 'done') ? messages.orders.map(elem => {
+                                        if (elem.status !== 'done') {
+                                            return <p className={`${style.orders} text text_type_digits-default`}
+                                                      key={elem.number}>{elem.number}</p>
+                                        }
+                                    }) : <p
+                                        className={`text text_type_main-default text_color_inactive p-0`}>
+                                        Заказов нет
+                                    </p>
+                                }
+                            </div>
                         </div>
-                        <div className={`${style.smallBlocks}`}>
-
-                        </div>
+                    </div>
+                    <div className={style.mediumBlock}>
+                        <p className="text text_type_main-large">Выполнено за все время:</p>
+                        <p className={`${style.orderNumber} text text_type_digits-large`}>{messages.total}</p>
+                    </div>
+                    <div className={style.mediumBlock}>
+                        <p className="text text_type_main-large">Выполнено за сегодня:</p>
+                        <p className="text text_type_digits-large">{messages.totalToday}</p>
                     </div>
                 </div>
             </div>

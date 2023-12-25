@@ -6,13 +6,11 @@ export const socketMiddleware = wsUrl => {
         return next => action => {
             const { dispatch} = store;
             const { type, payload } = action;
-
             if (type === 'WS_CONNECTION_START') {
                 // объект класса WebSocket
                 socket = new WebSocket(wsUrl);
             }
             if (socket) {
-
                 // функция, которая вызывается при открытии сокета
                 socket.onopen = event => {
                     dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });

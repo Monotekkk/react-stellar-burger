@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css'
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const IngredientDetails = () => {
     const params = useParams();
