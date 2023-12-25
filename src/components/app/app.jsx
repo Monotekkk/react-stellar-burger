@@ -17,7 +17,7 @@ import Profile from "../../pages/profile/profile";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
 import {loadIngredients, refreshTokenThunk} from "../../service/middleware";
 import Feed from "../../pages/feed/orders";
-import FeedElement from "../../pages/feed/feed__element/feed__element";
+import FeedElement from "../feed__element/feed__element";
 
 function App() {
     const [visible,] = useState(false);

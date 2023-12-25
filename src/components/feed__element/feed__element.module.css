@@ -20,7 +20,9 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    padding: 0;
+    padding: 0 24px 0 0;
+    max-height: 366px;
+    overflow-y: auto;
 }
 .orderStructureElement{
     display: flex;
@@ -30,4 +32,15 @@
 }
 .orderStructureName{
     text-align: center;
+}
+.orderImage{
+    width: 64px;
+    height: 64px;
+    border: 2px solid rgba(128, 26, 178, 1);
+    border-radius: 50%;
+    object-fit: cover;
+}
+.footerOrderEl{
+    display: flex;
+    justify-content: space-between;
 }

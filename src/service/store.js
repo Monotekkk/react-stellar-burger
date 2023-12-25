@@ -8,7 +8,7 @@ import {
     WS_CONNECTION_SUCCESS, WS_GET_MESSAGE,
     WS_SEND_MESSAGE
 } from "./actions/wsActionTypes";
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+const wsUrl = 'wss://norma.nomoreparties.space';
 const wsActions = {
     wsInit: WS_CONNECTION_START,
     wsSendMessage: WS_SEND_MESSAGE,

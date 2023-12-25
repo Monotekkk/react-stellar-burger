@@ -7,8 +7,12 @@ export const socketMiddleware = wsUrl => {
             const { dispatch} = store;
             const { type, payload } = action;
             if (type === 'WS_CONNECTION_START') {
-                // объект класса WebSocket
-                socket = new WebSocket(wsUrl);
+                console.log(payload);
+                if (payload){
+                    socket = new WebSocket(`${wsUrl}/api/orders/${payload}`);
+                }else{
+                    socket = new WebSocket(`${wsUrl}/orders/all`);
+                }
             }
             if (socket) {
                 // функция, которая вызывается при открытии сокета
