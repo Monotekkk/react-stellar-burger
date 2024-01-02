@@ -7,7 +7,7 @@ async function api(route, params = {}) {
         options = {
             method: params?.method || "GET",
             headers: {
-                ...params?.headers,
+                ...params?.headers
             },
             body: params?.body || null,
         };
@@ -161,7 +161,14 @@ function updateUserInfo({valueName, valueEmail, valuePass}) {
         )
     })
 }
-
+function getOrder(orderNumber) {
+    return api(`/order/${orderNumber}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+    })
+}
 
 export {
     getIngredients,
@@ -174,5 +181,6 @@ export {
     getUser,
     logout,
     refreshToken,
-    updateUserInfo
+    updateUserInfo,
+    getOrder
 };

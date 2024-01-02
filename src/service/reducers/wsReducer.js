@@ -22,7 +22,7 @@ export const wsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: undefined,
-                wsConnected: true
+                wsConnected: true,
             };
 
         // Опишем обработку экшена с типом WS_CONNECTION_ERROR
@@ -49,7 +49,7 @@ export const wsReducer = (state = initialState, action) => {
         case WS_GET_MESSAGE:
             return {
                 ...state,
-                messages: action.payload
+                messages: action.payload,
             };
         default:
             return state;

@@ -1,6 +1,6 @@
 import {
     forgotPassword,
-    getIngredients,
+    getIngredients, getOrder,
     login,
     logout, refreshToken,
     registration,
@@ -70,4 +70,8 @@ export const refreshTokenThunk = () => {
     refreshToken(localStorage.getItem("refreshToken")).then(r => {
         localStorage.setItem("refreshToken", r.refreshToken);
     })
+}
+
+export const getOrderThunk = (number)=>{
+    getOrder(number).then(r=>console.log(r)).catch(err=>console.log(err));
 }

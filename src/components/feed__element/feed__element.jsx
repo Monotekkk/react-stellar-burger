@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getMessages, getWsConnected} from "../../service/selectors/wsSekectors";
+import {getMessages, getWsConnected, getLoading} from "../../service/selectors/wsSekectors";
 import {useEffect, useState} from "react";
 import {WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
 import style from './feed__element.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {getOrderThunk} from "../../service/middleware";
 
 function FeedElement() {
     const param = useParams();
@@ -12,6 +13,7 @@ function FeedElement() {
     const dispatch = useDispatch();
     const connected = useSelector(getWsConnected);
     const [order, setOrder] = useState({});
+    const loading = useSelector(getLoading);
     const setTotalPrice = (cost) => {
         return totalPrice = totalPrice + cost.price;
     }
@@ -26,8 +28,7 @@ function FeedElement() {
     let orderedArray = []
     useEffect(
         () => {
-                !connected && dispatch({type: WS_CONNECTION_START, payload: false});
-                //!connected && dispatch({type: WS_CONNECTION_START, payload: param.number});
+                !connected && dispatch({type: WS_CONNECTION_START});
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
@@ -45,6 +46,7 @@ function FeedElement() {
             return index === self.indexOf(elem);
         })
     }
+
     return (
         <div className={style.orderBlock}>
             <p className="text text_type_digits-default mb-10">
