@@ -16,8 +16,10 @@ import {checkUserAuth} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
 import {loadIngredients, refreshTokenThunk} from "../../service/middleware";
-import Feed from "../../pages/feed/orders";
+import Feed from "../../pages/feed/feed";
 import FeedElement from "../feed__element/feed__element";
+import ProfileForm from "../profile-form/profile-form";
+import OrderHistory from "../order-history/order-history";
 
 function App() {
     const [visible,] = useState(false);
@@ -51,7 +53,10 @@ function App() {
                                 <Route path={'/register'} element={<OnlyUnAuth component={<Register/>}/>}/>
                                 <Route path={'/forgot-password'} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
                                 <Route path={'/reset-password'} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
-                                <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}/>
+                                <Route path={'/profile'} element={<OnlyAuth component={<Profile/>}/>}>
+                                    <Route path={'/profile'}  element={<OnlyAuth component={<ProfileForm/>}/>}/>
+                                    <Route path={'/profile/orders'} element={<OnlyAuth component={<OrderHistory/>}/>}/>
+                                </Route>
                                 <Route path={'/feed'} element={<Feed/>}/>
                                 <Route path={'/feed/:number'} element={<FeedElement/>}/>
                                 <Route path={'/ingredients/:id'} element={<IngredientDetails/>}/>

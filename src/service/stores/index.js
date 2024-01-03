@@ -1,15 +1,16 @@
+import {createStore, applyMiddleware} from "redux";
+import {rootReducer} from "../reducers/index";
 import {
     forgotPassword,
-    getIngredients, getOrder,
+    getIngredients,
     login,
     logout, refreshToken,
     registration,
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
-import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER, SET_ORDER} from "../actions";
-import {WS_GET_MESSAGE, WS_GET_SELECTED_MESSAGE} from "../actions/wsActionTypes";
-import {data} from "../../utils/data";
+import thunk from "redux-thunk";
+import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
 
 export const loadIngredients = (store) => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});
@@ -36,15 +37,14 @@ export const loginThunk = (data) => dispatch => {
     }).then(res => {
         dispatch({type: SET_AUTH_CHECKED, data: res.success});
         if (res.success) {
+            const updateTokenInterval = setInterval(refreshTokenThunk, 1000);
             dispatch({type: SET_USER, data: res});
             dispatch(setToken(res));
         }
     }).catch(err => console.log(err));
 }
 export const updateUserInfoThunk = (data) => dispatch => {
-    updateUserInfo(data)
-        .then()
-        .catch(err => console.log(err));
+    updateUserInfo(data).catch(err => console.log(err));
 }
 export const registrationThunk = (data, navigate) => dispatch => {
     registration(data)
@@ -58,16 +58,9 @@ export const resetPasswordThunk = (data) => dispatch => {
         .catch(err => console.log(err));
 }
 export const logOutThunk = () => dispatch => {
-    logout()
-        .then(r => {
-            if (r.success) {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                dispatch({type: SET_USER, data: null});
-            }
-
-        })
-        .catch(err => console.log(err));
+    dispatch(logout())
+    clearInterval(updateTokenInterval)
+    .catch(err => console.log(err));
 
 }
 export const refreshTokenThunk = () => {
@@ -75,13 +68,4 @@ export const refreshTokenThunk = () => {
         localStorage.setItem("refreshToken", r.refreshToken);
     })
 }
-
-export const getOrderThunk = number => dispatch => {
-    getOrder(number)
-        .then(r => {
-            if (r.success){
-                dispatch({type: WS_GET_SELECTED_MESSAGE, payload: r.orders})
-            }
-        })
-        .catch(err => console.log(err));
-}
+export const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -4,13 +4,15 @@ import {
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
-    WS_GET_MESSAGE
+    WS_GET_MESSAGE,
+    WS_GET_SELECTED_MESSAGE
 } from '../actions/wsActionTypes';
 
 const initialState = {
     wsConnected: false,
     messages: [],
-    error: undefined
+    error: undefined,
+    selectedMessage: {}
 };
 
 // Создадим редьюсер для WebSocket
@@ -51,6 +53,11 @@ export const wsReducer = (state = initialState, action) => {
                 ...state,
                 messages: action.payload,
             };
+        case WS_GET_SELECTED_MESSAGE :
+            return {
+                ...state,
+                selectedMessage: action.payload
+            }
         default:
             return state;
     }

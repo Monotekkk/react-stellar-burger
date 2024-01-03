@@ -162,7 +162,7 @@ function updateUserInfo({valueName, valueEmail, valuePass}) {
     })
 }
 function getOrder(orderNumber) {
-    return api(`/order/${orderNumber}`, {
+    return api(`/orders/${orderNumber}`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json;charset=utf-8",

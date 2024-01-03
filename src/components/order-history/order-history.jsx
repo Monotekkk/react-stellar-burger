@@ -1,62 +1,9 @@
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getMessages, getWsConnected, getSelectedMessage} from "../../service/selectors/wsSekectors";
-import {useEffect, useState} from "react";
-import {WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
-import style from './feed__element.module.css'
+import style from './order-history.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getOrderThunk} from "../../service/middleware";
 import styles from "../app/app.module.css";
 
-function FeedElement() {
-    const param = useParams();
-    const data = useSelector(getMessages);
-    const dispatch = useDispatch();
-    const connected = useSelector(getWsConnected);
-    const [order, setOrder] = useState({});
-    const [loading, isLoading] = useState(false);
-    const selectedData = useSelector(getSelectedMessage);
-    const setTotalPrice = (cost) => {
-        return totalPrice = totalPrice + cost.price;
-    }
-    let totalPrice = 0;
-    const isOrder = (order) => {
-        if (order.number === +param.number) {
-            setOrder(order);
-        }
-    }
-    const ingredientsList = useSelector(store => store.ingredientsList.ingredientsList);
-    let selectedIngredients = [];
-    let orderedArray = []
-    useEffect(
-        () => {
-            !connected && dispatch({type: WS_CONNECTION_START});
-        },
-        [] // eslint-disable-line react-hooks/exhaustive-deps
-    );
-    useEffect(() => {
-        connected && !orderedArray.length && dispatch(getOrderThunk(param.number))
-    }, [orderedArray.length, connected])
-    useEffect(() => {
-        connected && data.orders.find(isOrder);
-    }, [data.length]);
-    useEffect(() => {
-        if (selectedData[0]) {
-            isLoading(true);
-        }
-        setOrder(selectedData[0]);
-    }, [selectedData.length])
-    if (loading && ingredientsList && order?.ingredients) {
-        order.ingredients.forEach((elem, i) => {
-            selectedIngredients.push(ingredientsList.find((item) => {
-                return item._id === elem
-            }))
-        })
-        orderedArray = selectedIngredients.filter(function (elem, index, self) {
-            setTotalPrice(elem);
-            return index === self.indexOf(elem);
-        })
-    }
+export default function OrderHistory() {
+
     return (
         loading ? <div className={style.orderBlock}>
                 <p className="text text_type_digits-default mb-10">
@@ -113,5 +60,3 @@ function FeedElement() {
             </main>
     )
 }
-
-export default FeedElement;
