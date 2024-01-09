@@ -14,7 +14,7 @@ function Feed() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(
         () => {
-            dispatch({type: WS_CONNECTION_START});
+            dispatch({type: WS_CONNECTION_START, payload: {status: false}});
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );

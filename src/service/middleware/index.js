@@ -7,9 +7,8 @@ import {
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
-import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER, SET_ORDER} from "../actions";
-import {WS_GET_MESSAGE, WS_GET_SELECTED_MESSAGE} from "../actions/wsActionTypes";
-import {data} from "../../utils/data";
+import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
+import {WS_GET_SELECTED_MESSAGE} from "../actions/wsActionTypes";
 
 export const loadIngredients = (store) => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});
