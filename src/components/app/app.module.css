@@ -18,6 +18,7 @@
   animation: rotation 1s linear infinite;
 }
 .contentLoader{
+  overflow: hidden;
   display: flex;
   justify-content: center;
   margin-top: calc(50vh -  136px);

@@ -1,3 +1,5 @@
+import {WS_CONNECTION_START} from "../actions/wsActionTypes";
+
 export const socketMiddleware = wsUrl => {
     return store => {
         let socket = null;
@@ -15,6 +17,9 @@ export const socketMiddleware = wsUrl => {
                 } else {
                     socket = new WebSocket(`${wsUrl}/orders/all`);
                 }
+            }
+            if (type === 'WS_CONNECTION_CLOSE'){
+                socket.close(1000, "работа закончена");
             }
             if (socket) {
                 // функция, которая вызывается при открытии сокета

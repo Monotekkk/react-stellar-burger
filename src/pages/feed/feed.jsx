@@ -9,11 +9,12 @@ import styles from "../../components/app/app.module.css";
 
 function Feed() {
     const dispatch = useDispatch();
-    const messages = useSelector(getMessages);
+    let messages = useSelector(getMessages);
     const connected = useSelector(getWsConnected);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(
         () => {
+            messages = [];
             dispatch({type: WS_CONNECTION_START, payload: {status: false}});
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
