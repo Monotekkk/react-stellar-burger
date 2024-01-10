@@ -5,10 +5,13 @@ export const socketMiddleware = wsUrl => {
         return next => action => {
             const {dispatch} = store;
             const {type, payload} = action;
+            let accessToken = null;
             if (type === 'WS_CONNECTION_START') {
-                console.log(payload.status);
+                if (localStorage.accessToken){
+                    accessToken = localStorage.accessToken.split('Bearer ')[1];
+                }
                 if (payload.status){
-
+                    socket = new WebSocket(`${wsUrl}/orders?token=${accessToken}`);
                 } else {
                     socket = new WebSocket(`${wsUrl}/orders/all`);
                 }
