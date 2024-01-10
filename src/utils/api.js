@@ -30,6 +30,7 @@ function postIngredients(body) {
         body: body,
         headers: {
             "Content-Type": "application/json;charset=utf-8",
+            authorization: localStorage.getItem("accessToken")
         },
     });
 }
