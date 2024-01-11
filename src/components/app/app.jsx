@@ -33,6 +33,7 @@ function App() {
         dispatch(checkUserAuth());
         dispatch(loadIngredients());
         store.user && setInterval(refreshTokenThunk, 1200000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

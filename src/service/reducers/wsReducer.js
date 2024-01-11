@@ -1,62 +1,46 @@
-// wsReducer.js
-
 import {
-    WS_CONNECTION_SUCCESS,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_CLOSED,
-    WS_GET_MESSAGE,
-    WS_GET_SELECTED_MESSAGE
+    WebsocketStatus
+} from '../../utils/orders';
+import {
+    ORDERS_FEED_CLOSE,
+    ORDERS_FEED_CONNECT,
+    ORDERS_FEED_CONNECTING,
+    ORDERS_FEED_ERROR, ORDERS_FEED_MESSAGE,
+    ORDERS_FEED_OPEN
 } from '../actions/wsActionTypes';
 
 const initialState = {
-    wsConnected: false,
-    messages: [],
-    error: undefined,
-    selectedMessage: {}
+    status: WebsocketStatus.OFFLINE,
+    orders: [],
+    connectingError: ''
 };
 
-// Создадим редьюсер для WebSocket
 export const wsReducer = (state = initialState, action) => {
     switch (action.type) {
-        // Опишем обработку экшена с типом WS_CONNECTION_SUCCESS
-        // Установим флаг wsConnected в состояние true
-        case WS_CONNECTION_SUCCESS:
+        case ORDERS_FEED_CONNECTING:
             return {
                 ...state,
-                error: undefined,
-                wsConnected: true,
-            };
-
-        // Опишем обработку экшена с типом WS_CONNECTION_ERROR
-        // Установим флаг wsConnected в состояние false и передадим ошибку из action.payload
-        case WS_CONNECTION_ERROR:
+                status: WebsocketStatus.CONNECTING
+            }
+        case ORDERS_FEED_OPEN:
             return {
                 ...state,
-                error: action.payload,
-                wsConnected: false
-            };
-
-        // Опишем обработку экшена с типом WS_CONNECTION_CLOSED, когда соединение закрывается.
-        // Установим флаг wsConnected в состояние false
-        case WS_CONNECTION_CLOSED:
+                status: WebsocketStatus.OPEN
+            }
+        case ORDERS_FEED_CLOSE:
             return {
                 ...state,
-                error: undefined,
-                wsConnected: false
-            };
-
-        // Опишем обработку экшена с типом WS_GET_MESSAGE
-        // Обработка происходит, когда с сервера возвращаются данные
-        // В messages передадим данные, которые пришли с сервера
-        case WS_GET_MESSAGE:
+                status: WebsocketStatus.CLOSE
+            }
+        case ORDERS_FEED_ERROR:
             return {
                 ...state,
-                messages: action.payload,
-            };
-        case WS_GET_SELECTED_MESSAGE :
+                status: action.payload
+            }
+        case ORDERS_FEED_MESSAGE:
             return {
                 ...state,
-                selectedMessage: action.payload
+                orders: action.payload
             }
         default:
             return state;

@@ -36,15 +36,18 @@ function FeedElement() {
     );
     useEffect(() => {
         connected && !orderedArray.length && dispatch(getOrderThunk(param.number))
-    }, [orderedArray.length, connected])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orderedArray.length, connected]) 
     useEffect(() => {
         connected && data.orders.find(isOrder);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data.length]);
     useEffect(() => {
         if (selectedData[0]) {
             isLoading(true);
         }
         setOrder(selectedData[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedData.length])
     if (loading && ingredientsList && order?.ingredients) {
         order.ingredients.forEach((elem, i) => {
