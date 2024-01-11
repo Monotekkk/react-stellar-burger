@@ -14,10 +14,13 @@
     flex-direction: column;
     gap: 24px;
     overflow: auto;
-    max-height: calc(100vh - 128px);
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin: 0 auto;
+    padding-top: 24px;
+    width: 844px;
+    max-height: calc(100vh - 128px);
+    height: 100%;
 }
 
 .asideMenuItem {

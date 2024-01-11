@@ -16,6 +16,7 @@
     width: 50%;
     max-height: 90vh;
     overflow-y: auto;
+    padding-right: 10px;
 }
 
 .smallBlocks {
@@ -45,6 +46,7 @@
 
 .ordersBlock {
     gap: 8px;
+    width: 100%;
 }
 
 .ordersLink {

@@ -1,16 +1,18 @@
 import style from './order-card.module.css'
 import {useSelector} from "react-redux";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useLocation} from "react-router-dom";
 
-function OrderCard(orders, status) {
+function OrderCard(orders) {
     const order = orders.orders;
     const ingredients = order.ingredients;
     const data = useSelector(store => store.ingredientsList.ingredientsList);
+    const location = useLocation();
     const selectedIngredients = [];
     ingredients.forEach((elem) => {
         selectedIngredients.push(data.find(item => item._id === elem))
     })
-    const orderDate = new Date(order.createdAt);
+    let orderDate = new Date(order.createdAt);
     let priceOrder = 0;
     return (
         <div className={style.card}>
@@ -18,10 +20,13 @@ function OrderCard(orders, status) {
                 <p className={`text text_type_digits-default`}>#{order.number}</p>
                 <p className={`text text_type_main-default text_color_inactive`}>
                     <FormattedDate
-                        date={new Date(orderDate)}/>, i-GMT+3
+                        date={new Date(orderDate.toISOString().split(' ')[0])}/>, i-GMT+3
                 </p>
             </div>
             <p className={`text text_type_main-medium`}>{order.name}</p>
+            {location.pathname === '/profile/orders' && order.status === 'done' ?
+                <p className={`${style.status_done} text_type_main-default`}>Выполнен</p> :
+                <p className={`text text_type_main-default`}>Готовится</p>}
             <div className={`${style.ingredientsAndPriceBlock}`}>
                 <div className={`${style.ingredientsBlock}`}>
                     {

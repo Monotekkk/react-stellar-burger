@@ -62,3 +62,6 @@
     align-items: center;
     gap: 8px;
 }
+.status_done{
+    color: rgba(0, 204, 204, 1);
+}

@@ -1,8 +1,8 @@
 import style from './feed.module.css';
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
+import {WS_CONNECTION_CLOSE, WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
 import {getMessages, getWsConnected} from '../../service/selectors/wsSekectors'
 import OrderCard from "../../components/order-card/order-card";
 import styles from "../../components/app/app.module.css";
@@ -16,6 +16,9 @@ function Feed() {
         () => {
             messages = [];
             dispatch({type: WS_CONNECTION_START, payload: {status: false}});
+            return ()=>{
+                dispatch({type: WS_CONNECTION_CLOSE});
+            }
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );

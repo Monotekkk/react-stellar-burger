@@ -14,8 +14,10 @@ export default function OrderHistory() {
     useEffect(
         () => {
             messages = [];
-            connected && dispatch({type: WS_CONNECTION_CLOSE});
             dispatch({type: WS_CONNECTION_START, payload: {status: true}});
+            return ()=>{
+                dispatch({type: WS_CONNECTION_CLOSE});
+            }
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
@@ -25,7 +27,6 @@ export default function OrderHistory() {
     return (
         <div className={`${style.ordersBlock} custom-scroll`}>
             {isLoading ?
-
                     messages && messages.success && messages.orders.map((elem) => {
                     return <Link key={elem.number} className={style.ordersLink}
                                  to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>

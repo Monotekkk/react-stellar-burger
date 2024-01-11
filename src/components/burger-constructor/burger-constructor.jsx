@@ -27,7 +27,7 @@ function BurgerConstructor() {
     const onClick = () => {
         if (user) {
             if (store[0].type === 'bun') {
-                let idIngredients = [store[0]._id];
+                let idIngredients = [];
                 store.forEach((element) => {
                     idIngredients.push(element._id);
                 });

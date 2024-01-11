@@ -19,7 +19,10 @@ export const socketMiddleware = wsUrl => {
                 }
             }
             if (type === 'WS_CONNECTION_CLOSE'){
-                socket.close(1000, "работа закончена");
+                if (socket){
+                    socket.close(1000, "работа закончена");
+                    socket = null;
+                }
             }
             if (socket) {
                 // функция, которая вызывается при открытии сокета
