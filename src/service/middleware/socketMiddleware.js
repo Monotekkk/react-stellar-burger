@@ -1,5 +1,3 @@
-import {WS_CONNECTION_START} from "../actions/wsActionTypes";
-
 export const socketMiddleware = wsUrl => {
     return store => {
         let socket = null;
