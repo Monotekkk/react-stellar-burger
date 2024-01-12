@@ -32,10 +32,11 @@ function BurgerConstructor() {
                     idIngredients.push(element._id);
                 });
                 idIngredients.push(store[0]._id);
+                dispatch({type: POST_ORDER__PENDING});
+                setVisible(true);
                 postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
-                    setVisible(true);
+
                     dispatch({type: SET_ORDER, data: result});
-                    dispatch({type: POST_ORDER__PENDING});
                     if (result.success) {
                         dispatch({type: POST_ORDER__SUCCESS});
                         dispatch({type: CLEAR_CONSTRUCTOR});

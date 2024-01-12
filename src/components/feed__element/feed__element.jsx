@@ -68,7 +68,7 @@ function FeedElement() {
         })
     }
     return (
-        status === 'OPEN' ? <div className={style.orderBlock}>
+        status === 'OPEN' && isLoading ? <div className={style.orderBlock}>
                 <p className="text text_type_digits-default mb-10">
                     #{order.number}
                 </p>
