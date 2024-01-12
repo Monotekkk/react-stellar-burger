@@ -1,7 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages, getWsConnected} from "../../service/selectors/wsSekectors";
 import {useEffect, useState} from "react";
-import {WS_CONNECTION_CLOSE, WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
 import OrderCard from "../order-card/order-card";
 import style from "../../pages/feed/feed.module.css";
 import {Link} from "react-router-dom";

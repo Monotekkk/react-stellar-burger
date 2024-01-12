@@ -1,21 +1,25 @@
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getMessages, getWsConnected, getSelectedMessage} from "../../service/selectors/wsSekectors";
+import {getSelectedMessage} from "../../service/selectors/wsSekectors";
 import {useEffect, useState} from "react";
-import {WS_CONNECTION_START} from "../../service/actions/wsActionTypes";
+import {
+    connect as ordersConnect,
+    disconnect as ordersDisconnect,
+} from "../../service/actions/wsActionTypes";
 import style from './feed__element.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {getOrderThunk} from "../../service/middleware";
 import styles from "../app/app.module.css";
-
+const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 function FeedElement() {
     const param = useParams();
-    const data = useSelector(getMessages);
     const dispatch = useDispatch();
-    const connected = useSelector(getWsConnected);
     const [order, setOrder] = useState({});
-    const [loading, isLoading] = useState(false);
     const selectedData = useSelector(getSelectedMessage);
+    const {status, orders} = useSelector((store) => store.wsReducer);
+    const [isLoading, setLoading] = useState(false);
+    const connect = () => dispatch(ordersConnect(feedServer));
+    const disconnect = () => dispatch(ordersDisconnect());
     const setTotalPrice = (cost) => {
         return totalPrice = totalPrice + cost.price;
     }
@@ -30,26 +34,29 @@ function FeedElement() {
     let orderedArray = []
     useEffect(
         () => {
-            !connected && dispatch({type: WS_CONNECTION_START});
+            connect();
+            return () => {
+                disconnect();
+            };
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
     useEffect(() => {
-        connected && !orderedArray.length && dispatch(getOrderThunk(param.number))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderedArray.length, connected]) 
+        !orderedArray.length && dispatch(getOrderThunk(param.number))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orderedArray.length])
     useEffect(() => {
-        connected && data.orders.find(isOrder);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data.length]);
+        status === 'OPEN' && orders.orders.find(isOrder);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orders.length]);
     useEffect(() => {
-        if (selectedData[0]) {
-            isLoading(true);
+        if (selectedData && selectedData[0]) {
+            setLoading(true);
         }
         setOrder(selectedData[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedData.length])
-    if (loading && ingredientsList && order?.ingredients) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedData])
+    if (isLoading && ingredientsList && order?.ingredients) {
         order.ingredients.forEach((elem, i) => {
             selectedIngredients.push(ingredientsList.find((item) => {
                 return item._id === elem
@@ -61,7 +68,7 @@ function FeedElement() {
         })
     }
     return (
-        loading ? <div className={style.orderBlock}>
+        status === 'OPEN' ? <div className={style.orderBlock}>
                 <p className="text text_type_digits-default mb-10">
                     #{order.number}
                 </p>

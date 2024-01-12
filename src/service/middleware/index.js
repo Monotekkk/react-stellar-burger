@@ -7,8 +7,7 @@ import {
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
-import {GET_INGREDIENTS, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
-import {WS_GET_SELECTED_MESSAGE} from "../actions/wsActionTypes";
+import {GET_INGREDIENTS, GET_SELECTED_ORDER, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
 
 export const loadIngredients = (store) => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});
@@ -76,10 +75,11 @@ export const refreshTokenThunk = () => {
 }
 
 export const getOrderThunk = number => dispatch => {
+    console.log(number);
     getOrder(number)
         .then(r => {
             if (r.success){
-                dispatch({type: WS_GET_SELECTED_MESSAGE, payload: r.orders})
+                dispatch({type: GET_SELECTED_ORDER, payload: r.orders})
             }
         })
         .catch(err => console.log(err));
