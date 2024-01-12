@@ -11,7 +11,7 @@ const OrderDetails = () => {
     useEffect(()=>{
       const numberSet =  setTimeout(() => {
             setNumber(number+1)
-        }, 10);
+        }, 1);
         return ()=>clearTimeout(numberSet);
     },[number])
     return (

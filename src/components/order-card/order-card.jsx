@@ -24,9 +24,9 @@ function OrderCard(orders) {
                 </p>
             </div>
             <p className={`text text_type_main-medium`}>{order.name}</p>
-            {location.pathname === '/profile/orders' && order.status === 'done' ?
+            {location.pathname === '/profile/orders' ? order.status === 'done' ?
                 <p className={`${style.status_done} text_type_main-default`}>Выполнен</p> :
-                <p className={`text text_type_main-default`}>Готовится</p>}
+                <p className={`text text_type_main-default`}>Готовится</p> : <></>}
             <div className={`${style.ingredientsAndPriceBlock}`}>
                 <div className={`${style.ingredientsBlock}`}>
                     {
@@ -40,7 +40,7 @@ function OrderCard(orders) {
                                     }}
                                     key={index}
                                     className={`${style.ingredientsImage} `}>
-                                    <p className={`${style.ingredientsIndex} text text_type_main-default`}>{selectedIngredients.length > 6 && `+${selectedIngredients.length - 5}`}</p>
+                                    <p className={`${style.ingredientsIndex} text text_type_digits-default`}>{selectedIngredients.length > 6 && `+${selectedIngredients.length - 5}`}</p>
                                 </div>
                             } else if (index < 6) {
                                 return <img key={index} alt={elem?.name} src={elem?.image_mobile}
