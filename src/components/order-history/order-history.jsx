@@ -6,8 +6,8 @@ import style from "../../pages/feed/feed.module.css";
 import {Link} from "react-router-dom";
 import {connect as ordersConnect, disconnect as ordersDisconnect} from "../../service/actions/wsActionTypes";
 import {Loader} from "../loader/loader";
-const accessToken = localStorage.accessToken.split('Bearer ');
-const ordersServer = `wss//:norma.nomoreparties.space/orders?token=${accessToken[1]}`;
+const accessToken = localStorage.accessToken.split('Bearer ')[1];
+const ordersServer = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
 export default function OrderHistory() {
     const dispatch = useDispatch();
     const {status, orders} = useSelector((store) => store.wsReducer);
@@ -21,14 +21,14 @@ export default function OrderHistory() {
         };
     }, []);
     useEffect(() => {
-        if (orders.orders && orders.orders.length === 50) {
+        if (orders.orders) {
             setLoading(true);
         }
-    }, [orders]);
+    }, [orders.orders]);
     return (
         <div className={`${style.ordersBlock} custom-scroll`}>
             {status === 'OPEN' && isLoading ?
-                orders.orders && orders.orders.success && orders.orders.orders.map((elem) => {
+                orders.orders && orders.success && orders.orders.map((elem) => {
                     return <Link key={elem.number} className={style.ordersLink}
                                  to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>
                 })
