@@ -75,7 +75,6 @@ export const refreshTokenThunk = () => {
 }
 
 export const getOrderThunk = number => dispatch => {
-    console.log(number);
     getOrder(number)
         .then(r => {
             if (r.success){
