@@ -3,7 +3,7 @@ import {useState} from "react";
 import style from './forgot-password.module.css';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {forgotPasswordThunk} from "../../service/middleware";
+import {forgotPasswordThunk} from "../../service/actions/thunkAction";
 function ForgotPassword() {
     const [emailValue, setEmailValue] = useState('');
     const onChange = e => e.target.name ? setEmailValue(e.target.value) : setEmailValue;

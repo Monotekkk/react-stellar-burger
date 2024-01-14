@@ -1,6 +1,6 @@
 import {applyMiddleware, compose, createStore} from "redux";
 import {rootReducer} from "./reducers";
-import {socketFeedMiddleware} from "./middleware/socketFeedMiddleware";
+import {socketMiddleware} from "./middleware/socketMiddleware";
 import thunkMiddleware from 'redux-thunk';
 import {
     ORDERS_FEED_CLOSE,
@@ -9,7 +9,7 @@ import {
     ORDERS_FEED_DISCONNECT, ORDERS_FEED_ERROR, ORDERS_FEED_MESSAGE,
     ORDERS_FEED_OPEN, ORDERS_FEED_SEND_MESSAGE
 } from "./actions/wsActionTypes";
-const ordersMiddleware = socketFeedMiddleware({
+const ordersMiddleware = socketMiddleware({
     wsConnect: ORDERS_FEED_CONNECT,
     wsDisconnect: ORDERS_FEED_DISCONNECT,
     wsConnecting: ORDERS_FEED_CONNECTING,

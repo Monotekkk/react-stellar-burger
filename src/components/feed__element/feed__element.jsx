@@ -8,7 +8,7 @@ import {
 } from "../../service/actions/wsActionTypes";
 import style from './feed__element.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getOrderThunk} from "../../service/middleware";
+import {getOrderThunk} from "../../service/actions/thunkAction";
 import styles from "../app/app.module.css";
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 function FeedElement() {

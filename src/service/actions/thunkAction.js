@@ -7,7 +7,7 @@ import {
     resetPassword,
     updateUserInfo
 } from "../../utils/api";
-import {GET_INGREDIENTS, GET_SELECTED_ORDER, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "../actions";
+import {GET_INGREDIENTS, GET_SELECTED_ORDER, SET_AUTH_CHECKED, SET_LOADING_CHECKED, SET_USER} from "./index";
 
 export const loadIngredients = (store) => dispatch => {
     dispatch({type: SET_LOADING_CHECKED, data: true});

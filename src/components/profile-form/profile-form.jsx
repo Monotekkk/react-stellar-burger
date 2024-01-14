@@ -1,7 +1,7 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {updateUserInfoThunk} from "../../service/middleware";
+import {updateUserInfoThunk} from "../../service/actions/thunkAction";
 
 export default function ProfileForm() {
     const [valueName, setValueName] = useState('');

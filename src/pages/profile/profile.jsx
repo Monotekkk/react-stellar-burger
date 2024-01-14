@@ -1,6 +1,6 @@
 import style from './profile.module.css'
 import {useDispatch} from "react-redux";
-import {logOutThunk} from "../../service/middleware";
+import {logOutThunk} from "../../service/actions/thunkAction";
 import {Link, Outlet} from "react-router-dom";
 
 function Profile() {
