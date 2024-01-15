@@ -7,7 +7,7 @@ async function api(route, params = {}) {
         options = {
             method: params?.method || "GET",
             headers: {
-                ...params?.headers,
+                ...params?.headers
             },
             body: params?.body || null,
         };
@@ -30,12 +30,12 @@ function postIngredients(body) {
         body: body,
         headers: {
             "Content-Type": "application/json;charset=utf-8",
+            authorization: localStorage.getItem("accessToken")
         },
     });
 }
 
 function registration({emailValue, passwordValue, nameValue}) {
-    console.log({emailValue, passwordValue, nameValue});
     return api('/auth/register', {
         method: "POST",
         headers: {
@@ -102,14 +102,14 @@ function forgotPassword(email) {
     });
 }
 
-function resetPassword(password, token) {
+function resetPassword({newPasswordValue, token}) {
     return api("/password-reset/reset", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({
-            password: password,
+            password: newPasswordValue,
             token: token,
         }),
     });
@@ -117,58 +117,58 @@ function resetPassword(password, token) {
 
 function logout() {
     const refreshToken = localStorage.getItem("refreshToken");
-    return async (dispatch) => {
-        await api('/auth/logout', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify(
-                {
-                    "token": refreshToken
-                }
-            )
-        });
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        dispatch({type: SET_USER, data: null});
-    };
+    return api('/auth/logout', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(
+            {
+                "token": refreshToken
+            }
+        )
+    });
 }
 
-function refreshToken() {
-    const refreshToken = localStorage.getItem("refreshToken");
-    return async () => {
-        await api('/auth/token', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify(
-                {
-                    "token": refreshToken
-                }
-            )
-        })
-    }
+
+function refreshToken(token) {
+    return api('/auth/token', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(
+            {
+                "token": token
+            }
+        )
+    })
 }
+
 
 function updateUserInfo({valueName, valueEmail, valuePass}) {
-    return async () => {
-        await api('/auth/user', {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken"),
-            },
-            body: JSON.stringify(
-                {
-                    "email": valueEmail,
-                    "password": valuePass,
-                    "name": valueName
-                }
-            )
-        })
-    }
+    return api('/auth/user', {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            authorization: localStorage.getItem("accessToken"),
+        },
+        body: JSON.stringify(
+            {
+                'email': valueEmail,
+                'password': valuePass,
+                'name': valueName
+            }
+        )
+    })
+}
+function getOrder(orderNumber) {
+    return api(`/orders/${orderNumber}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+    })
 }
 
 export {
@@ -182,5 +182,6 @@ export {
     getUser,
     logout,
     refreshToken,
-    updateUserInfo
+    updateUserInfo,
+    getOrder
 };

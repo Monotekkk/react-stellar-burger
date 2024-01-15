@@ -30,7 +30,7 @@
     flex-direction: column;
     gap: 10px;
     max-height: 60vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .plug_top {
     padding: 16px 24px;

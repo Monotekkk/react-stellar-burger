@@ -5,8 +5,6 @@ import styles from './modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
-import { CLEAR_VIEW_INGREDIENT } from '../../service/actions';
-import {useSearchParams} from "react-router-dom";
 const Modal = ({ children, closePopup }) => {
     const dispatch = useDispatch();
     useEffect(() => {

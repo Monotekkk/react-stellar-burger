@@ -2,9 +2,8 @@ import {Button, EmailInput, PasswordInput, Input} from "@ya.praktikum/react-deve
 import {useState, useRef} from "react";
 import style from './register-page.module.css';
 import {Link, useNavigate} from "react-router-dom";
-import {registration} from "../../utils/api";
 import {useDispatch} from "react-redux";
-import {registrationThunk} from "../../service/stores";
+import {registrationThunk} from "../../service/actions/thunkAction";
 
 function Register() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@yandex.ru');

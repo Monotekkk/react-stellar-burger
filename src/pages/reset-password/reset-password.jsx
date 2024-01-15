@@ -4,14 +4,15 @@ import style from './reset-password.module.css';
 import {Link, useLocation} from "react-router-dom";
 import {resetPassword} from "../../utils/api";
 import {useDispatch} from "react-redux";
-import {resetPasswordThunk} from "../../service/stores";
+import {resetPasswordThunk} from "../../service/actions/thunkAction";
 
 function ResetPassword() {
     const [newPasswordValue, setNewPasswordValue] = useState('');
     const [token, setToken] = useState('');
     const dispatch = useDispatch();
-    const onClick = () => {
-       dispatch(resetPasswordThunk(newPasswordValue, token)).catch(err=>console.log(err));
+    const onClick = (e) => {
+        e.preventDefault();
+       dispatch(resetPasswordThunk({newPasswordValue, token}))
     }
     return (
         <div className={style.login__page}>

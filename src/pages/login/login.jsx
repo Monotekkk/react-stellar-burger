@@ -3,9 +3,7 @@ import {useState} from "react";
 import style from './login-page.module.css';
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {login} from "../../utils/api";
-import {SET_AUTH_CHECKED, SET_USER} from "../../service/actions";
-import {loginThunk, setToken} from "../../service/stores";
+import {loginThunk} from "../../service/actions/thunkAction";
 
 function Login() {
     const [emailValue, setEmailValue] = useState('timur.yakhin.99@gg.ru');

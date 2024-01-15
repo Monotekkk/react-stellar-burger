@@ -1,0 +1,85 @@
+.content {
+    display: flex;
+    gap: 60px;
+    width: 100%;
+}
+
+.column {
+    width: 50%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.columnWithScroll {
+    width: 50%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.smallBlocks {
+    display: flex;
+    gap: 36px;
+}
+
+.smallBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 50%;
+    height: 206px;
+    overflow-y: auto;
+}
+
+.mediumBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.orders {
+    color: #00cccc;
+    margin: 0;
+}
+
+.ordersBlock {
+    gap: 8px;
+    width: 100%;
+}
+
+.ordersLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.orderNumber {
+    text-shadow: 0 4px 32px 0 rgba(51, 51, 255, 0.5),
+    0 0 8px 8px rgba(51, 51, 255, 0.25),
+    0 0 16px 8px rgba(51, 51, 255, 0.25);
+
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+.contentLoader{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

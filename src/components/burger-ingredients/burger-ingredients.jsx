@@ -1,8 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerCard from "./ingredients-card/ingredients-card";
-import {useEffect, useState, useRef, useMemo} from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import {useState, useRef, useMemo} from "react";
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     document.title = 'Stellar Burgers - космические бургеры.';
