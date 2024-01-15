@@ -29,13 +29,17 @@ export default function OrderHistory() {
     }, [orders.orders]);
     return (
         <div className={`${style.ordersBlock} custom-scroll`}>
-            {status === 'OPEN' && isLoading ?
+            {status === 'OPEN' ?
                 orders.orders && orders.success && orders.orders.map((elem) => {
                     return <Link key={elem.number} className={style.ordersLink}
                                  to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>
                 })
-                :
-                <Loader/>
+                : status === 'Invalid or missing token' || status === 'CLOSE' ?
+                    <>
+                        <p className={`text text_type_main-large mb-5`}>Технические шоколадки</p>
+                    </>
+                    :
+                    <Loader/>
             }
         </div>
     )
