@@ -11,7 +11,6 @@ export default function OrderHistory() {
     const dispatch = useDispatch();
     const {user} = useSelector(getUser);
     const {status, orders} = useSelector((store) => store.wsReducer);
-    const [isLoading, setLoading] = useState(false);
     let accessToken = localStorage.accessToken.split('Bearer ')[1];
     const ordersServer = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
     const connect = () => dispatch(ordersConnect(ordersServer));
@@ -22,11 +21,6 @@ export default function OrderHistory() {
             disconnect();
         };
     }, [user]);
-    useEffect(() => {
-        if (orders.orders) {
-            setLoading(true);
-        }
-    }, [orders.orders]);
     return (
         <div className={`${style.ordersBlock} custom-scroll`}>
             {status === 'OPEN' ?
