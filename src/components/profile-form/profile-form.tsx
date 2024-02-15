@@ -1,7 +1,8 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {updateUserInfoThunk} from "../../service/actions/thunkAction";
+import {RootState} from "@reduxjs/toolkit/query";
 
 export default function ProfileForm() {
     const [valueName, setValueName] = useState('');
@@ -10,7 +11,7 @@ export default function ProfileForm() {
     const [disabled, setDisabled] = useState(true);
     const [visionButton, setVisionButton] = useState(false);
     const inputRef = useRef(null);
-    const store = useSelector(store => store.user.user);
+    const store = useSelector<>(store => store.user.user);
     const dispatch = useDispatch();
     const onIconClick = () => {
         setDisabled(false);
