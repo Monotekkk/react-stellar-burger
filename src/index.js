@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import {store} from './service/store';
+import {store} from './service/stores';
 import { Provider } from "react-redux";
 import {HashRouter} from "react-router-dom";
 ReactDOM.render(

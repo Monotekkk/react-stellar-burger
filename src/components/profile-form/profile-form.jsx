@@ -11,7 +11,7 @@ export default function ProfileForm() {
     const [disabled, setDisabled] = useState(true);
     const [visionButton, setVisionButton] = useState(false);
     const inputRef = useRef(null);
-    const store = useSelector<>(store => store.user.user);
+    const store = useSelector(store => store.user.user);
     const dispatch = useDispatch();
     const onIconClick = () => {
         setDisabled(false);

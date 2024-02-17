@@ -1,4 +1,4 @@
-import {SET_USER, SET_AUTH_CHECKED} from '../actions/index';
+import {SET_USER, SET_AUTH_CHECKED} from '../actions';
 
 const initialState = {
     user: null,
