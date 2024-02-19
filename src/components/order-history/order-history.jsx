@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import OrderCard from "../order-card/order-card";
 import style from "../../pages/feed/feed.module.css";
 import {Link} from "react-router-dom";
@@ -26,7 +26,7 @@ export default function OrderHistory() {
             {status === 'OPEN' ?
                 orders.orders && orders.success && orders.orders.map((elem) => {
                     return <Link key={elem.number} className={style.ordersLink}
-                                 to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>
+                                 to={`/feed/${elem.number}`}><OrderCard props={elem}/></Link>
                 })
                 : status === 'Invalid or missing token' || status === 'CLOSE' ?
                     <>

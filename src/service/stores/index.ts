@@ -8,6 +8,7 @@ import {
     ORDERS_FEED_OPEN, ORDERS_FEED_SEND_MESSAGE
 } from "../actions/wsActionTypes";
 import {socketMiddleware} from "../middleware/socketMiddleware";
+import {TypedUseSelectorHook, useSelector} from "react-redux";
 const ordersMiddleware = socketMiddleware({
     wsConnect: ORDERS_FEED_CONNECT,
     wsDisconnect: ORDERS_FEED_DISCONNECT,
@@ -28,5 +29,6 @@ export const store = configureStore({
 export type AppState = ReturnType<typeof rootReducer>;
 
 
-export type AppDispatch = ThunkDispatch<Action<any>, RootState, AppActions>;
+export type AppDispatch = ThunkDispatch<Action<any>, RootState, any>;
 export type RootState = ReturnType<typeof store.getState>;
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
