@@ -3,7 +3,6 @@ import {createPortal} from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes, {string} from "prop-types";
 import {useDispatch} from 'react-redux';
 
 type TModal = {
@@ -13,7 +12,7 @@ type TModal = {
 const Modal: FC<TModal> = ({children, closePopup}) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        const closePopupEsc = (event: KeyboardEvent) => event.key === 'Escape' && closePopup();
+        const closePopupEsc = (event: KeyboardEvent<HTMLDivElement>) => event.key === 'Escape' && closePopup();
         document.addEventListener('keydown', closePopupEsc);
         return () => document?.removeEventListener('keydown', closePopupEsc);
     }, [dispatch]);
@@ -29,11 +28,6 @@ const Modal: FC<TModal> = ({children, closePopup}) => {
             </div>
         </>, document.querySelector('#modals')
     );
-};
-
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    closePopup: PropTypes.func.isRequired,
 };
 
 export default Modal;
