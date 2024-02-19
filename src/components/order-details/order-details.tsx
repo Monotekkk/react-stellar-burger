@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import {useSelector} from 'react-redux';
 import {Loader} from "../loader/loader";
 import {useEffect, useState} from "react";
+import {useAppSelector} from "../../service/stores";
 
 const OrderDetails = () => {
-    const data = useSelector(state => state.order.order);
+    const data = useAppSelector(state => state.order.order);
     const [number, setNumber] = useState(0);
     useEffect(()=>{
       const numberSet =  setTimeout(() => {

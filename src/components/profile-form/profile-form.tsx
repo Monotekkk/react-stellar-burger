@@ -1,21 +1,22 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useRef, useState} from "react";
+import {ElementType, useEffect, useRef, useState} from "react";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {updateUserInfoThunk} from "../../service/actions/thunkAction";
 import {RootState} from "@reduxjs/toolkit/query";
+import {useAppSelector} from "../../service/stores";
 
 export default function ProfileForm() {
-    const [valueName, setValueName] = useState('');
-    const [valueEmail, setValueEmail] = useState('');
-    const [valuePass, setValuePass] = useState('');
-    const [disabled, setDisabled] = useState(true);
-    const [visionButton, setVisionButton] = useState(false);
-    const inputRef = useRef(null);
-    const store = useSelector(store => store.user.user);
+    const [valueName, setValueName] = useState<string>('');
+    const [valueEmail, setValueEmail] = useState<string>('');
+    const [valuePass, setValuePass] = useState<string>('');
+    const [disabled, setDisabled] = useState<boolean>(true);
+    const [visionButton, setVisionButton] = useState<boolean>(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const store = useAppSelector(store => store.user.user);
     const dispatch = useDispatch();
     const onIconClick = () => {
         setDisabled(false);
-        setTimeout(() => inputRef.current.focus(), 0)
+        setTimeout((): void => inputRef.current?.focus(), 0)
     }
     const onButtonClick = () => {
         dispatch(updateUserInfoThunk({valueName, valueEmail, valuePass}));
@@ -38,7 +39,7 @@ export default function ProfileForm() {
                 value={valueName}
                 name={'Имя'}
                 error={false}
-                onIconClick={e => onIconClick(e)}
+                onIconClick={() => onIconClick()}
                 errorText={'Ошибка'}
                 size={'default'}
                 extraClass="ml-1"
@@ -68,9 +69,7 @@ export default function ProfileForm() {
             />
             {visionButton && <div>
                 <Button value={'Сохранить'} htmlType="button" type="primary" size="small" extraClass="ml-2"
-                        onClick={(e) => {
-                            onButtonClick(e)
-                        }}>
+                        onClick={() => onButtonClick()}>
                     Сохранить
                 </Button>
                 <Button value={'Отменить'} htmlType="button" type="primary" size="small" extraClass="ml-2"
