@@ -26,7 +26,10 @@ export default function OrderHistory() {
             {status === 'OPEN' ?
                 orders.orders && orders.success && orders.orders.map((elem) => {
                     return <Link key={elem.number} className={style.ordersLink}
-                                 to={`/feed/${elem.number}`}><OrderCard props={elem}/></Link>
+                                 to={`/feed/${elem.number}`}><OrderCard ingredients={elem.ingredients} number={elem.number}
+                                                                        name={elem.name} updatedAt={elem.updatedAt}
+                                                                        status={elem.status} _id={elem._id}
+                                                                        createdAt={elem.createdAt}/></Link>
                 })
                 : status === 'Invalid or missing token' || status === 'CLOSE' ?
                     <>
