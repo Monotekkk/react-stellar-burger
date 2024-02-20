@@ -7,7 +7,7 @@ import {
     ORDERS_FEED_ERROR, ORDERS_FEED_MESSAGE,
     ORDERS_FEED_OPEN
 } from '../actions/wsActionTypes';
-import {GET_SELECTED_ORDER} from "../actions";
+import {GET_SELECTED_ORDER} from "../constants";
 
 const initialState = {
     status: WebsocketStatus.OFFLINE,

@@ -9,7 +9,7 @@ import {
     MOVE_INGREDIENT,
     POST_ORDER__PENDING,
     POST_ORDER__REJECT, POST_ORDER__SUCCESS, CLEAR_CONSTRUCTOR
-} from "../../service/actions";
+} from "../../services/constants";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {useDrop} from "react-dnd";

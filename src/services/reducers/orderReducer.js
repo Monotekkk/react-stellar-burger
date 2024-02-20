@@ -1,4 +1,4 @@
-import {POST_ORDER__PENDING, POST_ORDER__REJECT, POST_ORDER__SUCCESS, SET_ORDER} from "../actions";
+import {POST_ORDER__PENDING, POST_ORDER__REJECT, POST_ORDER__SUCCESS, SET_ORDER} from "../constants";
 
 const initalState = {
     order: {

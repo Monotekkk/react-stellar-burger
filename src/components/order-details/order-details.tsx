@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {useSelector} from 'react-redux';
 import {Loader} from "../loader/loader";
 import {useEffect, useState} from "react";
-import {useAppSelector} from "../../service/stores";
+import {useAppSelector} from "../../services/stores";
 
 const OrderDetails = () => {
     const data = useAppSelector(state => state.order.order);
@@ -35,7 +35,4 @@ const OrderDetails = () => {
             </section>
     );
 };
-OrderDetails.propTypes = {
-    data: PropTypes.object
-}
 export default OrderDetails;

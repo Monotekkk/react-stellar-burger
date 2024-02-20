@@ -6,7 +6,7 @@ import OrderCard from "../../components/order-card/order-card";
 import styles from "../../components/app/app.module.css";
 import {
     connect as ordersConnect, disconnect as ordersDisconnect
-} from "../../service/actions/wsActionTypes";
+} from "../../services/actions/wsActionTypes";
 
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 

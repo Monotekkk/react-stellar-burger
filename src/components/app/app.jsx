@@ -15,7 +15,7 @@ import {OnlyAuth, OnlyUnAuth} from "../../pages/ProtectedRouteElement";
 import {checkUserAuth} from "../../utils/api";
 import Profile from "../../pages/profile/profile";
 import IngredientDetails from "../ingrindients-details/ingrendients-details";
-import {loadIngredients, refreshTokenThunk} from "../../service/actions/thunkAction";
+import {loadIngredients, refreshTokenThunk} from "../../services/actions/thunkAction";
 import Feed from "../../pages/feed/feed";
 import FeedElement from "../feed__element/feed__element";
 import ProfileForm from "../profile-form/profile-form";

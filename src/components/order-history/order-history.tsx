@@ -3,11 +3,11 @@ import {useEffect} from "react";
 import OrderCard from "../order-card/order-card";
 import style from "../../pages/feed/feed.module.css";
 import {Link} from "react-router-dom";
-import {connect as ordersConnect, disconnect as ordersDisconnect} from "../../service/actions/wsActionTypes";
+import {connect as ordersConnect, disconnect as ordersDisconnect} from "../../services/actions/wsActionTypes";
 import {Loader} from "../loader/loader";
-import {getUser} from "../../service/selectors/wsSekectors";
-import {useAppSelector} from "../../service/stores";
-import {TOrders} from "../../service/types/data";
+import {getUser} from "../../services/selectors/wsSekectors";
+import {useAppSelector} from "../../services/stores";
+import {TOrders} from "../../services/types/data";
 
 export default function OrderHistory() {
     const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import style from './order-card.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useLocation} from "react-router-dom";
-import {useAppSelector} from "../../service/stores";
-import {TIngredients, TOrders} from "../../service/types/data";
+import {useAppSelector} from "../../services/stores";
+import {TIngredients, TOrders} from "../../services/types/data";
 import {PropsWithChildren} from "react";
 
 function OrderCard({ingredients, _id, name, status, number, createdAt, updatedAt}: PropsWithChildren<TOrders>) {

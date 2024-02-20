@@ -1,4 +1,4 @@
-import {GET_INGREDIENTS, SET_LOADING_CHECKED} from "../actions";
+import {GET_INGREDIENTS, SET_LOADING_CHECKED} from "../constants";
 const initalState = {
     ingredientsList: [],
     isLoadingIngredientsList: false

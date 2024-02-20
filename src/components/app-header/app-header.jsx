@@ -1,7 +1,7 @@
 import {BurgerIcon, Button, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesHeader from './app-header.module.css';
 import {Link, useNavigate} from "react-router-dom";
-import {refreshTokenThunk} from "../../service/actions/thunkAction";
+import {refreshTokenThunk} from "../../services/actions/thunkAction";
 
 function AppHeader() {
     return (

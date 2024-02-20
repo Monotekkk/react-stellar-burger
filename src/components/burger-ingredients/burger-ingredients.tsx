@@ -1,33 +1,34 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerCard from "./ingredients-card/ingredients-card";
-import {useState, useRef, useMemo} from "react";
-import { useSelector } from 'react-redux';
+import {useState, useRef, useMemo, MutableRefObject} from "react";
+import {useAppSelector} from "../../services/stores";
+import {TIngredients} from "../../services/types/data";
 
 function BurgerIngredients() {
     document.title = 'Stellar Burgers - космические бургеры.';
-    const [current, setCurrent] = useState('bun');
-    const tabsRef = useRef();
-    const bunsRef = useRef();
-    const sauceRef = useRef();
-    const mainRef = useRef();
-    const onClick = (value) => {
-        const section = document.getElementById(value);
-        section.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    const [current, setCurrent] = useState<string>('bun');
+    const tabsRef = useRef<Element | null>(null) as MutableRefObject<HTMLDivElement>;
+    const bunsRef = useRef<Element | null>(null) as MutableRefObject<HTMLDivElement>;
+    const sauceRef = useRef<Element | null>(null) as MutableRefObject<HTMLDivElement>;
+    const mainRef = useRef<Element | null>(null) as MutableRefObject<HTMLDivElement>;
+    const onClick = (value:string) => {
+        const section:HTMLElement | null = document.getElementById(value);
+        section?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
         return setCurrent(value);
     }
-    const data = useSelector(state => state.ingredientsList.ingredientsList);
+    const data = useAppSelector(state => state.ingredientsList.ingredientsList);
 
     const buns = useMemo(
-        () => data.filter((item) => item.type === "bun"),
+        () => data?.filter((item:TIngredients) => item.type === "bun"),
         [data]
     );
     const sauce = useMemo(
-        ()=>data.filter(item=>item.type === 'sauce'),
+        ()=>data.filter((item:TIngredients)=>item.type === 'sauce'),
         [data]
     );
     const main = useMemo(
-        ()=> data.filter(item=>item.type ==='main'),
+        ()=> data.filter((item:TIngredients)=>item.type ==='main'),
         [data]
     );
     const handlerScroll = () => {
@@ -60,7 +61,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'} id='bun' ref={bunsRef} >Булки</p>
                 <div className={`${styles.cardBox}`}>
                     {
-                        buns.map((data) => {
+                        buns.map((data:TIngredients) => {
                             return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
@@ -69,7 +70,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'} id='sauce' ref={sauceRef}>Соусы</p>
                 <div className={`${styles.cardBox}`} >
                     {
-                        sauce.map((data) => {
+                        sauce.map((data:TIngredients) => {
                             return (<BurgerCard data={data} key={data._id}/>
                             )
                         })
@@ -78,7 +79,7 @@ function BurgerIngredients() {
                 <p className={'text text_type_main-medium mt-10 mb-6'} id='main' ref={mainRef}>Начинки</p>
                 <div className={`${styles.cardBox}`} >
                     {
-                        main.map((data) => {
+                        main.map((data:TIngredients) => {
                             return (<BurgerCard data={data} key={data._id}/>
                             )
                         })

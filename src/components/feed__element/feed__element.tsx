@@ -1,36 +1,39 @@
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getSelectedMessage} from "../../service/selectors/wsSekectors";
+import {getSelectedMessage} from "../../services/selectors/wsSekectors";
 import {useEffect, useState} from "react";
 import {
     connect as ordersConnect,
     disconnect as ordersDisconnect,
-} from "../../service/actions/wsActionTypes";
+} from "../../services/actions/wsActionTypes";
 import style from './feed__element.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getOrderThunk} from "../../service/actions/thunkAction";
+import {getOrderThunk} from "../../services/actions/thunkAction";
 import styles from "../app/app.module.css";
+import {useAppSelector} from "../../services/stores";
+import {TIngredients, TOrders} from "../../services/types/data";
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 function FeedElement() {
-    const param = useParams();
+    const {number} = useParams<string>();
+    console.log(number);
     const dispatch = useDispatch();
-    const [order, setOrder] = useState({});
-    const selectedData = useSelector(getSelectedMessage);
-    const {status, orders} = useSelector((store) => store.wsReducer);
+    const [order, setOrder] = useState<TOrders>();
+    const selectedData = useAppSelector(getSelectedMessage);
+    const {status, orders} = useAppSelector((store) => store.wsReducer);
     const [isLoading, setLoading] = useState(false);
     const connect = () => dispatch(ordersConnect(feedServer));
     const disconnect = () => dispatch(ordersDisconnect());
-    const setTotalPrice = (cost) => {
-        return totalPrice = totalPrice + cost.price;
+    const setTotalPrice = (cost:number) => {
+        return totalPrice = totalPrice + cost;
     }
     let totalPrice = 0;
-    const isOrder = (order) => {
-        if (order.number === +param.number) {
+    const isOrder = (order:TOrders) => {
+        if (order.number === +number!) {
             setOrder(order);
         }
     }
-    const ingredientsList = useSelector(store => store.ingredientsList.ingredientsList);
-    let selectedIngredients = [];
+    const ingredientsList = useAppSelector(store => store.ingredientsList.ingredientsList);
+    let selectedIngredients: any[] = [];
     let orderedArray = []
     useEffect(
         () => {
@@ -42,7 +45,7 @@ function FeedElement() {
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
     useEffect(() => {
-        !orderedArray.length && dispatch(getOrderThunk(param.number))
+        !orderedArray.length && dispatch(getOrderThunk(number))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderedArray.length])
     useEffect(() => {
@@ -58,17 +61,17 @@ function FeedElement() {
     }, [selectedData])
     if (isLoading && ingredientsList && order?.ingredients) {
         order.ingredients.forEach((elem, i) => {
-            selectedIngredients.push(ingredientsList.find((item) => {
+            selectedIngredients.push(ingredientsList.find((item:TIngredients) => {
                 return item._id === elem
             }))
         })
         orderedArray = selectedIngredients.filter(function (elem, index, self) {
-            setTotalPrice(elem);
+            setTotalPrice(elem.price);
             return index === self.indexOf(elem);
         })
     }
     return (
-        status === 'OPEN' && isLoading ? <div className={style.orderBlock}>
+       status === 'OPEN' && isLoading && order ? <div className={style.orderBlock}>
                 <p className="text text_type_digits-default mb-10">
                     #{order.number}
                 </p>
@@ -87,7 +90,7 @@ function FeedElement() {
                     {
                         orderedArray.map((ingredient, index) => {
                             let count = 0;
-                            const counterIngredients = (ingredients) => {
+                            const counterIngredients = (ingredients:TIngredients) => {
                                 selectedIngredients.forEach(elem => {
                                     if (elem === ingredients) {
                                         count++;

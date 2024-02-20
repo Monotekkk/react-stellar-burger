@@ -1,4 +1,4 @@
-import {CHECK_VIEW_INGREDIENT, CLEAR_VIEW_INGREDIENT} from "../actions";
+import {CHECK_VIEW_INGREDIENT, CLEAR_VIEW_INGREDIENT} from "../constants";
 const initialState = {
     viewedIngridients: {},
 }

@@ -1,6 +1,6 @@
-import {ADD_INGREDIENT, CLEAR_CONSTRUCTOR, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../actions";
+import {ADD_INGREDIENT, CLEAR_CONSTRUCTOR, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../constants";
 const initialState = {
-    selectedIngredientsList: [],
+    selectedIngredientsList: []
 }
 export const constructorReducer = (state = initialState, action) => {
     const {

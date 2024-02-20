@@ -1,20 +1,22 @@
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import styles from './ingredient-details.module.css'
 import {useParams} from "react-router-dom";
+import {useAppSelector} from "../../services/stores";
+import {TIngredients} from "../../services/types/data";
 
 const IngredientDetails = () => {
     const params = useParams();
-    const data = useSelector(store=>store.ingredientsList.ingredientsList);
-    let ingredient;
-    data.forEach(elem=>{
-        if(elem._id===params.id){
+    const data: TIngredients[] = useAppSelector(store => store.ingredientsList.ingredientsList);
+    let ingredient: TIngredients;
+    data.forEach(elem => {
+        if (elem._id === params.id) {
             ingredient = elem
         }
     })
     return (
-        <section className={`${styles.section} pt-10 pb-15` } aria-label='Пищевая ценность'>
+     ingredient! &&  <section className={`${styles.section} pt-10 pb-15`} aria-label='Пищевая ценность'>
             <h2 className={`${styles.title} text text_type_main-large`}>Детали ингредиента</h2>
-            <img className={styles.image} src={ingredient?.image} alt={ingredient?.name} />
+            <img className={styles.image} src={ingredient?.image} alt={ingredient?.name}/>
             <p className={`text text_type_main-medium pt-4`}>{ingredient?.name}</p>
 
             <ul className={`${styles.container} pt-8`}>
@@ -44,9 +46,4 @@ const IngredientDetails = () => {
         </section>
     );
 };
-
-IngredientDetails.propTypes = {
-    //data: DataPropType.isRequired
-};
-
 export default IngredientDetails;

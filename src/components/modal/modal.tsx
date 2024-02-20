@@ -11,8 +11,9 @@ type TModal = {
 }
 const Modal: FC<TModal> = ({children, closePopup}) => {
     const dispatch = useDispatch();
+    const modals:HTMLElement =  document.querySelector('#modals')!;
     useEffect(() => {
-        const closePopupEsc = (event: KeyboardEvent<HTMLDivElement>) => event.key === 'Escape' && closePopup();
+        const closePopupEsc = (event: KeyboardEventInit) => event.key === 'Escape' && closePopup();
         document.addEventListener('keydown', closePopupEsc);
         return () => document?.removeEventListener('keydown', closePopupEsc);
     }, [dispatch]);
@@ -26,7 +27,7 @@ const Modal: FC<TModal> = ({children, closePopup}) => {
                 </button>
                 {children}
             </div>
-        </>, document.querySelector('#modals')
+        </>, modals
     );
 };
 

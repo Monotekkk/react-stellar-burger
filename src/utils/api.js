@@ -1,4 +1,4 @@
-import {SET_AUTH_CHECKED, SET_USER} from "../service/actions";
+import {SET_AUTH_CHECKED, SET_USER} from "../services/constants";
 
 const baseURL = "https://norma.nomoreparties.space/api";
 
