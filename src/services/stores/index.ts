@@ -1,4 +1,4 @@
-import {rootReducer} from "../reducers/index";
+import {rootReducer} from "../reducers";
 import {Action, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import {
     ORDERS_FEED_CLOSE,
@@ -6,7 +6,7 @@ import {
     ORDERS_FEED_CONNECTING,
     ORDERS_FEED_DISCONNECT, ORDERS_FEED_ERROR, ORDERS_FEED_MESSAGE,
     ORDERS_FEED_OPEN, ORDERS_FEED_SEND_MESSAGE
-} from "../actions/wsActionTypes";
+} from "../constants/wsConstants";
 import {socketMiddleware} from "../middleware/socketMiddleware";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 const ordersMiddleware = socketMiddleware({

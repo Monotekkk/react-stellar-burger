@@ -16,7 +16,7 @@ const BurgerCard: FC<PropsWithChildren<TBurgerCard>> = ({data}) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const selectedIngredients: any = useAppSelector((store) => store.selectedIngredientsList.selectedIngredientsList);
-    const clickHandler = (data:TIngredients) => {
+    const clickHandler = (data: TIngredients) => {
         dispatch({type: CHECK_VIEW_INGREDIENT, data: data});
         setVisible(!visible);
     }
@@ -31,7 +31,7 @@ const BurgerCard: FC<PropsWithChildren<TBurgerCard>> = ({data}) => {
             })
         });
     useEffect(() => {
-            setCounter(selectedIngredients.filter((item) => item._id === data._id).length);
+        setCounter(selectedIngredients.filter((item: { _id: string }) => item._id === data._id).length);
     }, [selectedIngredients]);
 
     return (

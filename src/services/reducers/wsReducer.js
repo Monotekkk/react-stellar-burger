@@ -6,7 +6,7 @@ import {
     ORDERS_FEED_CONNECTING,
     ORDERS_FEED_ERROR, ORDERS_FEED_MESSAGE,
     ORDERS_FEED_OPEN
-} from '../actions/wsActionTypes';
+} from '../constants/wsConstants';
 import {GET_SELECTED_ORDER} from "../constants";
 
 const initialState = {

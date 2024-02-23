@@ -1,4 +1,5 @@
 import {ADD_INGREDIENT, CLEAR_CONSTRUCTOR, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../constants";
+
 const initialState = {
     selectedIngredientsList: []
 }
