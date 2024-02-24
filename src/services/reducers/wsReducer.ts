@@ -8,15 +8,16 @@ import {
     ORDERS_FEED_OPEN
 } from '../constants/wsConstants';
 import {GET_SELECTED_ORDER} from "../constants";
+import {TWsAction} from "../actions/wsReducer";
+import {TWsReducer} from "../types/data";
 
-const initialState = {
+const initialState:TWsReducer = {
     status: WebsocketStatus.OFFLINE,
     orders: [],
     connectingError: '',
     selectedMessage: []
 };
-
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action:TWsAction) => {
     switch (action.type) {
         case ORDERS_FEED_CONNECTING:
             return {
@@ -34,6 +35,7 @@ export const wsReducer = (state = initialState, action) => {
                 status: WebsocketStatus.CLOSE
             }
         case ORDERS_FEED_ERROR:
+            console.log(action.payload);
             return {
                 ...state,
                 status: action.payload

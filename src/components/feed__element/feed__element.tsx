@@ -16,7 +16,9 @@ function FeedElement() {
     const {number} = useParams<string>();
     const dispatch = useDispatch();
     const [order, setOrder] = useState<TOrders>();
-    const selectedData = useAppSelector(state => state.wsReducer.selectedMessage);
+    const test = useAppSelector(state => state.user);
+    const selectedData = useAppSelector(state => state.wsReducer);
+    console.log(selectedData);
     const {status, orders} = useAppSelector((store) => store.wsReducer);
     const [isLoading, setLoading] = useState(false);
     const connect = () => dispatch(ordersConnect(feedServer));

@@ -22,6 +22,10 @@ export type TOrders = {
     updatedAt: string,
     _id: string
 }
+export type TMyOrders = TOrders & {
+    __v:number,
+    owner: string
+}
 export type TConstructorReducer = {
     selectedIngredientsList: TIngredients[] | null;
 }
@@ -38,6 +42,29 @@ export type TOrderReducer = {
         "name": string,
         "order": {
             "number": string
-        } | null
+        }
     }
+}
+export type TUserReducer = {
+    user: null | {
+        accessToken: string,
+        refreshToken: string,
+        success: boolean,
+        user: {
+            name: string,
+            email: string
+        },
+    }
+    isAuthChecked: boolean,
+}
+export type TWsReducer= {
+    status: string
+    orders:  [] | {
+        success: boolean,
+        orders: TOrders[],
+        total: number,
+        totalToday: number
+    }
+    connectingError: string
+    selectedMessage: any
 }

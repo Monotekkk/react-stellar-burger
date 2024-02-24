@@ -3,7 +3,6 @@ import img from '../../image/done.svg'
 import {Loader} from "../loader/loader";
 import {useEffect, useState} from "react";
 import {useAppSelector} from "../../services/stores";
-import {TOrderReducer} from "../../services/types/data";
 
 const OrderDetails = () => {
     const data = useAppSelector(state => state.order.orderInfo);

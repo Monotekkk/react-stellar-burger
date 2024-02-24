@@ -23,8 +23,8 @@ export default function ProfileForm() {
         setVisionButton(false);
     }
     useEffect(() => {
-        setValueName(store.user.name);
-        setValueEmail(store.user.email);
+        store && setValueName(store.user.name);
+        store && setValueEmail(store.user.email);
     }, [])
     return (
         <>
