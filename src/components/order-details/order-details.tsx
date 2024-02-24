@@ -1,13 +1,12 @@
 import styles from './order-details.module.css'
 import img from '../../image/done.svg'
-import PropTypes from "prop-types";
-import {useSelector} from 'react-redux';
 import {Loader} from "../loader/loader";
 import {useEffect, useState} from "react";
 import {useAppSelector} from "../../services/stores";
+import {TOrderReducer} from "../../services/types/data";
 
 const OrderDetails = () => {
-    const data = useAppSelector(state => state.order.order);
+    const data = useAppSelector(state => state.order.orderInfo);
     const [number, setNumber] = useState(0);
     useEffect(()=>{
       const numberSet =  setTimeout(() => {

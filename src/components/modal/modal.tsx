@@ -6,7 +6,7 @@ import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from 'react-redux';
 
 type TModal = {
-    children: ReactNode,
+    children?: ReactNode,
     closePopup: () => void
 }
 const Modal: FC<TModal> = ({children, closePopup}) => {

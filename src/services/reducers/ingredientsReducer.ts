@@ -1,9 +1,11 @@
 import {GET_INGREDIENTS, SET_LOADING_CHECKED} from "../constants";
-const initalState = {
+import {TIngredientsAction} from "../actions/ingredientsAction";
+import {TIngredientsReducer} from "../types/data";
+const initalState:TIngredientsReducer = {
     ingredientsList: [],
     isLoadingIngredientsList: false
 }
-export const ingredientsReducer = (state = initalState, action) => {
+export const ingredientsReducer = (state = initalState, action:TIngredientsAction) => {
     switch (action.type) {
         case GET_INGREDIENTS:
             return {

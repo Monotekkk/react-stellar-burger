@@ -16,22 +16,24 @@ import {useDrop} from "react-dnd";
 import ConstructorMain from "./burger-ingredients/burger-ingredients";
 import {v4 as uuidv4} from 'uuid';
 import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../services/stores";
+import {TIngredients} from "../../services/types/data";
 
 function BurgerConstructor() {
-    const store = useSelector(store => store.selectedIngredientsList.selectedIngredientsList);
+    const {selectedIngredientsList}: TIngredients[] | any = useAppSelector((store) => store.selectedIngredientsList);
     const [visible, setVisible] = useState(false);
     const [disable, setDisable] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((store) => store.user.user);
+    const {user} = useAppSelector((store) => store.user);
     const onClick = () => {
         if (user) {
-            if (store[0].type === 'bun') {
+            if (selectedIngredientsList[0].type === 'bun') {
                 let idIngredients = [];
-                store.forEach((element) => {
+                selectedIngredientsList.forEach((element: TIngredients) => {
                     idIngredients.push(element._id);
                 });
-                idIngredients.push(store[0]._id);
+                idIngredients.push(selectedIngredientsList[0]._id);
                 dispatch({type: POST_ORDER__PENDING});
                 setVisible(true);
                 postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
@@ -49,7 +51,7 @@ function BurgerConstructor() {
             navigate('/login');
         }
     }
-    const calculateOrderAmount = (store) => {
+    const calculateOrderAmount = (store: Array<TIngredients>) => {
         store[0]?.type === 'bun' && setDisable(false);
         !store[1] && setDisable(true);
         if (store.length) {
@@ -66,7 +68,7 @@ function BurgerConstructor() {
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
-        drop(item) {
+        drop(item:TIngredients) {
             dispatch({type: ADD_INGREDIENT, data: {...item, key: uuidv4()}})
         }
     });
@@ -83,20 +85,20 @@ function BurgerConstructor() {
     )
     return (
         <section className={'mt-20 ml-10'} ref={dropTargetMain}>
-            {store.bun !== null ?
+            {selectedIngredientsList.bun !== null ?
                 <>
                     <ul className={`pr-2`}>
 
                         {
-                            store.length > 0 && store[0]?.type === 'bun' ?
-                                <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'up'}
-                                    index={0}>
+                            selectedIngredientsList.length > 0 && selectedIngredientsList[0]?.type === 'bun' ?
+                                <li className={`${style.burgerConstructorElements} pl-9`}
+                                    key={selectedIngredientsList[0]._id + 'up'}>
                                     <ConstructorElement
                                         type="top"
                                         isLocked={true}
-                                        text={`${store[0]?.name}(верх)`}
-                                        price={store[0]?.price}
-                                        thumbnail={store[0]?.image}
+                                        text={`${selectedIngredientsList[0]?.name}(верх)`}
+                                        price={selectedIngredientsList[0]?.price}
+                                        thumbnail={selectedIngredientsList[0]?.image}
                                     />
                                 </li> : <div className={style.plug_top}>Перетащите булку</div>
 
@@ -104,21 +106,22 @@ function BurgerConstructor() {
                     </ul>
                     <ul className={`${style.ul} custom-scroll pr-2`}>
                         {
-                            (store[0]?.type !== 'bun' || store[1]?.type) && store.length > 0 ? store.map((item, index) => renderCard(item, index)) :
+                            (selectedIngredientsList[0]?.type !== 'bun' || selectedIngredientsList[1]?.type) && selectedIngredientsList.length > 0 ? selectedIngredientsList.map((item:TIngredients, index:number) => renderCard(item, index)) :
                                 <div className={style.plug}>Перетащите соус или начинку</div>
                         }
                     </ul>
                     <ul>
                         {
-                            store.length > 0 && store[0]?.type === 'bun' ?
-                                <li className={`${style.burgerConstructorElements} pl-9`} key={store[0]._id + 'down'}
-                                    index={0}>
+                            selectedIngredientsList.length > 0 && selectedIngredientsList[0]?.type === 'bun' ?
+                                <li className={`${style.burgerConstructorElements} pl-9`}
+                                    key={selectedIngredientsList[0]._id + 'down'}
+                                >
                                     <ConstructorElement
                                         type="bottom"
                                         isLocked={true}
-                                        text={`${store[0]?.name}(низ)`}
-                                        price={store[0]?.price}
-                                        thumbnail={store[0]?.image}
+                                        text={`${selectedIngredientsList[0]?.name}(низ)`}
+                                        price={selectedIngredientsList[0]?.price}
+                                        thumbnail={selectedIngredientsList[0]?.image}
                                     />
                                 </li> : <div className={style.plug_bottom}>Перетащите булку</div>
                         }
@@ -134,8 +137,8 @@ function BurgerConstructor() {
                 <CurrencyIcon className={'ml-2'} type={"primary"}/>
                 <p className={'text text_type_digits-medium'}>{
                     useMemo(() => {
-                        return calculateOrderAmount(store)
-                    }, [store])
+                        return calculateOrderAmount(selectedIngredientsList)
+                    }, [selectedIngredientsList])
                     || 0
                 }</p>
             </div>

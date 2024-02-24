@@ -1,9 +1,11 @@
 import {ADD_INGREDIENT, CLEAR_CONSTRUCTOR, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../constants";
+import {TConstructorReducer} from "../types/data";
+import {TConstructorAction} from "../actions/constructorActions";
 
-const initialState = {
+const initialState:TConstructorReducer = {
     selectedIngredientsList: []
 }
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action:TConstructorAction) => {
     const {
         data,
         type
@@ -13,20 +15,20 @@ export const constructorReducer = (state = initialState, action) => {
             if (data.type === 'bun') {
                 return {
                     ...state,
-                    selectedIngredientsList: [data, ...state.selectedIngredientsList.filter(item => item.type !== 'bun')]
+                    selectedIngredientsList: [data, ...state.selectedIngredientsList!.filter(item => item.type !== 'bun')]
                 }
             }
             return {
                 ...state,
-                selectedIngredientsList: [...state.selectedIngredientsList, data],
+                selectedIngredientsList: [...state.selectedIngredientsList!, data],
             }
         case DELETE_INGREDIENT:
             return {
                 ...state,
-                selectedIngredientsList: [...state.selectedIngredientsList.slice(0, data), ...state.selectedIngredientsList.slice(data + 1)]
+                selectedIngredientsList: [...state.selectedIngredientsList!.slice(0, data), ...state.selectedIngredientsList!.slice(data + 1)]
             }
         case MOVE_INGREDIENT:
-            const ingredients = [...state.selectedIngredientsList];
+            const ingredients = [...state.selectedIngredientsList!];
             ingredients.splice(data.hoverIndex, 0, ingredients.splice(data.dragIndex, 1)[0]);
             return {
                 ...state,

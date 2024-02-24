@@ -10,7 +10,7 @@ function OrderCard({ingredients, _id, name, status, number, createdAt, updatedAt
     const location = useLocation();
     const selectedIngredients:TIngredients[] = [];
     ingredients.forEach((elem) => {
-        selectedIngredients.push(data?.find((item: { _id: string; }) => item._id === elem))
+        selectedIngredients.push(data.find((item: { _id: string; }) => item._id === elem) as TIngredients)
     });
     let orderDate = new Date(createdAt);
     let priceOrder = 0;

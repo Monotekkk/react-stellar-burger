@@ -1,5 +1,5 @@
 import {rootReducer} from "../reducers";
-import {Action, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import {
     ORDERS_FEED_CLOSE,
     ORDERS_FEED_CONNECT,
@@ -8,7 +8,7 @@ import {
     ORDERS_FEED_OPEN, ORDERS_FEED_SEND_MESSAGE
 } from "../constants/wsConstants";
 import {socketMiddleware} from "../middleware/socketMiddleware";
-import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 const ordersMiddleware = socketMiddleware({
     wsConnect: ORDERS_FEED_CONNECT,
     wsDisconnect: ORDERS_FEED_DISCONNECT,
@@ -26,9 +26,8 @@ export const store = configureStore({
 
 })
 
-export type AppState = ReturnType<typeof rootReducer>;
-
-
-export type AppDispatch = ThunkDispatch<Action<any>, RootState, any>;
 export type RootState = ReturnType<typeof store.getState>;
-export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

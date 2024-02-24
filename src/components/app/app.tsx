@@ -20,6 +20,7 @@ import Feed from "../../pages/feed/feed";
 import FeedElement from "../feed__element/feed__element";
 import ProfileForm from "../profile-form/profile-form";
 import OrderHistory from "../order-history/order-history";
+import {useAppSelector} from "../../services/stores";
 
 function App() {
     const [visible,] = useState(false);
@@ -27,8 +28,8 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
-    const store = useSelector(store => store.user);
-    const ingredients = useSelector(store => store.ingredientsList);
+    const store = useAppSelector(store => store.user);
+    const ingredients = useAppSelector(store => store.ingredientsList);
     useEffect(() => {
         dispatch(checkUserAuth());
         dispatch(loadIngredients());

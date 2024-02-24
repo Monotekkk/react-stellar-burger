@@ -1,6 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getSelectedMessage} from "../../services/selectors/wsSekectors";
+import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {
     connect as ordersConnect,
@@ -15,10 +14,9 @@ import {TIngredients, TOrders} from "../../services/types/data";
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 function FeedElement() {
     const {number} = useParams<string>();
-    console.log(number);
     const dispatch = useDispatch();
     const [order, setOrder] = useState<TOrders>();
-    const selectedData = useAppSelector(getSelectedMessage);
+    const selectedData = useAppSelector(state => state.wsReducer.selectedMessage);
     const {status, orders} = useAppSelector((store) => store.wsReducer);
     const [isLoading, setLoading] = useState(false);
     const connect = () => dispatch(ordersConnect(feedServer));
