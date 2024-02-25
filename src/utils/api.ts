@@ -1,17 +1,22 @@
 import {SET_AUTH_CHECKED, SET_USER} from "../services/constants";
+import {TUser} from "../services/types/data";
+import {AppDispatch} from "../services/stores";
 
 const baseURL = "https://norma.nomoreparties.space/api";
 
-async function api(route, params = {}) {
+async function api(route: string, params?: {
+    method: string,
+    headers?: { [name: string]: string | null },
+    body?: { 'ingredients': string[] } | string
+}) {
     const url = `${baseURL}${route}`,
         options = {
             method: params?.method || "GET",
-            headers: {
-                ...params?.headers
-            },
-            body: params?.body || null,
+            headers: params?.headers,
+            body: params?.body,
         };
 
+    // @ts-ignore
     const res = await fetch(url, options)
     if (res.ok) {
         return res.json();
@@ -24,33 +29,34 @@ function getIngredients() {
     return api("/ingredients");
 }
 
-function postIngredients(body) {
+function postIngredients(body: string) {
+    console.log(body);
     return api('/orders', {
         method: 'POST',
         body: body,
         headers: {
             "Content-Type": "application/json;charset=utf-8",
-            authorization: localStorage.getItem("accessToken")
+            authorization: localStorage.getItem("accessToken")!
         },
     });
 }
 
-function registration({emailValue, passwordValue, nameValue}) {
+function registration({valuePass, valueName, valueEmail}: TUser) {
     return api('/auth/register', {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({
-            'email': emailValue,
-            'password': passwordValue,
-            'name': nameValue,
+            'email': valueEmail,
+            'password': valuePass,
+            'name': valueName,
         }),
 
     })
 }
 
-function login(data) {
+function login(data:{email: string, password: string}) {
     return api('/auth/login', {
         method: "POST",
         headers: {
@@ -61,17 +67,18 @@ function login(data) {
 }
 
 function getUser() {
+    const token = localStorage.getItem('accessToken');
     return api('/auth/user', {
         method: 'GET',
         headers: {
             "Content-Type": "application/json;charset=utf-8",
-            authorization: localStorage.getItem("accessToken"),
+            authorization: token,
         },
     })
 }
 
 function checkUserAuth() {
-    return (dispatch) => {
+    return (dispatch: AppDispatch) => {
         if (localStorage.getItem("accessToken")) {
             getUser()
                 .then(result => {
@@ -92,7 +99,7 @@ function checkUserAuth() {
     };
 }
 
-function forgotPassword(email) {
+function forgotPassword(email: { email: string }) {
     return api("/password-reset", {
         method: "POST",
         headers: {
@@ -102,7 +109,7 @@ function forgotPassword(email) {
     });
 }
 
-function resetPassword({newPasswordValue, token}) {
+function resetPassword({newPasswordValue, token}:{newPasswordValue:string, token:string}) {
     return api("/password-reset/reset", {
         method: "POST",
         headers: {
@@ -131,7 +138,7 @@ function logout() {
 }
 
 
-function refreshToken(token) {
+function refreshToken(token:string) {
     return api('/auth/token', {
         method: 'POST',
         headers: {
@@ -146,7 +153,7 @@ function refreshToken(token) {
 }
 
 
-function updateUserInfo({valueName, valueEmail, valuePass}) {
+function updateUserInfo({valueName, valueEmail, valuePass} : TUser) {
     return api('/auth/user', {
         method: 'PATCH',
         headers: {
@@ -162,8 +169,9 @@ function updateUserInfo({valueName, valueEmail, valuePass}) {
         )
     })
 }
-function getOrder(orderNumber) {
-    return api(`/orders/${orderNumber}`, {
+
+function getOrder(number: string | undefined) {
+    return api(`/orders/${number}`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json;charset=utf-8",

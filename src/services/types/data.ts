@@ -11,7 +11,7 @@ export type TIngredients = {
     type: string,
     _id: string,
     __v: number,
-    find: {}
+    find?: {}
 }
 export type TOrders = {
     createdAt: string,
@@ -23,7 +23,7 @@ export type TOrders = {
     _id: string
 }
 export type TMyOrders = TOrders & {
-    __v:number,
+    __v: number,
     owner: string
 }
 export type TConstructorReducer = {
@@ -57,14 +57,19 @@ export type TUserReducer = {
     }
     isAuthChecked: boolean,
 }
-export type TWsReducer= {
+export type TWsReducer = {
     status: string
-    orders:  [] | {
+    orders:{
         success: boolean,
         orders: TOrders[],
         total: number,
         totalToday: number
-    }
+    },
     connectingError: string
-    selectedMessage: any
+    selectedMessage: TOrders[]
+}
+export type TUser = {
+    valueName: string,
+    valueEmail: string,
+    valuePass: string
 }

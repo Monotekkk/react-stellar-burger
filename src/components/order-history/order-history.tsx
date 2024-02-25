@@ -12,7 +12,7 @@ export default function OrderHistory() {
     const dispatch = useDispatch();
     const {user} = useAppSelector(store=>store.user);
     const {status, orders} = useAppSelector((store) => store.wsReducer);
-    const order = useAppSelector(state => state.wsReducer.orders);
+
     let accessToken = localStorage.accessToken.split('Bearer ')[1];
     const ordersServer = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
     const connect = () => dispatch(ordersConnect(ordersServer));

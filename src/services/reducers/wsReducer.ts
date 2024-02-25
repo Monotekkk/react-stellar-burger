@@ -9,16 +9,22 @@ import {
 } from '../constants/wsConstants';
 import {GET_SELECTED_ORDER} from "../constants";
 import {TWsAction} from "../actions/wsReducer";
-import {TWsReducer} from "../types/data";
+import {TOrders, TWsReducer} from "../types/data";
 
-const initialState:TWsReducer = {
+const initialState: TWsReducer = {
     status: WebsocketStatus.OFFLINE,
-    orders: [],
+    orders: {
+        success: false,
+        orders: [],
+        total: 0,
+        totalToday: 0
+    },
     connectingError: '',
     selectedMessage: []
 };
-export const wsReducer = (state = initialState, action:TWsAction) => {
-    switch (action.type) {
+export const wsReducer = (state = initialState, action: TWsAction) => {
+    const {payload, type} = action;
+    switch (type) {
         case ORDERS_FEED_CONNECTING:
             return {
                 ...state,
@@ -35,20 +41,19 @@ export const wsReducer = (state = initialState, action:TWsAction) => {
                 status: WebsocketStatus.CLOSE
             }
         case ORDERS_FEED_ERROR:
-            console.log(action.payload);
             return {
                 ...state,
-                status: action.payload
+                status: payload
             }
         case ORDERS_FEED_MESSAGE:
             return {
                 ...state,
-                orders: action.payload
+                orders: payload
             }
         case GET_SELECTED_ORDER:
             return {
                 ...state,
-                selectedMessage: action.payload
+                selectedMessage: payload
             }
         default:
             return state;

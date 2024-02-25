@@ -9,25 +9,25 @@ import style from './feed__element.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {getOrderThunk} from "../../services/actions/thunkAction";
 import styles from "../app/app.module.css";
-import {useAppSelector} from "../../services/stores";
+import {useAppDispatch, useAppSelector} from "../../services/stores";
 import {TIngredients, TOrders} from "../../services/types/data";
+
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
+
 function FeedElement() {
     const {number} = useParams<string>();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [order, setOrder] = useState<TOrders>();
-    const test = useAppSelector(state => state.user);
-    const selectedData = useAppSelector(state => state.wsReducer);
-    console.log(selectedData);
     const {status, orders} = useAppSelector((store) => store.wsReducer);
+    const selectedData = useAppSelector(status => status.wsReducer.selectedMessage);
     const [isLoading, setLoading] = useState(false);
     const connect = () => dispatch(ordersConnect(feedServer));
     const disconnect = () => dispatch(ordersDisconnect());
-    const setTotalPrice = (cost:number) => {
+    const setTotalPrice = (cost: number) => {
         return totalPrice = totalPrice + cost;
     }
     let totalPrice = 0;
-    const isOrder = (order:TOrders) => {
+    const isOrder = (order: TOrders) => {
         if (order.number === +number!) {
             setOrder(order);
         }
@@ -45,13 +45,13 @@ function FeedElement() {
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
     useEffect(() => {
-        !orderedArray.length && dispatch(getOrderThunk(number))
+        number && !orderedArray.length && dispatch(getOrderThunk(number))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderedArray.length])
     useEffect(() => {
         status === 'OPEN' && orders.orders.find(isOrder);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orders.length]);
+    }, [orders.orders.length]);
     useEffect(() => {
         if (selectedData && selectedData[0]) {
             setLoading(true);
@@ -61,7 +61,7 @@ function FeedElement() {
     }, [selectedData])
     if (isLoading && ingredientsList && order?.ingredients) {
         order.ingredients.forEach((elem, i) => {
-            selectedIngredients.push(ingredientsList.find((item:TIngredients) => {
+            selectedIngredients.push(ingredientsList.find((item: TIngredients) => {
                 return item._id === elem
             }))
         })
@@ -71,7 +71,7 @@ function FeedElement() {
         })
     }
     return (
-       status === 'OPEN' && isLoading && order ? <div className={style.orderBlock}>
+        status === 'OPEN' && isLoading && order ? <div className={style.orderBlock}>
                 <p className="text text_type_digits-default mb-10">
                     #{order.number}
                 </p>
@@ -90,7 +90,7 @@ function FeedElement() {
                     {
                         orderedArray.map((ingredient, index) => {
                             let count = 0;
-                            const counterIngredients = (ingredients:TIngredients) => {
+                            const counterIngredients = (ingredients: TIngredients) => {
                                 selectedIngredients.forEach(elem => {
                                     if (elem === ingredients) {
                                         count++;

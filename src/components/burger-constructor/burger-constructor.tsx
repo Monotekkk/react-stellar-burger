@@ -36,7 +36,8 @@ function BurgerConstructor() {
                 idIngredients.push(selectedIngredientsList[0]._id);
                 dispatch({type: POST_ORDER__PENDING});
                 setVisible(true);
-                postIngredients(JSON.stringify({'ingredients': idIngredients})).then(result => {
+                const ingredients:string = JSON.stringify({'ingredients': idIngredients});
+                postIngredients(ingredients).then(result => {
 
                     dispatch({type: SET_ORDER, data: result});
                     if (result.success) {
