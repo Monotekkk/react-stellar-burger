@@ -20,7 +20,7 @@ import {useAppSelector} from "../../services/stores";
 import {TIngredients} from "../../services/types/data";
 
 function BurgerConstructor() {
-    const {selectedIngredientsList}: TIngredients[] | any = useAppSelector((store) => store.selectedIngredientsList);
+    const {selectedIngredientsList} = useAppSelector((store) => store.selectedIngredientsList);
     const [visible, setVisible] = useState(false);
     const [disable, setDisable] = useState(true);
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function BurgerConstructor() {
     const {user} = useAppSelector((store) => store.user);
     const onClick = () => {
         if (user) {
-            if (selectedIngredientsList[0].type === 'bun') {
+            if (selectedIngredientsList && selectedIngredientsList[0].type === 'bun') {
                 let idIngredients = [];
                 selectedIngredientsList.forEach((element: TIngredients) => {
                     idIngredients.push(element._id);
@@ -86,7 +86,7 @@ function BurgerConstructor() {
     )
     return (
         <section className={'mt-20 ml-10'} ref={dropTargetMain}>
-            {selectedIngredientsList.bun !== null ?
+            {selectedIngredientsList &&
                 <>
                     <ul className={`pr-2`}>
 
@@ -128,7 +128,6 @@ function BurgerConstructor() {
                         }
                     </ul>
                 </>
-                : <p className={'text text_type_digits-default mt-30 mb-30'}>Выберите ингредиент бургера</p>
             }
             <div className={style.results}>
                 <Button htmlType={"button"} type={"primary"} size={"medium"} extraClass={'ml-10'} onClick={onClick}
@@ -138,7 +137,7 @@ function BurgerConstructor() {
                 <CurrencyIcon className={'ml-2'} type={"primary"}/>
                 <p className={'text text_type_digits-medium'}>{
                     useMemo(() => {
-                        return calculateOrderAmount(selectedIngredientsList)
+                        return calculateOrderAmount(selectedIngredientsList!)
                     }, [selectedIngredientsList])
                     || 0
                 }</p>

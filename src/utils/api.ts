@@ -3,20 +3,21 @@ import {TUser} from "../services/types/data";
 import {AppDispatch} from "../services/stores";
 
 const baseURL = "https://norma.nomoreparties.space/api";
-
-async function api(route: string, params?: {
-    method: string,
-    headers?: { [name: string]: string | null },
-    body?: { 'ingredients': string[] } | string
-}) {
+interface IParams {
+    method?: string,
+    headers?: {
+        "Content-Type": "application/json;charset=utf-8",
+        authorization?: string | undefined,
+    },
+    body?: string
+}
+async function api(route: string, params?: IParams) {
     const url = `${baseURL}${route}`,
         options = {
             method: params?.method || "GET",
             headers: params?.headers,
             body: params?.body,
         };
-
-    // @ts-ignore
     const res = await fetch(url, options)
     if (res.ok) {
         return res.json();
@@ -56,7 +57,7 @@ function registration({valuePass, valueName, valueEmail}: TUser) {
     })
 }
 
-function login(data:{email: string, password: string}) {
+function login(data: { email: string, password: string }) {
     return api('/auth/login', {
         method: "POST",
         headers: {
@@ -67,7 +68,7 @@ function login(data:{email: string, password: string}) {
 }
 
 function getUser() {
-    const token = localStorage.getItem('accessToken');
+    const token:string = localStorage.getItem('accessToken')!;
     return api('/auth/user', {
         method: 'GET',
         headers: {
@@ -109,7 +110,7 @@ function forgotPassword(email: { email: string }) {
     });
 }
 
-function resetPassword({newPasswordValue, token}:{newPasswordValue:string, token:string}) {
+function resetPassword({newPasswordValue, token}: { newPasswordValue: string, token: string }) {
     return api("/password-reset/reset", {
         method: "POST",
         headers: {
@@ -138,7 +139,7 @@ function logout() {
 }
 
 
-function refreshToken(token:string) {
+function refreshToken(token: string) {
     return api('/auth/token', {
         method: 'POST',
         headers: {
@@ -153,12 +154,12 @@ function refreshToken(token:string) {
 }
 
 
-function updateUserInfo({valueName, valueEmail, valuePass} : TUser) {
+function updateUserInfo({valueName, valueEmail, valuePass}: TUser) {
     return api('/auth/user', {
         method: 'PATCH',
         headers: {
             "Content-Type": "application/json;charset=utf-8",
-            authorization: localStorage.getItem("accessToken"),
+            authorization: localStorage.getItem("accessToken")!,
         },
         body: JSON.stringify(
             {

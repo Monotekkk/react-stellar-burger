@@ -11,7 +11,7 @@ function ConstructorMain({item, index, moveCard}: { item: TIngredients, index: n
     const deleteIngredient = (item: number) => {
         dispatch({type: DELETE_INGREDIENT, data: item});
     }
-    const ref:any = useRef(null);
+    const ref = useRef<HTMLLIElement>(null);
     const [{handlerId}, drop] = useDrop({
         accept: 'main',
         collect(monitor) {

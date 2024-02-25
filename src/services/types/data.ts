@@ -11,7 +11,6 @@ export type TIngredients = {
     type: string,
     _id: string,
     __v: number,
-    find?: {}
 }
 export type TOrders = {
     createdAt: string,

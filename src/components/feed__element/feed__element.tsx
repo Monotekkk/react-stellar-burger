@@ -33,8 +33,8 @@ function FeedElement() {
         }
     }
     const ingredientsList = useAppSelector(store => store.ingredientsList.ingredientsList);
-    let selectedIngredients: any[] = [];
-    let orderedArray = []
+    let selectedIngredients: Array<TIngredients> = [];
+    let orderedArray: Array<TIngredients> = [];
     useEffect(
         () => {
             connect();
@@ -59,11 +59,15 @@ function FeedElement() {
         setOrder(selectedData[0]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedData])
+    useEffect(() => {
+        console.log(selectedIngredients);
+        console.log(ingredientsList);
+    }, [selectedIngredients]);
     if (isLoading && ingredientsList && order?.ingredients) {
         order.ingredients.forEach((elem, i) => {
-            selectedIngredients.push(ingredientsList.find((item: TIngredients) => {
+            selectedIngredients.push(ingredientsList.find((item) => {
                 return item._id === elem
-            }))
+            }) as TIngredients)
         })
         orderedArray = selectedIngredients.filter(function (elem, index, self) {
             setTotalPrice(elem.price);
