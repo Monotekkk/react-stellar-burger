@@ -6,7 +6,7 @@ import OrderCard from "../../components/order-card/order-card";
 import styles from "../../components/app/app.module.css";
 import {
     connect as ordersConnect, disconnect as ordersDisconnect
-} from "../../service/actions/wsActionTypes";
+} from "../../services/actions/wsActionTypes";
 
 const feedServer = 'wss://norma.nomoreparties.space/orders/all';
 
@@ -36,7 +36,7 @@ function Feed() {
                         {
                             orders.orders.map((elem) => {
                                 return <Link key={elem.number} className={style.ordersLink}
-                                             to={`/feed/${elem.number}`}><OrderCard orders={elem}/></Link>
+                                      to={`/feed/${elem.number}`}><OrderCard ingredients={elem.ingredients} number={elem.number} name={elem.name} updatedAt={elem.updatedAt} status={elem.status} _id={elem._id} createdAt={elem.createdAt}/></Link>
                             })}
                     </div>
                     <div className={`${style.column}`}>
