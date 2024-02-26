@@ -2,7 +2,7 @@ import React, {useMemo, useState, useCallback} from "react";
 import style from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {postIngredients} from '../../utils/api'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
     SET_ORDER,
     ADD_INGREDIENT,
@@ -134,7 +134,7 @@ function BurgerConstructor() {
                         disabled={disable}>
                     Оформить заказ
                 </Button>
-                <CurrencyIcon className={'ml-2'} type={"primary"}/>
+              <div className={'ml-2'}><CurrencyIcon type={"primary"}/></div>
                 <p className={'text text_type_digits-medium'}>{
                     useMemo(() => {
                         return calculateOrderAmount(selectedIngredientsList!)
